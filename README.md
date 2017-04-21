@@ -1,1 +1,1 @@
-#[Deen Games Blog](http://deengames.com/blog)
+# [Deen Games Blog](https://deengames.com/blog)
