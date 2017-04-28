@@ -13,4 +13,4 @@ You can compare your voice to a pre-recorded version to see how close you can ge
 
 We created this game over a month, as a collaborative effort with a new developer. This early version ships with only one makharij (jawf / oral-cavity). InshaAllah we plan to add more over the coming months.
 
-We hope you enjoy it and benefit it!  As usual, drop us your comments here (or on Facebook) and let us know what you think.
+We hope you enjoy it and benefit from it!  As usual, drop us your comments here (or on Facebook) and let us know what you think.
