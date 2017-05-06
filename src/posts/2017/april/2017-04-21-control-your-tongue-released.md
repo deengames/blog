@@ -1,7 +1,7 @@
 meta-id: 19092d80c492dba573760f293c0eedea39c56e64
 meta-title: Control Your Tongue 1.0 Released!
 meta-publishedOn: 2017-04-21
-meta-tags: android apps
+meta-tags: android apps releases
 
 ![screenshot](http://i.imgur.com/EQRchUv.png)
 

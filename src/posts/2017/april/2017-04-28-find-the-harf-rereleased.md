@@ -1,7 +1,7 @@
 meta-id: 4bd4fc4525fe9b664b6832bce5834773fd846634
 meta-title: Find the Harf 2.0 Released!
 meta-publishedOn: 2017-04-28
-meta-tags: android apps
+meta-tags: android apps releases
 
 ![screenshot](http://i.imgur.com/WRVt9Yp.png)
 
