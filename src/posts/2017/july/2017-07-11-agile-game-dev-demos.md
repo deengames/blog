@@ -5,6 +5,7 @@ meta-publishedOn: 2017-07-11
 meta-tags: marketing
 meta-image: http://i.imgur.com/jC9q5jS.jpg
 
+![picture of the word: demo](http://i.imgur.com/Zjop8Vj.jpg)
 In agile software, one of the useful processes includes showing the demo of the current sprint/iteration to customers (or a customer placeholder). How can we adopt and benefit from this practice as game developers?
 
 This hinges on one of the key tenants of agile development: stories, or units of work, should be *user facing.* If we can write small, user-facing units of work, and complete them, they should be demoable.
