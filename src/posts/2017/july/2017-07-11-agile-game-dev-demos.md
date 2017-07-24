@@ -2,7 +2,7 @@ meta-id: c31db86fe5bd372b6326a849f11ad965a247dc08
 
 meta-title: Agile Game Development: Demos
 meta-publishedOn: 2017-07-11
-meta-tags: marketing
+meta-tags: marketing, project-management
 meta-image: http://i.imgur.com/jC9q5jS.jpg
 
 ![picture of the word: demo](http://i.imgur.com/Zjop8Vj.jpg)
