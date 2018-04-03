@@ -1,6 +1,7 @@
 Title: Talha's Migration, Week 6-7
 Date: 2017-08-18
 Category: Devlog
+Tags: Talhas-Migration
 
 <a href="http://i.imgur.com/Xw5LHIs.gif"><img src="http://i.imgur.com/Xw5LHIs.gif" width="672" height="378" /></a>
 
