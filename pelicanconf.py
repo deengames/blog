@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'nightblade'
 SITENAME = 'Deen Games Blog'
-SITEURL = ''
+SITEURL = 'http://deengames.com/blog'
 
 PATH = 'content'
 
@@ -13,7 +13,8 @@ TIMEZONE = 'Canada/Eastern'
 DEFAULT_LANG = 'English'
 
 # Feed generation is usually not desired when developing
-FEED_ALL_ATOM = None
+FEED_DOMAIN = SITEURL
+FEED_ALL_ATOM = "atom.xml"
 CATEGORY_FEED_ATOM = None
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
