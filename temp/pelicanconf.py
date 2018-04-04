@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-AUTHOR = 'nightblade9'
+AUTHOR = 'nightblade'
 SITENAME = 'Deen Games Blog'
 SITEURL = ''
 
@@ -20,14 +20,12 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
+LINKS = (('Deen Games', 'http://deengames.com'),
+        ('Patreon Page', 'http://patreon.com/deengames'),)
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+SOCIAL = (('Twitter (devs)', 'https://twitter.com/nightblade9'),
+        ('Twitter (official)', 'https://twitter.com/deengames'),)
 
 DEFAULT_PAGINATION = False
 
