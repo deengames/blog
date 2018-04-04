@@ -31,5 +31,7 @@ SOCIAL = (('You can add links in your config file', '#'),
 
 DEFAULT_PAGINATION = False
 
+THEME = 'dg-theme'
+
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
