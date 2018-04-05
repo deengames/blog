@@ -32,5 +32,12 @@ DEFAULT_PAGINATION = False
 
 THEME = 'dg-theme'
 
+GOOGLE_ANALYTICS = "UA-11092514-4"
+
+USE_FOLDER_AS_CATEGORY = False
+# Permalink structure
+ARTICLE_SAVE_AS = '{date:%Y}/{slug}.html'
+ARTICLE_URL = ARTICLE_SAVE_AS
+
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
