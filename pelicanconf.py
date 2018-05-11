@@ -25,7 +25,8 @@ LINKS = (('Deen Games', 'http://deengames.com'),
         ('Patreon Page', 'http://patreon.com/deengames'),)
 
 # Social widget
-SOCIAL = (('Twitter (devs)', 'https://twitter.com/nightblade99'),
+SOCIAL = (('Twitter (nightblade99)', 'https://twitter.com/nightblade99'),
+        ('Twitter (ChemicalInk)', 'https://twitter.com/chemical_ink'),
         ('Twitter (official)', 'https://twitter.com/deengames'),)
 
 DEFAULT_PAGINATION = False
