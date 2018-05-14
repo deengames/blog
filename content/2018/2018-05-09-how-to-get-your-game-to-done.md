@@ -2,6 +2,8 @@ Title: How to Get Your Game to Done
 Date: 2018-05-09
 Category: Game Design
 
+![image](https://i.imgur.com/TklGFnF.png)
+
 Most games never reach completion. Most of us know this -- especially programmers, who typically leave a trail of dead projects in their wake.  Well-intentioned projects, but incomplete projects none-the-less. 
 
 What steps can you take to increase the chances of actually finishing, and get your game to that glorified "done" state?
