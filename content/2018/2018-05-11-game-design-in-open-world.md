@@ -51,7 +51,7 @@ enemies. And if the player enters *after* the maximum level, that is, 30+ they g
 Such a system allows for intricate risk/reward balancing. As in, "Just defeated a horde of trolls 10 levels above yourself? Here's
 some awesome loot to compensate." and "Done wiping the floor? Here's your two septims."
 
-### In conclusion
+### In Conclusion
 
 Well there you have it. You've learned to avoid a game-breaking problem with open-world games. And in the solution,
 apply a new fun mechanic giving the player *choice*; and lots of rewards for daring ones.

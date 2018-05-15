@@ -1,6 +1,7 @@
 Title: How to Get Your Game to Done
 Date: 2018-05-09
 Category: Game Design
+Tags: Project Management
 
 ![image](https://i.imgur.com/TklGFnF.png)
 
