@@ -22,7 +22,7 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (('Deen Games', 'http://deengames.com'),
-        ('Patreon Page', 'http://patreon.com/deengames'),)
+        ('Patreon Page', 'https://patreon.com/deengames'),)
 
 # Social widget
 SOCIAL = (('Twitter (nightblade99)', 'https://twitter.com/nightblade99'),

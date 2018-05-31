@@ -13,6 +13,9 @@
     <div class="entry-content">
       {% include 'article_infos.html' %}
       {{ article.content }}
+      
+      <hr />
+      <p><strong>Like this article?</strong> Consider joining our insider community on <a href="https://patreon.com/deengames">Patreon</a>. We offer some pretty slick rewards.</p>
     </div><!-- /.entry-content -->
     {% if DISQUS_SITENAME and SITEURL and article.status != "draft" %}
     <div class="comments">
