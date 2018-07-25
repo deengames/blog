@@ -34,8 +34,10 @@
             <li{% if cat == category %} class="active"{% endif %}><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a></li>
         {% endfor %}
         {% endif %}
-
+        
+        <!-- manual buttons -->
         <li><a href="https://patreon.com/deengames"><img src="{{ SITEURL }}/images/patreon.png" height="32" /></a></li>
+        <li><a href="https://discordapp.com/invite/wzhaJYM"><img src="{{ SITEURL }}/images/discord.svg" height="32" /></a></li>
         </ul></nav>
 
         <!-- OpenGraph plugin: https://github.com/whiskyechobravo/pelican-open_graph -->
