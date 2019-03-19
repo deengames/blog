@@ -3,6 +3,8 @@ Date: 2019-03-19
 Category: Technical
 Tags: ReactJS, Roguelike
 
+![image](https://imgur.com/download/ygOhYnP)
+
 Recently, I was tasked with learning ReactJS (or just "React"). So, I made the most obvious choice possible: I decided to write an ASCII roguelike, which uses React as the front-end.
 
 ## Why an ASCII Roguelike?
