@@ -22,8 +22,8 @@ Wrong.
 
 React is just a front-end technology; it doesn't dictate how I should structure my HTML. With that in mind, I set out to answer two questions:
 
-1) What kind of performance can I expect with my roguelike?
-2) What factors affect performance? Does changing the font, applying colour (or not), using nested `div` tags vs. `span` tags, etc. make any difference?
+- What kind of performance can I expect with my roguelike?
+- What factors affect performance? Does changing the font, applying colour (or not), using nested `div` tags vs. `span` tags, etc. make any difference?
 
 In brief, the answer to question #2 ended up being "no." Performance bottlenecks on something else entirely; none of those changes make any significant difference.
 
