@@ -22,8 +22,11 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (('Deen Games', 'http://deengames.com'),
+        ('Itch.io Page', 'https://deengames.itch.io/'),
         ('Patreon Page', 'https://patreon.com/deengames'),
+        ('Discord', 'https://discord.gg/5D6XS3b'),
         ('Facebook', 'https://facebook.com/DeenGames'),)
+        
 
 # Social widget
 SOCIAL = (('Twitter (nightblade99)', 'https://twitter.com/nightblade99'),
