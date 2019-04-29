@@ -10,7 +10,7 @@ PATH = 'content'
 
 TIMEZONE = 'Canada/Eastern'
 
-DEFAULT_LANG = 'English'
+DEFAULT_LANG = 'en'
 
 # Feed generation is usually not desired when developing
 FEED_DOMAIN = SITEURL
