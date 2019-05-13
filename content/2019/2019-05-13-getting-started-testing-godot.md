@@ -3,6 +3,9 @@ Date: 2019-05-13
 Category: Technical
 Tags: Godot, Testing
 
+![screenshot with code on top](https://i.imgur.com/F3hoasj.jpg)
+(Image credit: [Godot blog](https://godotengine.org/article/tests-needed-godot-2-1-4-beta))
+
 Godot affords the possibility of unit and integration testing `gdscript` code via the GUT extension. If you're getting started with unit/integrated testing (collectively "automated testing") or Godot, and interested in what automated testing can do for you, read on.
 
 # What is Automated Testing and Why do I Care?
