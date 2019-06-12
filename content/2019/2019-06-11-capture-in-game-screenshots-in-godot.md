@@ -29,7 +29,7 @@ This saves a screenshot into a file called `screenshot-test.png`, under the user
 
 # Loading Screenshots
 
-Loading screenshots provides more complicated, because of a couple of complications: 
+Loading screenshots proves more complicated:
 
 - To load the data, you can use `image.load_png_from_buffer`, but it takes a `PoolByteArray` - not something you can load with a call to `preload("res://...")`. This requires using the `File` API.
 - To set the texture onto a sprite, you cannot simply assign it to an `Image` instance; instead, you need to create and initialize an `ImageTexture` instance.
@@ -55,7 +55,7 @@ This loads the PNG file `screenshot-test.png` from the user-space into an `Image
 
 # Crop and Scale
 
-Since we loaded our PNG into a `Sprite`, we can execute other operations on it, like any other `Sprite`:
+Since we loaded our PNG into a `Sprite`, we can execute other operations on it:
 
 - You can set the `region_rect` properties (through code or through the editor) to crop the image
 - You can set the `scale` to create a thumbnail of the image
