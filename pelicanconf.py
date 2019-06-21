@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'nightblade'
 SITENAME = 'Deen Games Blog'
-SITEURL = 'https://deengames.com/blog'
+SITEURL = 'https://www.deengames.com/blog'
 
 PATH = 'content'
 
@@ -21,7 +21,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Deen Games', 'https://deengames.com'),
+LINKS = (('Deen Games', 'https://www.deengames.com'),
         ('Itch.io Page', 'https://deengames.itch.io/'),
         ('Patreon Page', 'https://patreon.com/deengames'),
         ('Discord', 'https://discord.gg/5D6XS3b'),
