@@ -57,7 +57,7 @@ As my first full Godot project, I'm not really proud of the code quality; as I j
 
 ## Memory Mechanics
 
-![memory mechanics screenshot](https://img.itch.zone/aW1hZ2UvNDU2Nzk0LzIzMjEzODEucG5n/original/1voZI7.png)
+![memory mechanics screenshot](https://i.imgur.com/xOOetlV.png)
 
 Aside from the technical challenge of creating a procedural RPG, I challenged myself to create a fun battle mechanic based on memory instead of reflexes or puzzles.  I also received lots of good feedback about this from users, who praised the memory mechanic as interesting.
 
@@ -84,7 +84,7 @@ I ran into several difficulties along the way.  These include:
 - Learning Godot's API, which seemed quite foreign to me (anything is a scene and can contain sub-scenes). Also, Godot is quite a wide framework, and it takes time to discover/learn/use things (like UI components).
 - Learning about Godot's automatic garbage-collection (`free` and `queue_free`) and how they destroy all objects when changing scenes. This caused me to rewrite my early version to completely separate data about maps (tiles, treasure, etc.) from the visual presentation of those, which got GCed.
 - I wrote garbage, prototype-quality code throughout. This lead to numerous bugs (some difficult to diagnose and fix), and a cycle of "fix something but break something else" late in development. You can see tweets with some bugs, including a few hilarious ones, [here](https://twitter.com/search?q=%40nightblade99 %23EmanQuest %23Bugs).
-- I didn't write any unit or integration tests. This meant I could break things without noticing for days/weeks. I remidied this quite late in development by using GUT (Godot Unit Testing).
+- I didn't write any unit or integration tests. This meant I could break things without noticing for days/weeks. I remedied this quite late in development by using GUT (Godot Unit Testing).
 - Lack of CI. Unlike other, C#-based projects, I couldn't get Travis to run my tests; so if I forgot to run tests, broken things stay unnoticed.
 - The final game crashed a lot, which caused a lot of stress and resulted in a lot of lessons; so I wrote a section just on that.
 - Close to the end of development, I lost my GPU on my main development machine, and my main Windows installed contained drivers that didn't run with Godot 3.0.6. I ended up switching to Linux (which included up-to-date drivers), but lost of a lot of time; I also upgraded Godot to 3.1.1, which initially showed a problem with cave maps running at 2-3FPS, but works fine on Linux.
@@ -112,7 +112,7 @@ I learned several key lessons out of this. Learning about Godot itself proved in
 
 - **Write clean code.** (Clean meaning, as good as you can make it.) This results in less bugs and less painful troubleshooting later on when things turn bad.
 - **Export and test your project often.** This catches bugs, crashes, and all kinds of badness that you don't want players to find first.
-- **Fix all runtime errors, and any errors/warnings Godot generates.** These often foreshadow crashes when the game runs (sometimes, only on select platforms - Windows seems fairly resiliant)
+- **Fix all runtime errors, and any errors/warnings Godot generates.** These often foreshadow crashes when the game runs (sometimes, only on select platforms - Windows seems fairly resilient)
 - **Unit test everything.** Unit testing is cheap, runs quickly, and pays for itself in spades; you can quickly catch issues without manually retesting everything.
 - **Set up a continuous integration pipeline to run your tests.** With GitHub and Travis, you can check in code, and get an email whenever you broke some tests (but didn't notice by running them manually). That can be invaluable to avoid breaking things that work.
 - **The Godot community is awesome.** Ask on Discord, open a GitHub issue, post a tweet - there are experienced developers who will get back to you, promptly, with solid solutions. Just be careful what you ask for! (I upgraded to Godot 3.1.1  and needed to redo all my UI to fix a tiny bug with one slider.)
