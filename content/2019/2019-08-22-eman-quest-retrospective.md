@@ -33,19 +33,51 @@ I didn't include many things in Eman Quest; specifically, I analyzed Bastion, ho
 - I didn't incude any NPCs or shops, because those require a lot of art/coding. (You always find better equipment in chests than what you're using.)
 - I cut a few things in content: avatars, some biome variants (crystal caves), variant bosses, and unique final-boss skills.
 
-Overall, I am very happy with the result, and thankful that I could finish this project, although it doesn't come quite close to my initial vision (due to scope cuts and resource/time constraints). It "feels" like a procedurally-generated RPG.
+# What Went Well
 
-I also initially planned one month to complete the project; it ended up taking around nine months. Why? Many reasons, including:
+Overall, I am very happy with the result, and thankful that I could finish this project, although it doesn't come quite close to my initial vision (due to scope cuts and resource/time constraints).
+
+Things I really like about Eman Quest:
+
+- It "feels" like a procedurally-generated RPG.
+- It's balanced (monsters seem quite distinct/different to fight) even though it's on the easy side
+- Quite a few people completed the game
+- The memory mechanics received some compliments (more on the design below)
+- I shipped. Especially considering I tend to abandon long-running projects, this is especially important to me
+- I polished the game considerably, including audio (background and sound-effects)
+- I received some fan-art, and several questions about my protagonist; which prompted me to create an elaborate background, and a character representing many minorities: a strong woman, a Muslim, and an African
+- I represented Muslims and Islam positively, and communicated one of our values (good treatment of parents)
+- I learned a lot about game accessibility, and added a few accessibility options into my game
+
+Below, you can see the fan-art of the protagonist, Aisha.
+
+As my first full Godot project, I'm not really proud of the code quality; as I joked on [my Discord server](https://discord.gg/frKXYtG), code quality decreases as you get closer to production!
+
+<img src="https://i.imgur.com/LeKMWbk.jpg" width="600" height="570" />
+
+## Memory Mechanics
+
+![memory mechanics screenshot](https://img.itch.zone/aW1hZ2UvNDU2Nzk0LzIzMjEzODEucG5n/original/1voZI7.png)
+
+Aside from the technical challenge of creating a procedural RPG, I challenged myself to create a fun battle mechanic based on memory instead of reflexes or puzzles.  I also received lots of good feedback about this from users, who praised the memory mechanic as interesting.
+
+The core mechanic works simply: a 5x5 grid appears, some squares highlight for a fractional second, and then disappear. You need to click on those highlighted tiles to accumulate "action points," which you can use for different actions (attack costs 2, critical costs 3, and defend/heal costs 1).
+
+In initial prototypes, I experimented with requiring players to pick both energy (action poinst) and actions they wanted to play. This proved to be quite "stressful," because you have a fractional second to look for both required energy tiles and action tiles; midway through development, I streamlined it into what it is now.  I also tried several variations (incluiding a "simon says" type mini-game and a stream of "which of these items did you never see before"), both of which didn't seem fun enough to include in the final.
+
+I also found that battles become somewhat rote and mechanical/deterministic after a while: you pick the five specified tiles, then pick crit, attack, and repeat, healing as necessary.  To change it up, and to reward skillful play, I added techniques/skills and technical points.
+
+Players who pick three or more tiles correctly in a row (with no mistakes) acquire tech points. If you select all five tiles correctly, you get a total of three tech points. You can save these up and use either five or seven for stun/vampire skills respectively. This adds an element of strategy and non-determinism.  Tech poinst also persist across battles, adding another dimension of planning.
+
+# What Didn't Go Well + Key Insights
+
+I initially planned one month to complete the project; it ended up taking around nine months. Why? Many reasons, including:
 
 - I realized early on that different forests just didn't cut it, and needed both variation (styles of forests) and map types (cave, dungeon, etc.)
 - Creating art was not my strong-suite, and I needed three distinct tilesets, each with two unique variations
 - Finding, drawing and animating 14 monsters, and their walk cycles, took a lot of effort; even though I found many of the base sprites and received lots of help on the art side.
 - I added the story about five months in, and required implementing an entire message dialog system, key-item system, final-game events, and lots of unexpected things.
-- Technical struggles with Godot (more on that below).
-
-# Key Lessons and Struggling with Godot
-
-As my first full Godot project, I'm not really proud of the code quality; as I joked on [my Discord server](https://discord.gg/frKXYtG), code quality decreases as you get closer to production!
+- Technical struggles with, and crashes in, Godot (more on that below).
 
 I ran into several difficulties along the way.  These include:
 
@@ -56,8 +88,9 @@ I ran into several difficulties along the way.  These include:
 - Lack of CI. Unlike other, C#-based projects, I couldn't get Travis to run my tests; so if I forgot to run tests, broken things stay unnoticed.
 - The final game crashed a lot, which caused a lot of stress and resulted in a lot of lessons; so I wrote a section just on that.
 - Close to the end of development, I lost my GPU on my main development machine, and my main Windows installed contained drivers that didn't run with Godot 3.0.6. I ended up switching to Linux (which included up-to-date drivers), but lost of a lot of time; I also upgraded Godot to 3.1.1, which initially showed a problem with cave maps running at 2-3FPS, but works fine on Linux.
+- Serialization for saving games. As [the Godot docs on saving games](https://docs.godotengine.org/en/3.1/tutorials/io/saving_games.html) suggests, you need to *manually* serialize all your (nested, hierarchial) data structures into JSON. This requires a lot of boilerplate, and it's very tedious (you may miss a field and not realize unless you test thoroughly).
 
-# The Game Crashed on Release
+## The Game Crashed on Release
 
 When I released the game, it crashed. A lot. This undoubtedly resulted in a terrible first-impression, although I received several supportive comments such as "it crashed once and then I reloaded and it was fine" or "it keeps crashing after battles but I completed the game."
 
