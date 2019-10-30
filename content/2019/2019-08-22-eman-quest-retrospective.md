@@ -3,7 +3,7 @@ Date: 2019-08-22
 Category: Retrospective
 Tags: Godot
 
-![screenshot of the protagonist in a cave map](https://i.imgur.com/rpSFnxr.png)
+<img src="https://i.imgur.com/rpSFnxr.png" alt="screenshot of the protagonist in a cave map" width="750" height="450" />
 
 Welcome to the rather large retrospective on [Eman Quest](https://deengames.itch.io/eman-quest). Eman Quest, if you haven't heard about it, is a "procedurally-generated mini-RPG with memory mechanics." You can try the full game, for free, on Itch.
 
@@ -24,7 +24,7 @@ What, exactly, did I include in Eman Quest?
 - Two fixed skills in battle
 - A progression system with experience, levels, and stats points you can distribute to your liking (respeccing is free).
 
-![recording of one round of battle](https://i.imgur.com/2bx1y6M.gif)
+<img src="https://i.imgur.com/2bx1y6M.gif" alt="one round of battle" width="750" height="450" />
 
 I didn't include many things in Eman Quest; specifically, I analyzed Bastion, how they cut corners to cut down on the amount of content they needed to complete the game, and applied it to my game. Specificially:
 

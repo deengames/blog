@@ -3,7 +3,7 @@ Date: 2019-10-30
 Category: Game Design
 Tags: Methodology
 
-![screenshot of a verse of Qur'an in Eman Quest](https://i.imgur.com/qr8ljtY.jpg)
+<img src="https://i.imgur.com/qr8ljtY.jpg" alt="screenshot of a verse of Qur'an in Eman Quest" width="750" height="474" />
 
 I recently engaged in a conversation with someone about religion and games; specifically, about me showing, explaining, and playing the audio of verses of the Qur'an in my games. This discussion lead me to think about, question, evaluate, and eventually understand (at a deeper level) why I do this, and why I included that section in that game.
 
