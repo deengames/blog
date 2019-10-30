@@ -1,4 +1,4 @@
-Title: Eman Quest Retrospective
+Title: Integrating Religion Into Games
 Date: 2019-10-30
 Category: Game Design
 Tags: Methodology
@@ -9,9 +9,7 @@ I recently engaged in a conversation with someone about religion and games; spec
 
 To summarize: I think the use of religion (specifically, elements of Islam and Muslim culture) in games is essential for many reasons, including breaking stereotypes and building a deeper understanding of what Islam's canonical texts really mean. In fact, the word "deen" in "Deen Games" means religion, but it also means "a way of life."
 
-## Why Mix Religion and Games?
-
-![data cube in Ali the Android which references a verse of Qur'an](https://i.imgur.com/v15ki7y.png)
+## Why Integrate Religion Into Games?
 
 So, the core issue: why bother mixing religion with games? Certainly, this is not something people ask for (barring a very narrow definition of "game" and focusing on educational aspects, usually in the form of quizzes).
 
@@ -33,6 +31,8 @@ As one person [aptly tweeted](https://twitter.com/bcscarbrough/status/1188791237
 > If your beliefs do not bleed into your creative process on some level, they are not your beliefs. I expect a game made by Muslims to have some aspects of their beliefs even if they're not overt. Scrubbing games of every hint of a belief system to avoid offense is imo offensive.
 
 ## What we can Learn from Islamic Games
+
+![data cube in Ali the Android which references a verse of Qur'an](https://i.imgur.com/v15ki7y.png)
 
 My specific interest within Islamic games is to create games that leave the player with an understanding and practical application of canonical texts of Islam through games. Because games allow us to create arbitrary fantastical scenarios and situations (fantasy and sci-fi in particular), this provides us a rich, fertile ground for creative expression and building a real understanding.
 
