@@ -40,8 +40,29 @@ If you can live with those limitations, I recommend AABB, primarily because it i
 
 While AABB collision resolution is *relatively* easier to code, it doesn't mean it's *easy* to code. Many game frameworks don't include collision resolution, because this is part of the physics engine.
 
-Read that again: it's often part of the *physics engine*. Physics engines are notoriously difficult to get right, and require lots of fiddling and corner-case evaluation. Even high-quality physics engines have limitations, such as tunneling (which I include a solution for).
+Read that again: it's often part of the *physics engine*. Physics engines are notoriously difficult to get right, and require lots of fiddling and corner-case evaluation. Even high-quality physics engines have limitations, such as tunneling.
 
 It took me around 10 hours to discover all the caveats and get this to work right. And it works well, including with multi-entity collisions. Test thoroughly.
 
+That said, my implementation includes a few bonus features:
+
+- It's resistant to collision tunneling (but not impervious)
+- It works with multiple objects colliding at the same time
+- It allows an object to optionally "collide and slide" along the object it collides with
+
 With that out of the way, let's dive into the actual theory of how to make a stable AABB resolution, and then some code.
+
+## High-Level Description of AABB
+
+AABB collision resolution works by looking at the X and Y component resolutions of your velocity. Simply put:
+
+- Look at the distance `dx` to travel before we collide on the X-axis and `dy` for the Y-axis
+- Divide these by your component X-velocity and Y-velocity respectively (`vx` and `vy`) to figure out how long before each axis collision takes place (`tx` and `ty`)
+- Resolve the collision on the axis that collides first
+
+![AABB sweep test with velocity](https://i.imgur.com/gCtzUeJ.png)
+
+This excellent diagram (credit: LaroLaro on [GameDev.SE](https://gamedev.stackexchange.com/questions/28577/2d-aabb-vs-aabb-sweep-how-to-calculate-hit-normal)) shows a moving object (A) that will collide with a second object (B). Based on the component velocities, you can see from the projected A box that the faster collision will be on the Y-axis first.
+
+Because collision resolution takes place on a single axis at a time, you may end up having to resolve the same collision multiple times to get a stable resolution. I find that running the collision resolution twice suffices.
+
