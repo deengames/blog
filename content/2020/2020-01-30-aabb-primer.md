@@ -3,6 +3,8 @@ Date: 2020-01-30
 Category: Technical
 Tags: Physics
 
+![video demo](https://i.imgur.com/GLQzqUP.gif)
+
 This blog post includes a discussion about AABB collision resolution: what it is and isn't, it's strengths and weaknesses, some common pitfalls, and how you can (hopefully) implement it in your low-level gaming tool of choice, if needed.
 
 I learned all this (the second time) as part of adding fast/stable collision resolution to [Puffin](https://nightblade9.github.io/puffin), a fast, lightweight 2D game engine built on top of MonoGame.
