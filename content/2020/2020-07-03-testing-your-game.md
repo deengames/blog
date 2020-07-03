@@ -3,7 +3,7 @@ Date: 2020-07-07
 Category: Project Management
 Tags: Planning, Testing
 
-![2 unit tests, 0 integration tests](https://i.imgur.com/SvZiWS1.mp4)
+![2 unit tests, 0 integration tests](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.devrant.com%2Fdevrant%2Frant%2Fr_519301_QxQcw.gif&f=1&nofb=1)
 
 # Why Test?
 
