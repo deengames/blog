@@ -3,7 +3,7 @@ Date: 2017-08-18
 Category: Devlog
 Tags: Talha's Migration
 
-<a href="http://i.imgur.com/Xw5LHIs.gif"><img src="http://i.imgur.com/Xw5LHIs.gif" width="672" height="378" /></a>
+<a href="https://i.imgur.com/Xw5LHIs.gif"><img src="https://i.imgur.com/Xw5LHIs.gif" width="672" height="378" /></a>
 
 The last couple of weeks mostly entailed playtesting and game-balancing tweaks. As a result, we made a few visible changes:
 
