@@ -1,6 +1,6 @@
 Title: Blog Refresh
 Date: 2018-04-04
-
+Category: News
 
 After a few months of stagnation on the blogging/marketing side, we're finally back! We hope, inshaAllah (God willing) to publish regular (or at least semi-regular) updates to our blog and our [current maintainer's Twitter account](https://twitter.com/nightblade9).
 

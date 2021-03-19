@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'nightblade'
 SITENAME = 'Deen Games Blog'
-SITEURL = 'https://www.deengames.com/blog'
+SITEURL = ''
 
 PATH = 'content'
 
@@ -35,9 +35,7 @@ SOCIAL = (('Twitter (nightblade99)', 'https://twitter.com/nightblade99'),
 
 DEFAULT_PAGINATION = False
 
-THEME = 'dg-theme'
-
-GOOGLE_ANALYTICS = "UA-11092514-7"
+THEME = 'themes/fresh'
 
 USE_FOLDER_AS_CATEGORY = False
 # Permalink structure
