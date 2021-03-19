@@ -1,6 +1,6 @@
 Title: Creating Tilemaps with Tile Entities in Godot
 Date: 2018-10-02
-Category: Technical
+
 Tags: Godot
 
 Godot's tile editor provides you with the ability to quickly make 2D tile-maps, similar to RPG Maker. This makes it easy to design and tweak maps. But can we take it a step further? Can we, in fact, use the tilemap editor to create *functioning entities* -- making it a domain-specific editor for our specific game?

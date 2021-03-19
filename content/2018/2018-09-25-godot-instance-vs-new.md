@@ -1,6 +1,6 @@
 Title: Instance vs. New in Godot
 Date: 2018-09-25
-Category: Technical
+
 Tags: Godot
 
 ![godot logo](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Godot_logo.svg/799px-Godot_logo.svg.png)

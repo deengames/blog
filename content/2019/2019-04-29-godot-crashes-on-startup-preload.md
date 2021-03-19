@@ -1,6 +1,6 @@
 Title: Godot Game Crashes On Startup, Logo Shows/Hides
 Date: 2019-04-29
-Category: Technical
+
 Tags: Godot, Android
 
 I recently rebuilt a small app/game using Godot. For reference, the game contained one core loop, and took about four hours to build (from scratch). I reused all of the assets from the previous version of the game (audio and graphics), which took the bulk of development time on the original.

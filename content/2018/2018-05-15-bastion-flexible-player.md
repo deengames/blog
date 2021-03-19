@@ -1,6 +1,6 @@
 Title: The Brilliance of Bastion's Flexible Builds
 Date: 2018-05-15
-Category: Game Design
+
 Tags: Game Design Analysis
 
 ![Bastion character upgrade choice](https://i.imgur.com/GYqOEZF.jpg)

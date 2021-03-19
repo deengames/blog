@@ -1,6 +1,6 @@
 Title: Web Application Translation Architecture in .NET
 Date: 2020-08-11
-Category: Web Development
+
 Tags: .NET Core, Architecture
 
 ![globe of languages](https://i.imgur.com/bqyLzs1.png?1)

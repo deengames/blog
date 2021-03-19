@@ -1,6 +1,6 @@
 Title: A Primer on AABB Collision Resolution
 Date: 2020-01-30
-Category: Technical
+
 Tags: Physics
 
 ![video demo](https://i.imgur.com/GLQzqUP.gif)

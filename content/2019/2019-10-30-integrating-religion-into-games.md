@@ -1,6 +1,6 @@
 Title: Integrating Religion Into Games
 Date: 2019-10-30
-Category: Game Design
+
 Tags: Methodology
 
 <img src="https://i.imgur.com/qr8ljtY.jpg" alt="screenshot of a verse of Qur'an in Eman Quest" width="750" height="474" />

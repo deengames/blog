@@ -1,7 +1,7 @@
 Title: Game Design in Open-World
 Date: 2018-05-11
 Authors: chemicalink
-Category: Game Design
+
 
 According to many, open-world is fun. Perhaps it's the sense of freedom, progression, or influence upon the world
 which tickles a player's funny bone. Whichever it is, if there's anything we game designers know, it's that it's hard to
