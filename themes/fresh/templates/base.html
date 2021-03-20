@@ -25,17 +25,6 @@
     {% if FEED_ALL_RSS %}
     <link href="{{ FEED_DOMAIN }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" rel="alternate" title="{{ SITENAME }} RSS Feed" />
     {% endif %}
-
-    <script type="text/javascript">var switchTo5x=true;</script>
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript">
-        stLight.options({
-            publisher: "{{ SHARETHIS_PUB_KEY }}",
-            doNotHash: false,
-            doNotCopy: false,
-            hashAddressBar: false
-        });
-    </script>
 </head>
 
 <body id="index">
@@ -49,6 +38,7 @@
                 <nav class="navbar">
                     <div class="navbar-inner">
                         <ul class="nav">
+                            <li><a href="/about.html">About</a></li>
                         {% for title, link in MENUITEMS %}
                             <li {% if link[1:] == output_file %}class="active"{% endif %}><a href="{{ link }}">{{ title }}</a></li>
                         {% endfor %}
@@ -82,17 +72,7 @@
 
     <footer id="site-footer">
         <div class="row-fluid">
-            <div class="span10 offset1">
-                <address>
-                    <p>
-                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                    </p>
-                    <p>
-                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
-                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
-                    </p>
-                </address>
-            </div>
+            Copyright &copy; NightBlade, 2018+. All rights reserved.
         </div>
     </footer>
 
