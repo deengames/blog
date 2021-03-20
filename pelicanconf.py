@@ -7,6 +7,7 @@ SITENAME = 'Deen Games Blog'
 SITEURL = ''
 
 PATH = 'content'
+DEFAULT_CATEGORY = 'Other'
 
 TIMEZONE = 'Canada/Eastern'
 

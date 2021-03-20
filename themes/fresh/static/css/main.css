@@ -306,3 +306,7 @@ table td, table th {
     border: 1px solid #dfe2e5;
     padding: 6px 13px;
 }
+
+#posts-list p {
+  padding-top: 10px;
+}
