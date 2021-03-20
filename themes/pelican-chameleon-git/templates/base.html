@@ -55,6 +55,17 @@
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     {% endif %}
 
+    {% if article %}
+    {% for tag in article.ogtags %}
+    <meta property="{{tag[0]}}" content="{{tag[1]|striptags|e}}" />
+    {% endfor %}
+    {% endif %}
+  
+    {% if page  %}
+    {% for tag in page.ogtags %}
+    <meta property="{{tag[0]}}" content="{{tag[1]|striptags|e}}" />
+    {% endfor %}
+    {% endif %}
 </head>
 
 <body>
