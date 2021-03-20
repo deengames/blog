@@ -22,17 +22,13 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Deen Games', 'https://www.deengames.com'),
-        ('Itch.io Page', 'https://deengames.itch.io/'),
-        ('Patreon Page', 'https://patreon.com/deengames'),
-        ('Discord', 'https://discord.gg/5D6XS3b'),
-        ('Facebook', 'https://facebook.com/DeenGames'),)
+LINKS = (('All Games', 'https://www.deengames.com'),
+        ('Newsletter', 'https://www.getrevue.co/profile/deengames'),
+        ('Discord Community', 'https://discord.gg/5D6XS3b'),)
         
 
 # Social widget
-SOCIAL = (('Twitter (nightblade99)', 'https://twitter.com/nightblade99'),
-        ('Twitter (ChemicalInk)', 'https://twitter.com/chemical_ink'),
-        ('Twitter (official)', 'https://twitter.com/deengames'),)
+SOCIAL = (('Twitter', 'https://twitter.com/nightblade99'),)
 
 DEFAULT_PAGINATION = 5
 
