@@ -4,5 +4,13 @@ Category: News
 
 <img src="https://i.imgur.com/qXNDPKB.png" width="672" height="378" alt="sign that says: changes ahead" />
 
-Hello! And ... goodbye!
+Hello! Long-time readers of this blog may notice a couple of changes:
 
+- A new, mobile-responsive theme
+- A complete restructuring of content
+
+I decided to redo the blog to make it mobile-friendly, and to hange the content - instead of game development notes and game design articles, instead, I plan to focus on my games.
+
+What can you expect going forward? Weekly posts show-casing the best of whatever current project I'm working on.
+
+Old articles will stay available for a while.
