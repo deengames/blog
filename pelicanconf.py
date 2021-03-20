@@ -22,9 +22,9 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('All Games', 'https://www.deengames.com'),
+LINKS = (('Games', 'https://www.deengames.com'),
         ('Newsletter', 'https://www.getrevue.co/profile/deengames'),
-        ('Discord Community', 'https://discord.gg/5D6XS3b'),)
+        ('Discord', 'https://discord.gg/5D6XS3b'),)
         
 
 # Social widget
@@ -32,7 +32,7 @@ SOCIAL = (('Twitter', 'https://twitter.com/nightblade99'),)
 
 DEFAULT_PAGINATION = 5
 
-THEME = 'themes/fresh'
+THEME = 'themes/pelican-chameleon-git'
 
 USE_FOLDER_AS_CATEGORY = False
 # Permalink structure

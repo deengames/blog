@@ -2,7 +2,7 @@ Title: Blog Reboot
 Date: 2021-03-18
 Category: News
 
-<img src="https://i.imgur.com/qXNDPKB.png" width="672" height="378" alt="sign that says: changes ahead" />
+<img src="https://i.imgur.com/7tmqvLl.jpeg" alt="sign that says: changes ahead" />
 
 Hello! Long-time readers of this blog may notice a couple of changes:
 
