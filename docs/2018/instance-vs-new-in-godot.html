@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="nightblade" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Instance vs. New in Godot"/>
+    <meta property="og:url" content="https://www.deengames.com/blog/2018/instance-vs-new-in-godot.html"/>
+    <meta property="og:site_name" content="Deen Games Blog"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="https://www.deengames.com/blog/2018/instance-vs-new-in-godot.html" />
+
+    <title>Instance vs. New in Godot | Deen Games Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://www.deengames.com/blog/theme/css/main.css" />
+    <link href="/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Deen Games Blog Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="https://www.deengames.com/blog/">Deen Games Blog </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="https://www.deengames.com/blog/category/devlog.html">Devlog</a></li>
+                            <li ><a href="https://www.deengames.com/blog/category/news.html">News</a></li>
+                            <li class="active"><a href="https://www.deengames.com/blog/category/other.html">Other</a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.deengames.com/blog/2018/instance-vs-new-in-godot.html" rel="bookmark"
+             title="Permalink to Instance vs. New in Godot">Instance vs. New in Godot</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+    </address>
+
+    in <a href="https://www.deengames.com/blog/category/other.html">Other</a>
+
+    on 2018-09-25
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>Tags: Godot</p>
+<p><img alt="godot logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Godot_logo.svg/799px-Godot_logo.svg.png"></p>
+<h2>Summary</h2>
+<p>Godot provides a way to separate the presentation part of game entities from their underlying data. You can think of this as something akin to the Model-View-Controller design pattern, where scripts (classes/code) respresent the model and instanced scenes (sprite, animation, etc.) represent the presentation and control (eg. collision resolution).</p>
+<p>During the development of <a href="https://deengames.itch.io/eman-quest">Eman Quest</a>, we continuously ran into a problem around instancing scenes that are <em>strongly typed</em> and have methods from their corresponding scripts. In fact, there's even <a href="https://github.com/godotengine/godot/issues/15866">an open bug about it</a> as of Godot 3.0.6.</p>
+<p>You can find a description of the problem below, along with the solution, and recommendations.</p>
+<h2>Why This Became a Problem</h2>
+<p>We created Eman Quest as a procedurally-generated RPG; the idea is to generate a persistent, complete world (maps, enemies, etc.) By itself, this proves to be an interesting and troublesome problem to solve, because:</p>
+<ul>
+<li>In Godot, everything is a scene. Your world map, forest map, etc. are scenes.</li>
+<li>You can't easily persist scenes or their entities.</li>
+<li>When you change scenes, the old scene -- and all entities -- get garbage-collected.</li>
+<li>Fundamentally, you need to separate <em>data from the view/presentation.</em> </li>
+</ul>
+<p>To solve this, we started initially by generating scenes and saving those; when the GC reared it's dragonish head, we instead moved to saving data as arbitrary JSON (dictionaries) of key/value pairs; when this required maintaining a set of properties twice (eg. monster strength in JSON vs. strength attribute in the instanced scene), we finally moved to <em>creating scenes and matching scripts/classes.</em></p>
+<p>Then we broke Godot.</p>
+<h2>The Problem and Symptoms</h2>
+<p>Near the middle of development, while creating a <code>TreasureChest</code> class, I ran into an interesting problem: although my script file defined several methods and properties (like <code>.open()</code> or <code>.contents</code>), I couldn't call any of them; Godot complained:</p>
+<blockquote>
+<p>Invalid set index 'contents' (on base: StaticBody2D') with value of type 'Nil'</p>
+</blockquote>
+<p>Godot identified/typed the instance as <code>StaticBody2D</code>, not <code>TreasureChest</code>. Why?</p>
+<p>It turns out the answer lies in the two methods Godot offers to create objects: <code>.instance</code> and <code>.new</code></p>
+<h2>Scenes vs. Scripts as Classes</h2>
+<p>Naively, Godot offers two ways to create an entity: <code>instance</code> and <code>new</code>.</p>
+<p>If it's a <code>Scene</code> with sub-objects (such as a <code>Sprite</code>), you load/preload the <code>.tscn</code>, and call <code>instance</code>. For example: <code>var treasure_chest = load("res://Entities/TreasureChest.tscn").instance()</code>. </p>
+<p>This creates the entire hierarchy of sub-scenes. When you call <code>add_child</code> to add it to the scene, Godot calls the <code>_ready</code> function; this is where you put <em>constructor-like</em> code.</p>
+<p>Alternatively, if you just have a "class" defined in a script, you load/preload the <code>.gd</code> file and call <code>new</code> on it. For example: <code>var treasure_chest = load("res://Entities/TreasureChest.gd").new(contents, coordinates, etc.)</code>. </p>
+<p>In the latter case, you define an <code>_init</code> function for a constructor, and specify whatever parameters you like. This conveniently allows you to specify state and guarantee invariants, such as "treasure chests always have non-null contents."</p>
+<p>However, <em>Godot breaks when you cross these two together.</em> If you load a <code>.tscn</code> definition and then call <code>instance</code>, and <em>the class/script back-end has an <code>_init</code> function,</em> the instanced scene doesn't have any of the scripts defined methods/properties.</p>
+<h2>Solution and Combining the Two Approaches</h2>
+<p>This <em>could</em> be because of timing (when in the life-cycle we're creating the script), I don't know. What I do know, is that removing <code>_init</code> fixes the problem. But then, how do we re-add initialization of the entity's state?</p>
+<p>For entities where we use both the instanced scene (in the place where we populate the tilemaps, etc. on-screen) and the script only (as the generated back-end data/object), we decided on the following approach:</p>
+<ul>
+<li>Don't use <code>_init</code>. It could lead to this obscure bug again later, and suck up a ton of time to figure out.</li>
+<li>To construct a new object class/script instance, create an <code>initialize</code> method and use that as the constructor. This is where we can set state/invariants, etc.</li>
+<li>Keep a single scene for the presentation, and use a script to keep all the back-end class code (properties/methods)</li>
+<li>When we need to instance the actual scene tree for that object -- such as with monsters or treasure chests -- keep the data object separate, and create an <code>initialize_from</code> instance.</li>
+<li><code>initialize_from</code> sets all the properties on the scene (such as presentation: is the treasure chest already opened or not?) based on the properties of the class/data object underlying.</li>
+</ul>
+<p>This approach also solved other problems, such as keeping references to instances across scenes. Godot doesn't like this, because it tries to GC everything. Storing the data separately neatly (sometimes in a singleton script) solves this problem.</p>
+<h2>Conclusion and Future Improvements</h2>
+<p>This solution solves our problem neatly. It keeps our code DRY, by using one definition of an entity's properties. It allows us to separate presentation from model/data, which is useful to prevent coupling.</p>
+<p>But, it's not ideal. At best, we can use <code>_init</code> judiciously for entities that we know we'll never show in a scene. We can always resort to using data (dictionaries/JSON) instead of classes; we miss out on code completion, but this better represents entity-component systems with data-driven design.</p>
+<p>Did you ever run into this problem? Do you see a better way of solving it? Drop a comment and let us know, we would really love to hear about better solutions to this problem.</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11092514-7']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

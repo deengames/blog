@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="nightblade" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Text Rendering Performance Check for a ReactJS ASCII Roguelike"/>
+    <meta property="og:url" content="https://www.deengames.com/blog/2019/text-rendering-performance-check-for-a-reactjs-ascii-roguelike.html"/>
+    <meta property="og:site_name" content="Deen Games Blog"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="https://www.deengames.com/blog/2019/text-rendering-performance-check-for-a-reactjs-ascii-roguelike.html" />
+
+    <title>Text Rendering Performance Check for a ReactJS ASCII Roguelike | Deen Games Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://www.deengames.com/blog/theme/css/main.css" />
+    <link href="/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Deen Games Blog Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="https://www.deengames.com/blog/">Deen Games Blog </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="https://www.deengames.com/blog/category/devlog.html">Devlog</a></li>
+                            <li ><a href="https://www.deengames.com/blog/category/news.html">News</a></li>
+                            <li class="active"><a href="https://www.deengames.com/blog/category/other.html">Other</a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.deengames.com/blog/2019/text-rendering-performance-check-for-a-reactjs-ascii-roguelike.html" rel="bookmark"
+             title="Permalink to Text Rendering Performance Check for a ReactJS ASCII Roguelike">Text Rendering Performance Check for a ReactJS ASCII Roguelike</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+    </address>
+
+    in <a href="https://www.deengames.com/blog/category/other.html">Other</a>
+
+    on 2019-03-19
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>Tags: ReactJS, Roguelike</p>
+<p><img alt="image" src="https://i.imgur.com/bMgMS3E.gif"></p>
+<p>Recently, I was tasked with learning ReactJS (or just "React"). So, I made the most obvious choice possible: I decided to write an ASCII roguelike, which uses React as the front-end.</p>
+<h2>Why an ASCII Roguelike?</h2>
+<p>Why? For several, obvious reasons:</p>
+<ul>
+<li>I have very limited time to work on this; perhaps as little as one hour a day, or less.</li>
+<li>ASCII roguelikes require little beyond a good monospace font -- no complex graphics, very simple animations</li>
+<li>I enjoy creating roguelikes. It's fun. Fun motivates me to work on this, which fuels my learning.</li>
+<li>Having created several (failed/incomplete) roguelikes in the past, I know how to code them. I don't have to think too hard about level generation algorithms, line-of-sight (or area-of-sight) lighting, etc. so I can focus on the technology.</li>
+</ul>
+<p>I set out to create, in my mind, the first step of any text roguelike: draw text on the screen <em>really fast</em> and see how it performs. HTML should render at lightning-speed in my modern browser, right?</p>
+<p>Wrong.</p>
+<h2>The Simplest Possible Performance Test</h2>
+<p>React is just a front-end technology; it doesn't dictate how I should structure my HTML. With that in mind, I set out to answer two questions:</p>
+<ul>
+<li>What kind of performance can I expect with my roguelike?</li>
+<li>What factors affect performance? Does changing the font, applying colour (or not), using nested <code>div</code> tags vs. <code>span</code> tags, etc. make any difference?</li>
+</ul>
+<p>In brief, the answer to question #2 ended up being "no." Performance bottlenecks on something else entirely; none of those changes make any significant difference.</p>
+<p>I wrote a little Javascript that tests exactly what I want:</p>
+<ul>
+<li>Define dimensions of the screen. In this case, 50x16 tiles.</li>
+<li>Create a <code>div</code> tag for each tile. Style it appropriately (eg. width/height big enough to fit any character)</li>
+<li>Very frequently (like, 60 times per second), update each tile's display to a random character with a random colour.</li>
+</ul>
+<p>You can see the code, more or less (with FPS counting),  <a href="https://github.com/nightblade9/space-marine-junaid/blob/master/prototypes/1-dom-performance/index.html">here</a>.  It's simple, and to the point.</p>
+<h2>The Results</h2>
+<p>In a word: abysmal! On my fairly beefy dev machine (lots of RAM, good CPU, mediocre GPU), it renders at a measly 6-7FPS. You can see the results <a href="https://twitter.com/nightblade99/status/1098278413935280128">in this tweet</a>.</p>
+<p>As I mentioned earlier, I tried several variations; none of them improve performance, at all. The core of it comes down to a call to set the character itself. Pseudocode:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">var</span><span class="w"> </span><span class="k">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
+<span class="nf">var</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
+<span class="nf">var</span><span class="w"> </span><span class="n">tile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">window</span><span class="p">.</span><span class="n">tiles</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span><span class="w"></span>
+<span class="n">tile</span><span class="p">.</span><span class="n">innerText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">character</span><span class="w"></span>
+</code></pre></div>
+
+<p>It turns out that browsers, even modern ones, even on beefy hardware, are <em>really, really slow</em> when you set <code>innerText</code>. The only alternative - using <code>innerHTML</code> -- is slower, and probably broken on Internet Explorer.</p>
+<h3>The Conclusion</h3>
+<p>For an ASCII roguelike without too much going on, 6FPS is probably enough. If I really cared about performance, I could switch to canvas-rendering and a bitmap font (lots of work and not sure how it works with React), or using images - either images of text, or real images.</p>
+<p>For me, the goal is to learn ReactJS, so I plan to continue forward with this as-is, without major surgery.</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11092514-7']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

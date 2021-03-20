@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="nightblade" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Web Application Translation Architecture in .NET"/>
+    <meta property="og:url" content="https://www.deengames.com/blog/2020/web-application-translation-architecture-in-net.html"/>
+    <meta property="og:site_name" content="Deen Games Blog"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="https://www.deengames.com/blog/2020/web-application-translation-architecture-in-net.html" />
+
+    <title>Web Application Translation Architecture in .NET | Deen Games Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://www.deengames.com/blog/theme/css/main.css" />
+    <link href="/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Deen Games Blog Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="https://www.deengames.com/blog/">Deen Games Blog </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="https://www.deengames.com/blog/category/devlog.html">Devlog</a></li>
+                            <li ><a href="https://www.deengames.com/blog/category/news.html">News</a></li>
+                            <li class="active"><a href="https://www.deengames.com/blog/category/other.html">Other</a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.deengames.com/blog/2020/web-application-translation-architecture-in-net.html" rel="bookmark"
+             title="Permalink to Web Application Translation Architecture in .NET">Web Application Translation Architecture in .NET</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+    </address>
+
+    in <a href="https://www.deengames.com/blog/category/other.html">Other</a>
+
+    on 2020-08-11
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>Tags: .NET Core, Architecture</p>
+<p><img alt="globe of languages" src="https://i.imgur.com/bqyLzs1.png?1"></p>
+<p>So you want to localize and internationalize your web application? There are a lot of considerations, but here, we briefly discuss just the translation part.</p>
+<p>This post covers a couple of the architectural/design options and discusses their respective trade-offs. While this is a bit specific to .NET, other languages no doubt provide similar concepts, with various levels of API support (e.g. language stored in cookies)</p>
+<h1>Individual Translations via RESX Files</h1>
+<p>.NET and .NET Core provide some infrastructure called "resource files" (<code>.resx</code>) extension). These are XML files which you can edit directly in Visual Studio; at runtime, they compile down to a binary format. They generally recommend creating a few resource files (one per back-end controller or shared module). Advantages of this approach include:</p>
+<ul>
+<li>Easy editing of the file (in-IDE)</li>
+<li>Easy versioning/history of the file (it's a text format)</li>
+<li>API support for configuring the prefered language in a cookie, etc.</li>
+<li>Localized changes on translation change (no need to re-test everything)</li>
+<li>Efficient, with a small size at runtime</li>
+</ul>
+<p>The disadvantages of this format include:</p>
+<ul>
+<li>Any translation change requires recompiling the entire application</li>
+<li>Editing dozens of files can be very cumbersome</li>
+<li>Difficult to make a translation change and see it immediately in-app (unless you're a developer)</li>
+<li>You can't store any sort of metadata (e.g. notes) with translations</li>
+</ul>
+<p>Overall, I think this approach works well if you plan to update translations periodically and don't need an external translater. (If you do, and they're not a coder, you'll need to make additional tooling to export/import the strings in a format they can understand.)</p>
+<h1>Using a Database for Translations</h1>
+<p>One common alternative approach is to store the translations in a database (relational or otherwise) and simply load/display them at runtime. This confers some additional advantages over resource files:</p>
+<ul>
+<li>Ability to update a translation and instantly see the change in-app</li>
+<li>Ability to store meta-data (like notes) with each message</li>
+<li>You can quickly query to find missing strings in various languages</li>
+<li>Non-technical users can easily edit translations via a simple web UI</li>
+</ul>
+<p>However, it contains some additional downsides:</p>
+<ul>
+<li>You need to write a web UI to allow translators to be able to view/update translations</li>
+<li>Making several database calls just to load one view/page, can be costly in terms of performance</li>
+<li>You can read/cache strings in memory on app-start, but then your app requires additional memory per language</li>
+</ul>
+<p>I think this approach suits situations where you absolutely must be able to see updated translations reflected immediately, or where you have non-technical translators who need an easy way to be able to update translations.</p>
+<p>If you know of any other architectures/designs, drop me a note <a href="https://twitter.com/nightblade99">on Twitter</a> and let me know!</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11092514-7']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

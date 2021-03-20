@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="nightblade" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Thoroughly Testing Your Game"/>
+    <meta property="og:url" content="https://www.deengames.com/blog/2020/thoroughly-testing-your-game.html"/>
+    <meta property="og:site_name" content="Deen Games Blog"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="https://www.deengames.com/blog/2020/thoroughly-testing-your-game.html" />
+
+    <title>Thoroughly Testing Your Game | Deen Games Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://www.deengames.com/blog/theme/css/main.css" />
+    <link href="/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Deen Games Blog Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="https://www.deengames.com/blog/">Deen Games Blog </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="https://www.deengames.com/blog/category/devlog.html">Devlog</a></li>
+                            <li ><a href="https://www.deengames.com/blog/category/news.html">News</a></li>
+                            <li class="active"><a href="https://www.deengames.com/blog/category/other.html">Other</a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.deengames.com/blog/2020/thoroughly-testing-your-game.html" rel="bookmark"
+             title="Permalink to Thoroughly Testing Your Game">Thoroughly Testing Your Game</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+    </address>
+
+    in <a href="https://www.deengames.com/blog/category/other.html">Other</a>
+
+    on 2020-07-07
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>Tags: Planning, Testing</p>
+<p><img alt="2 unit tests, 0 integration tests" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimg.devrant.com%2Fdevrant%2Frant%2Fr_519301_QxQcw.gif&amp;f=1&amp;nofb=1"></p>
+<h1>Why Test?</h1>
+<p>Of all the fun, interesting, exciting game development topics I could write about, I chose: testing.</p>
+<p>Why?</p>
+<p>Because testing is <em>essential</em> to shipping your game without bugs and without hours upon hours of manual effort. As we'll see shortly, there are well-known patterns and practices you can apply; some generic to softwre testing, and some specific to game testing. </p>
+<p>I discovered these practices after working more then a decade as a professional software developer, and applying them on and off for a decade as a hobbyist game developer. They take time, yes. They work, often and they're better (faster, more reliable, consistent) than manual testing.</p>
+<h1>Overall Strategy</h1>
+<p>Your goal with software testing is to release your game at the highest possible quality: that means NO BUGS! Everything should work the way the designers intended, <em>without</em> us spending tons of manual hours play-testing the same parts over and over and over (yawn).</p>
+<p>Your overall strategy needs to include the following categories:</p>
+<ul>
+<li><strong>Unit Testing:</strong> So you know your methods/classes/scripts/objects work at a granular level.</li>
+<li><strong>System Testing:</strong> Make sure cross-object workflows succeed, like "user last-shots an enemy and gets bonus gold." Sometimes called integration testing, functional testing, or end-to-end testing.</li>
+<li><strong>Regression Testing:</strong> Every bug you find and catch should be exploited by a unit test. If that test passes, it guarantees the bugs won't repeat.</li>
+<li><strong>Exploratory Testing:</strong> There's no substitute for playing your game and trying weird stuff. You'll find quirks and things that your automated tests won't catch.</li>
+</ul>
+<p>Without these fundamentals, be prepared for lots of bugs and poor game reviews! Above and beyond them, depending on your available time, skill, and interest, you may benefit from additional categories:</p>
+<ul>
+<li><strong>Balancing:</strong> Write tests that make sure the game is balanced, e.g. each class has roughly the same DPS, or that dungeons generate with roughly the right progressive difficulty</li>
+<li><strong>Performance or Crash Testing:</strong> Running previously-problematic code and making sure it's fast or doesn't crash. This includes running your game overnight to see if bad things happen.</li>
+</ul>
+<p>I can't reasonably explain all those topics in a suitable depth without writing an essay, but get in touch with me if you would like more information on these topics.</p>
+<h1>Testing Process</h1>
+<p>Regardless of how little or how much you utilize the above categories of testing, you <em>need</em> to properly test your game whenever you make a change. Properly means: sufficiently testing those areas that <em>may</em> be affected, to make sure they still work as expected.</p>
+<p>After all, global variables are still a thing. Singletons can easily be accessed from anywhere. Highly-coupled code is common in (and out) of games. You need to make sure you didn't break stuff by mistake.</p>
+<p>How? Simple; but it all depends on two things:</p>
+<ul>
+<li>You have a continuous integration setup which builds on every commit</li>
+<li>You have a way of producing a final kit (installer, standalone executable, etc.) that you're going to ship</li>
+</ul>
+<p>Let's start with baby steps. Whenever you make a code change:</p>
+<ul>
+<li>Write unit tests</li>
+<li>Run all unit tests continuously (before you check in)</li>
+<li>Have a continuous integration solution (e.g. Jenkins, Travis-CI) build your code and run tests every commit</li>
+</ul>
+<p>This makes sure your code works (very granularly, at a class/scene/script method) and that you didn't break anything in an unrelated area. Good unit testing usually uncovers bugs (while you're writing the test code). They run fast (sub-second), so you can test lots of things quickly.</p>
+<p>If you have integration/functional/system tests, they're usually slower (seconds each), but highly valuable, since they're like a mini version of your game in some scenario/situation. Run those as part of the build, too.</p>
+<p>After the build runs, it generates a playable binary of some sort. Against this, you want to properly test the new feature/change/fix you just added. Like, <em>properly</em>, including things leading up to it and things after it should have happened.</p>
+<p>With this done, you can be reasonably sure your game works, assuming you have good coverage of unit, regression, and system tests. You may want to run some exploratory tests: mess around and see if you can find anything or break anything.</p>
+<h1>Release-Time Testing Process</h1>
+<p>Your game is done, hurray! Congratulations! Now, the fun part: testing your game before you ship it. Since you have a robust build system in place, take the binaries from a passing build, and test it.</p>
+<p>The best way to know if your game is likely ready, is:</p>
+<ul>
+<li>Play it from beginning to end</li>
+<li>Stop and fix any bugs you find, verifying them through the build binaries</li>
+<li>Depending on the game length, either start over, or finish the run</li>
+</ul>
+<p>Repeat this until you can complete the game without finding anything to fix.</p>
+<p>Also, when you find a bug, you don't need to re-test <em>everything</em>; you can re-test <em>just</em> the affected area (e.g. inventory management) and any other areas that might be affected because of shared/common/global code (e.g. item crafting).</p>
+<h1>Balancing, Performance and Crash Testing</h1>
+<p>If you write tests for balancing (make sure monsters, or skills, or levels, etc. are balanced with respect to each other), performance (make sure a certain part of the game runs fast enough), or crash (exercise a workflow and check it doesn't crash) testing, you can run them as little or as much as you like.</p>
+<p>I recommend running them at least weekly or per-sprint, to make sure nothing broke unexpectedly. If you have a good CI system and don't mind longer test runs, you can run them as part of the CI.</p>
+<h1>Conclusion</h1>
+<p>Testing is expensive! It takes time and effort! Write tests, debug tests, update tests! Anyone who tried this process will likely tell you <em>it's worth it</em>. The pay-off of pressing a button or pushing a commit, and having <em>confidence</em> that your game works, in every way you tested, is well worth the effort.</p>
+<p>Don't be daunted. Take baby steps. Practice. Ask questions. Try to add a bit more to each new project you start, so you can eventually master all these skills. They take time.</p>
+<p>If you ever want a second opinion or sounding board, or have questions or comments, feel free to reach out to me <a href="https://twitter.com/nightblade99">on Twitter</a> or <a href="https://discord.gg/frKXYtG">Discord</a>.</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11092514-7']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

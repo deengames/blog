@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="nightblade" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Eman Quest Restrospective: A Procedural RPG in a Month"/>
+    <meta property="og:url" content="https://www.deengames.com/blog/2018/eman-quest-restrospective-a-procedural-rpg-in-a-month.html"/>
+    <meta property="og:site_name" content="Deen Games Blog"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="https://www.deengames.com/blog/2018/eman-quest-restrospective-a-procedural-rpg-in-a-month.html" />
+
+    <title>Eman Quest Restrospective: A Procedural RPG in a Month | Deen Games Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://www.deengames.com/blog/theme/css/main.css" />
+    <link href="/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Deen Games Blog Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="https://www.deengames.com/blog/">Deen Games Blog </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li class="active"><a href="https://www.deengames.com/blog/category/devlog.html">Devlog</a></li>
+                            <li ><a href="https://www.deengames.com/blog/category/news.html">News</a></li>
+                            <li ><a href="https://www.deengames.com/blog/category/other.html">Other</a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.deengames.com/blog/2018/eman-quest-restrospective-a-procedural-rpg-in-a-month.html" rel="bookmark"
+             title="Permalink to Eman Quest Restrospective: A Procedural RPG in a Month">Eman Quest Restrospective: A Procedural RPG in a Month</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+    </address>
+
+    in <a href="https://www.deengames.com/blog/category/devlog.html">Devlog</a>
+
+    on 2018-09-28
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p><img alt="screenshot of a hero facing a boss" src="https://i.imgur.com/Nu9doZ9.jpg"></p>
+<p>This month, I set out with a very specific goal: create a 2D procedurally-generated RPG; something I've never heard of (or done before). Although I ran out of time, I plan to devote another month to the game. This retrospective discusses the good, the bad, and the work ahead of us.</p>
+<h2>Goal: What is a Procedurally-Generated RPG?</h2>
+<p>I grew up playing Secret of Mana, Final Fantasy, Chrono Trigger, and other great titles. One day, I thought to myself, <em>what if I can only create one more game before I die? What would I create?</em></p>
+<p>The answer? Something akin to those favourites; a game that generates a <em>brand new,</em> quality RPG, <em>every time you plan.</em> I spent some weeks brainstorming what I needed and didn't need, plans to create content such as monsters, weapons, etc. Some things clearly need to be procedurally-generated (such as dungeons and maps), while others don't (such as enemy sprites and player skills).</p>
+<p>A couple of false-starts later, I finally opened up the Godot editor and started the third (or fourth) attempt.</p>
+<h2>The Good: What Went Well</h2>
+<p>Initially, I focued on the <em>technical</em> side of procedural generation: creating stuff! As of writing, the game:</p>
+<ul>
+<li>Generates a new, persistent world map each time; this includes a river that runs into a small lake, and randomly-positioned dungeon entrances</li>
+<li>A procedurally-generated forest dungeon; it's a single, large map, with trees, dirt paths, monsters, and a boss.</li>
+<li>Procedurally-generated equipment (weapons and armour), each with unique stats modifiers</li>
+<li>Loot in the form of treasure chests in the forest dungeon.</li>
+<li>The story. While very basic, the game generates the intro plot text, including the town name and final enemy type</li>
+</ul>
+<p>The forest dungeon took longer than expected. On the technical side, I figured out how to make Godot generate and persist my maps/game; initially with packed scenes (which got garbage-collected when I changed scenes, causing crashes), and later by separating the generation of game data from the presentation (populating scenes/tilemaps/etc. from content).</p>
+<p>Solving technical issues aside, I also spent too much time on what didn't go so well: the battle engine.</p>
+<h2>The Bad: What Could've Been Better</h2>
+<p>I find the concept of memory games fascinating (as an ex-Lumosity player). An Extra Credits video on <a href="https://www.youtube.com/watch?v=oEDVDhOYJ2I">puzzle vs. reflex mechanics</a> challenged me to introduce something new into my game.</p>
+<p>At the heart of every RPG, in terms of fun gameplay, lies a fun and challenging battle system. I decided to design a memory-based battle system:</p>
+<p><img alt="battle engine animation" src="https://i.imgur.com/vln27Un.gif"></p>
+<p>This probably proved to be my undoing. I spent several days designing, balancing, and tweaking the battle engine; adding new features, action types, and skills. Five beta testers provided feedback after trying it out:</p>
+<ul>
+<li>One really liked it</li>
+<li>One said it's okay and could be improved</li>
+<li>Three others didn't like it</li>
+</ul>
+<p>In the end, after several days, I forced myself to stop tweaking/changing it and decided to focus on fulfilling the rest of the game.</p>
+<p>Last, and perhaps worst, the game <em>feels</em> incomplete. Sure, you get a randomly-generated forest; but even with the intended scope for the end of the month (two dungeons with two different variations, including unique monsters), it might not be enough to give players that experience of a procedurally-generated RPG.</p>
+<h2>What's Next</h2>
+<p>I don't intend to give up; I plan to fill out and ship a version of this game (although with what functionality/content remains to be seen). My current plan of action looks like:</p>
+<ul>
+<li>Finish the end-game sequence so players can actually complete the game</li>
+<li>Create two variants on the forest (frost forest and death forest) each with unique enemies</li>
+<li>Create a second dungeon (cave) with two variants (one is a volcano)</li>
+</ul>
+<p>Finally, I plan to create a <em>proper RPG world.</em> A good RPG, like a good novel, contains elements that all harmonize and work together to communicate a singular world/message. Right now, we have a patch of hastily-named enemies, skills, etc. and these need to be brought together.</p>
+<p>More specifically, I didn't yet start the other hard/fun part of a procedural RPG: creating a procedural world (and story) that feels unique. This includes a unique/different protagonist for each story.</p>
+<p>Finally, another round of beta testing should reveal whether the game is interesting/fun or not, and I should either finish it as-is or if I need to rewrite/rethink battles entirely. Time will tell. September may be almost gone, but October brings another month brimming with potential for me to see this game through to its potential.</p>
+<p>If you're interested in following my development on this project, feel free to <a href="https://twitter.com/nightblade99">follow me on Twitter</a>. </p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11092514-7']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

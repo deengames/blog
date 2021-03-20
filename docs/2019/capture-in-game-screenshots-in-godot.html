@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="nightblade" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Capture In-Game Screenshots in Godot"/>
+    <meta property="og:url" content="https://www.deengames.com/blog/2019/capture-in-game-screenshots-in-godot.html"/>
+    <meta property="og:site_name" content="Deen Games Blog"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="https://www.deengames.com/blog/2019/capture-in-game-screenshots-in-godot.html" />
+
+    <title>Capture In-Game Screenshots in Godot | Deen Games Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://www.deengames.com/blog/theme/css/main.css" />
+    <link href="/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Deen Games Blog Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="https://www.deengames.com/blog/">Deen Games Blog </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="https://www.deengames.com/blog/category/devlog.html">Devlog</a></li>
+                            <li ><a href="https://www.deengames.com/blog/category/news.html">News</a></li>
+                            <li class="active"><a href="https://www.deengames.com/blog/category/other.html">Other</a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.deengames.com/blog/2019/capture-in-game-screenshots-in-godot.html" rel="bookmark"
+             title="Permalink to Capture In-Game Screenshots in Godot">Capture In-Game Screenshots in Godot</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+    </address>
+
+    in <a href="https://www.deengames.com/blog/category/other.html">Other</a>
+
+    on 2019-06-11
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>Tags: Godot</p>
+<p><img alt="Animation of a game saving, with a screenshot appearing on the save screen" src="https://i.imgur.com/OlsyPli.gif"></p>
+<p>Godot allows you to capture in-game screen-shots, without the use of any plugins/addons. However, I couldn't find a complete, step-by-step guide to do this, without relying on any specific nodes being instantiated in your scene.</p>
+<p>You can follow these steps. I tested these on Godot 3.0.6. Some of the code originated in a thread that mentioned that "you need this prior to Godot 3.1," but through testing, I eventually removed all unnecessary code. I can confirm that this sample works, because I implemented it in <a href="https://twitter.com/search?q=%23EmanQuest">Eman Quest</a>.</p>
+<h1>Saving Screenshots</h1>
+<p>Godot provides a rather straight-forward API for saving a screenshot:</p>
+<div class="highlight"><pre><span></span><code><span class="n">var</span> <span class="n">screenshot_path</span> <span class="o">=</span> <span class="ss">&quot;user://screenshot-test.png&quot;</span>
+
+<span class="o">#</span> <span class="n">Retrieve</span> <span class="n">the</span> <span class="n">captured</span> <span class="n">image</span>
+<span class="n">var</span> <span class="n">image</span> <span class="o">=</span> <span class="n">get_tree</span><span class="p">().</span><span class="n">get_root</span><span class="p">().</span><span class="n">get_texture</span><span class="p">().</span><span class="n">get_data</span><span class="p">()</span>
+
+<span class="o">#</span> <span class="n">Flip</span> <span class="n">it</span> <span class="k">on</span> <span class="n">the</span> <span class="n">y</span><span class="o">-</span><span class="n">axis</span> <span class="p">(</span><span class="n">because</span> <span class="n">it</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">flipped</span><span class="p">)</span>
+<span class="n">image</span><span class="p">.</span><span class="n">flip_y</span><span class="p">()</span>
+
+<span class="n">image</span><span class="p">.</span><span class="n">save_png</span><span class="p">(</span><span class="n">screenshot_path</span><span class="p">)</span>
+</code></pre></div>
+
+<p>This saves a screenshot into a file called <code>screenshot-test.png</code>, under the user space; on Windows, that's something like <code>C:\Users\CURRENTLY_LOGGED_IN_USER\AppData\Roaming\Godot\app_userdata\Eman Quest\screenshot-save0.png</code>, where <code>CURRENTLY_LOGGED_IN_USER</code> is your user name (eg. <code>nightblade</code>).</p>
+<h1>Loading Screenshots</h1>
+<p>Loading screenshots proves more complicated:</p>
+<ul>
+<li>To load the data, you can use <code>image.load_png_from_buffer</code>, but it takes a <code>PoolByteArray</code> - not something you can load with a call to <code>preload("res://...")</code>. This requires using the <code>File</code> API.</li>
+<li>To set the texture onto a sprite, you cannot simply assign it to an <code>Image</code> instance; instead, you need to create and initialize an <code>ImageTexture</code> instance.</li>
+</ul>
+<p>After we sort through these issues, we end up with code like this:</p>
+<div class="highlight"><pre><span></span><code><span class="n">var</span> <span class="n">file</span> <span class="o">=</span> <span class="n">File</span><span class="p">.</span><span class="k">new</span><span class="p">()</span>
+<span class="n">file</span><span class="p">.</span><span class="k">open</span><span class="p">(</span><span class="ss">&quot;user://screenshot-test.png&quot;</span><span class="p">,</span> <span class="n">File</span><span class="p">.</span><span class="k">READ</span><span class="p">)</span>
+<span class="n">var</span> <span class="n">buffer</span> <span class="o">=</span> <span class="n">file</span><span class="p">.</span><span class="n">get_buffer</span><span class="p">(</span><span class="n">file</span><span class="p">.</span><span class="n">get_len</span><span class="p">())</span>
+<span class="n">file</span><span class="p">.</span><span class="k">close</span><span class="p">()</span>
+
+<span class="n">var</span> <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="k">new</span><span class="p">()</span>
+<span class="n">image</span><span class="p">.</span><span class="n">load_png_from_buffer</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+
+<span class="n">var</span> <span class="n">image_texture</span> <span class="o">=</span> <span class="n">ImageTexture</span><span class="p">.</span><span class="k">new</span><span class="p">()</span>
+<span class="n">image_texture</span><span class="p">.</span><span class="n">create_from_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+
+<span class="n">sprite</span><span class="p">.</span><span class="n">texture</span> <span class="o">=</span> <span class="n">image_texture</span>
+</code></pre></div>
+
+<p>This loads the PNG file <code>screenshot-test.png</code> from the user-space into an <code>Image</code>, wraps it into an <code>ImageTexture</code>, and assigns it to some <code>Sprite</code> instance</p>
+<h1>Crop and Scale</h1>
+<p>Since we loaded our PNG into a <code>Sprite</code>, we can execute other operations on it:</p>
+<ul>
+<li>You can set the <code>region_rect</code> properties (through code or through the editor) to crop the image</li>
+<li>You can set the <code>scale</code> to create a thumbnail of the image</li>
+<li>You can apply effects, colourization, etc.</li>
+</ul>
+<p>This affords a lot of interesting use-cases, such as creating a thumbnail of the in-game screen per save-game (my personal use case).</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11092514-7']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>

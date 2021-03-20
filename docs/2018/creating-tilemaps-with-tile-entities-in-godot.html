@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="author" content="nightblade" />
+    <meta name="robots" content="index, follow"/>
+
+    <meta property="og:title" content="Creating Tilemaps with Tile Entities in Godot"/>
+    <meta property="og:url" content="https://www.deengames.com/blog/2018/creating-tilemaps-with-tile-entities-in-godot.html"/>
+    <meta property="og:site_name" content="Deen Games Blog"/>
+    <meta property="og:type" content="article"/>
+
+    <link rel="canonical" href="https://www.deengames.com/blog/2018/creating-tilemaps-with-tile-entities-in-godot.html" />
+
+    <title>Creating Tilemaps with Tile Entities in Godot | Deen Games Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" />
+
+    <link rel="stylesheet" type="text/css" href="https://www.deengames.com/blog/theme/css/main.css" />
+    <link href="/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Deen Games Blog Atom Feed" />
+
+    <script type="text/javascript">var switchTo5x=true;</script>
+    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "",
+            doNotHash: false,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
+<body id="index">
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <header id="banner" >
+                <h1>
+                    <a href="https://www.deengames.com/blog/">Deen Games Blog </a>
+                </h1>
+                <nav class="navbar">
+                    <div class="navbar-inner">
+                        <ul class="nav">
+                            <li ><a href="https://www.deengames.com/blog/category/devlog.html">Devlog</a></li>
+                            <li ><a href="https://www.deengames.com/blog/category/news.html">News</a></li>
+                            <li class="active"><a href="https://www.deengames.com/blog/category/other.html">Other</a></li>
+                        </ul>
+
+                    </div>
+                </nav>
+            </header><!-- /#banner -->
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span10 offset1">
+            <div class="row-fluid">
+<div class="span10 offset1">
+  <section>
+    <article>
+      <header>
+        <h1 class="entry-title">
+          <a href="https://www.deengames.com/blog/2018/creating-tilemaps-with-tile-entities-in-godot.html" rel="bookmark"
+             title="Permalink to Creating Tilemaps with Tile Entities in Godot">Creating Tilemaps with Tile Entities in Godot</a></h1>
+      </header>
+      <div class="entry-content">
+<footer class="post-info">
+    <address class="vcard author">
+        by <a class="url fn" href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+    </address>
+
+    in <a href="https://www.deengames.com/blog/category/other.html">Other</a>
+
+    on 2018-10-02
+
+
+
+
+    
+</footer><!-- /.post-info -->
+
+        <p>Tags: Godot</p>
+<p>Godot's tile editor provides you with the ability to quickly make 2D tile-maps, similar to RPG Maker. This makes it easy to design and tweak maps. But can we take it a step further? Can we, in fact, use the tilemap editor to create <em>functioning entities</em> -- making it a domain-specific editor for our specific game?</p>
+<p>We can. This post walks through a lightning-quick method you can use.</p>
+<h2>The Core Idea</h2>
+<p>Godot's <code>Tilemap</code> entities are simple. They're essentially a reference to a tileset (graphic with all your tiles on it), and one or more layers of those tiles drawn on a grid.  In Godot, tilemaps are all about presentation.</p>
+<p>What if you want to add functionality though? Imagine you're creating a 2D adventure or RPG (like, hmm, <a href="https://play.google.com/store/apps/details?id=com.deengames.eidisland">Eid Island</a> maybe?), and you want to be able to draw enemies on the map. Or trees you can chop down, coins you can pick up, or anything else.</p>
+<p>By itself, Godot doesn't provide a way to do this. However, I asked around on Discord, and checked some issues on GitHub about this; a definitive, simple approach appeared, something like a best-practice. How? Easy.</p>
+<ul>
+<li>Define your tilesets as usual, including objects</li>
+<li>Draw them in as many layers as you like, as usual</li>
+<li>At runtime, iterate over the tiles, replacing the object ones with real entities (<code>Scene</code> instances)</li>
+</ul>
+<h2>The Secet Sauce: Swapping Tiles for Entities</h2>
+<p>Godot makes this process quite easy. As a pre-requisite, I would recommend:</p>
+<ul>
+<li>All your tiles have proper, uniquely-identifying names (like <code>Tree</code> or <code>Plain Water</code>)</li>
+<li>You create entities for everything you want to replace, such as a <code>Tree</code> scene (subclasses <code>Node2D</code>, has a <code>Sprite</code>, script, etc.)</li>
+<li>You map the two. I use a dictionary such as: <code>var entity_tiles = { "Tree": preload("res://Scenes/Entities/Tree.tscn") }</code></li>
+</ul>
+<p>With this in place, we simply iterate over the tiles and -- if the name appears in our dictionary -- replace the tile with its corresponding entity. Here's <a href="https://github.com/nightblade9/eid-island/blob/7ec52d4a9b33feb87d6e05be0908e449cb1fa330/source/Scripts/MapCreator.gd#L48">an early reference implementation</a> in Eid Island. </p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="n">entities</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">map</span><span class="w"> </span><span class="p">(</span><span class="n">eg</span><span class="p">.</span><span class="w"> </span><span class="n">trees</span><span class="p">).</span><span class="w"> </span><span class="n">Remove</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nf">replace</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="err">#</span><span class="w"> </span><span class="nc">real</span><span class="w"> </span><span class="n">entities</span><span class="w"> </span><span class="p">(</span><span class="n">scenes</span><span class="p">)</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="p">(</span><span class="n">attach</span><span class="w"> </span><span class="n">scripts</span><span class="p">)</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">them</span><span class="p">.</span><span class="w"></span>
+<span class="n">func</span><span class="w"> </span><span class="n">_populate_entities</span><span class="p">(</span><span class="k">map</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="nf">var</span><span class="w"> </span><span class="n">possible_tilemaps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">map</span><span class="p">.</span><span class="n">get_children</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">tile_map</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">possible_tilemaps</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">tile_map</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nl">TileMap</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nf">var</span><span class="w"> </span><span class="n">tile_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tile_map</span><span class="p">.</span><span class="n">tile_set</span><span class="w"></span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">cell</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">tile_map</span><span class="p">.</span><span class="n">get_used_cells</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+<span class="w">                </span><span class="nf">var</span><span class="w"> </span><span class="n">tile_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tile_map</span><span class="p">.</span><span class="n">get_cellv</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="nf">var</span><span class="w"> </span><span class="n">tile_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tile_set</span><span class="p">.</span><span class="n">tile_get_name</span><span class="p">(</span><span class="n">tile_id</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">entity_tiles</span><span class="p">.</span><span class="n">has</span><span class="p">(</span><span class="n">tile_name</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                    </span><span class="err">#</span><span class="w"> </span><span class="n">Spawn</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">replace</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">entity</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">name</span><span class="w"></span>
+<span class="w">                    </span><span class="nf">var</span><span class="w"> </span><span class="n">scene</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entity_tiles</span><span class="o">[</span><span class="n">tile_name</span><span class="o">]</span><span class="w"></span>
+<span class="w">                    </span><span class="nf">var</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scene</span><span class="p">.</span><span class="n">instance</span><span class="p">()</span><span class="w"></span>
+<span class="w">                    </span><span class="k">map</span><span class="p">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="w"></span>
+<span class="w">                    </span><span class="n">instance</span><span class="p">.</span><span class="k">position</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cell</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Globals</span><span class="p">.</span><span class="n">TILE_WIDTH</span><span class="w"></span>
+<span class="w">                    </span><span class="n">instance</span><span class="p">.</span><span class="k">position</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cell</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Globals</span><span class="p">.</span><span class="n">TILE_HEIGHT</span><span class="w"></span>
+
+<span class="w">                    </span><span class="err">#</span><span class="w"> </span><span class="n">Remove</span><span class="w"> </span><span class="n">tile</span><span class="w"></span>
+<span class="w">                    </span><span class="n">tile_map</span><span class="p">.</span><span class="n">set_cellv</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+<p><code>Globals.TILE_WIDTH</code> and <code>TILE_HEIGHT</code> refer to the (fixed) tile size; you can, alternatively, use the tileset/tilemap to get the cell size, or use the entity size as a reference (although the entity should be exactly one tile size for that to work).</p>
+<p>With this in place, you can quickly and easily create levels with real functionality from simple tilesets.</p>
+<h2>Next Steps</h2>
+<p>One obvious missing piece of functionality is customization. What if my tile is, say, a door that warps somewhere, and I want to specify the destination properties when I draw the tile? How can I do that?</p>
+<p>Unfortunately, I don't know the answer yet. As far as I know, Godot doesn't allow you to add additional variables/properties to the tile itself. Perhaps you could store the data elsewhere, such as a separate dictionary mapping entity/coordinates to custom data.</p>
+<p>If you know how to solve this latter problem, drop us a note <a href="https://github.com/nightblade99">on Twitter</a> or in the Godot Discord chat so we can use it too!</p>
+
+      </div><!-- /.entry-content -->
+
+    </article>
+  </section>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="site-footer">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <address>
+                    <p>
+                        This blog is proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                    </p>
+                    <p>
+                        <a href="http://github.com/jsliang/pelican-fresh/">Fresh</a> is a responsive theme designed by <a href="http://jsliang.com/">jsliang</a> and <a href="https://github.com/jsliang/pelican-fresh/graphs/contributors">contributors</a>.
+                        Special thanks to <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a> and <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.
+                    </p>
+                </address>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-11092514-7']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+    <script src="//code.jquery.com/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</body>
+</html>
