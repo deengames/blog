@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Deen Games Blog</title><link href="https://www.deengames.com/blog/" rel="alternate"></link><link href="/feeds/atom.xml" rel="self"></link><id>https://www.deengames.com/blog/</id><updated>2021-03-18T00:00:00-04:00</updated><entry><title>Blog Reboot</title><link href="https://www.deengames.com/blog/2021/blog-reboot.html" rel="alternate"></link><published>2021-03-18T00:00:00-04:00</published><updated>2021-03-18T00:00:00-04:00</updated><author><name>nightblade</name></author><id>tag:www.deengames.com,2021-03-18:/blog/2021/blog-reboot.html</id><summary type="html">&lt;p&gt;&lt;img src="https://i.imgur.com/7tmqvLl.jpeg" alt="sign that says: changes ahead" /&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Deen Games Blog</title><link href="https://www.deengames.com/blog/" rel="alternate"></link><link href="/feeds/atom.xml" rel="self"></link><id>https://www.deengames.com/blog/</id><updated>2021-03-29T00:00:00-04:00</updated><entry><title>Crystal Caverns March Update</title><link href="https://www.deengames.com/blog/2021/crystal-caverns-march-update.html" rel="alternate"></link><published>2021-03-29T00:00:00-04:00</published><updated>2021-03-29T00:00:00-04:00</updated><author><name>nightblade</name></author><id>tag:www.deengames.com,2021-03-29:/blog/2021/crystal-caverns-march-update.html</id><summary type="html">&lt;p&gt;&lt;embed src="/videos/2021/crystalcaverns1.mp4" autostart="true" width="720" height="405" /&gt;&lt;/embed&gt;&lt;/p&gt;
+&lt;p&gt;Introducing Crystal Caverns, a match-3/roguelike hybrid with persistent upgrades. In the last two months, I took this game from a rough prototype to what you see in the video. At present, the game includes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A bare-bones battle system: players and monsters take turns attacking.&lt;/li&gt;
+&lt;li&gt;A basic match-3 game with …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;&lt;embed src="/videos/2021/crystalcaverns1.mp4" autostart="true" width="720" height="405" /&gt;&lt;/embed&gt;&lt;/p&gt;
+&lt;p&gt;Introducing Crystal Caverns, a match-3/roguelike hybrid with persistent upgrades. In the last two months, I took this game from a rough prototype to what you see in the video. At present, the game includes:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;A bare-bones battle system: players and monsters take turns attacking.&lt;/li&gt;
+&lt;li&gt;A basic match-3 game with collapse mechanics, albeit you can swap any two tiles&lt;/li&gt;
+&lt;li&gt;Victory and defeat&lt;/li&gt;
+&lt;li&gt;Persistent currency (crystal shards) which you retain across battles&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Battles appear bare-bones at the moment, but include some depth: 
+- Players can attack, critical-strike, boost defense, poison enemies, drain, and heal.
+- Monster attacks affect the board in various ways (currently, they just eat random tiles).&lt;/p&gt;
+&lt;p&gt;That includes enough of the core game to improve upon.&lt;/p&gt;
+&lt;p&gt;Next month, I plan to turn my attention more towards the roguelike side of the game: generating dungeons with monsters, finding treasure (including persistent treasure), and balancing exploration with progression.&lt;/p&gt;</content><category term="Devlog"></category><category term="Crystal Caverns"></category></entry><entry><title>Blog Reboot</title><link href="https://www.deengames.com/blog/2021/blog-reboot.html" rel="alternate"></link><published>2021-03-18T00:00:00-04:00</published><updated>2021-03-18T00:00:00-04:00</updated><author><name>nightblade</name></author><id>tag:www.deengames.com,2021-03-18:/blog/2021/blog-reboot.html</id><summary type="html">&lt;p&gt;&lt;img src="https://i.imgur.com/7tmqvLl.jpeg" alt="sign that says: changes ahead" /&gt;&lt;/p&gt;
 &lt;p&gt;Hello! Long-time readers of this blog may notice a couple of changes:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;A new, mobile-responsive theme&lt;/li&gt;
