@@ -17,6 +17,9 @@
 
   <div id="article_content">
     {{ article.content }}
+    
+    {% from 'macro.html' import custom_footer %}
+    {{ custom_footer() }}    
   </div>
 
   <hr/>

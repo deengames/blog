@@ -1,3 +1,8 @@
+{% macro custom_footer() %}
+<hr />
+<p><strong>Liked our updates?</strong> <a href="https://www.getrevue.co/profile/deengames">Subscribe to our newsletter</a> to get access to our game demos and exclusive insider updates!</p>
+{% endmacro %}
+
 {% macro genurl(string, force=False) %}
   {% if (force or
         ( string.startswith('/') and not string.startswith('//') )) %}
