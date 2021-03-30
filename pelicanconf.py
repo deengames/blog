@@ -39,6 +39,8 @@ USE_FOLDER_AS_CATEGORY = False
 ARTICLE_SAVE_AS = '{date:%Y}/{slug}.html'
 ARTICLE_URL = ARTICLE_SAVE_AS
 
+# Add "videos" to list of directories (images) to copy to output
+STATIC_PATHS = ["images", "videos"]
 PLUGINS = ['plugins.open_graph']
 
 # Uncomment following line if you want document-relative URLs when developing
