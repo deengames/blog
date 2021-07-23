@@ -1,7 +1,6 @@
 Title: Getting Started with Unit and Integration Testing in Godot
 Date: 2019-05-13
-
-Tags: Godot, Testing
+Category: Game Development
 
 ![screenshot with code on top](https://i.imgur.com/F3hoasj.jpg)
 (Image credit: [Godot blog](https://godotengine.org/article/tests-needed-godot-2-1-4-beta))
