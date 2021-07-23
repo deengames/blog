@@ -29,11 +29,11 @@
     <meta property="og:type" content="article" />
     <meta property="og:image" content="https://i.imgur.com/F3hoasj.jpg" />
     <meta property="og:url" content="https://www.deengames.com/blog\2019/getting-started-with-unit-and-integration-testing-in-godot.html" />
-    <meta property="og:description" content="Tags: Godot, Testing (Image credit: Godot blog) Godot affords the possibility of unit and integration testing gdscript code via the GUT extension. If you&#39;re getting started with unit/integrated testing (collectively &#34;automated testing&#34;) or Godot, and interested in what automated testing can do for you, read on. What is Automated …" />
+    <meta property="og:description" content="(Image credit: Godot blog) Godot affords the possibility of unit and integration testing gdscript code via the GUT extension. If you&#39;re getting started with unit/integrated testing (collectively &#34;automated testing&#34;) or Godot, and interested in what automated testing can do for you, read on. What is Automated Testing and Why …" />
     <meta property="og:locale" content="" />
     <meta property="og:site_name" content="Deen Games Blog" />
     <meta property="article:published_time" content="2019-05-13" />
-    <meta property="article:section" content="Other" />
+    <meta property="article:section" content="Game Development" />
   
 </head>
 
@@ -92,7 +92,7 @@
 
     <span id="article_info">
     <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/other.html">Other</a>
+      href="https://www.deengames.com/blog/category/game-development.html">Game Development</a>
     <!--<span class="glyphicon glyphicon-calendar"></span>-->
       <b> · </b>
       <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month05">05</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month05">13</a>
@@ -105,8 +105,7 @@
   <hr/>
 
   <div id="article_content">
-    <p>Tags: Godot, Testing</p>
-<p><img alt="screenshot with code on top" src="https://i.imgur.com/F3hoasj.jpg">
+    <p><img alt="screenshot with code on top" src="https://i.imgur.com/F3hoasj.jpg">
 (Image credit: <a href="https://godotengine.org/article/tests-needed-godot-2-1-4-beta">Godot blog</a>)</p>
 <p>Godot affords the possibility of unit and integration testing <code>gdscript</code> code via the GUT extension. If you're getting started with unit/integrated testing (collectively "automated testing") or Godot, and interested in what automated testing can do for you, read on.</p>
 <h1>What is Automated Testing and Why do I Care?</h1>
@@ -150,23 +149,23 @@
 <p>1) Refactor your code to make it more testable
 2) Write tests for any new code</p>
 <p>We didn't really touch on testable code in any depth. The short version is: write simple classes with simple methods, and avoid dependencies on any external "things." For example, if your <code>Player.damage</code> class depends on a <code>Globals.battle_difficulty</code> multiplier, accept it as a passed-in value instead of referencing the <code>Globals</code> script. Change this:</p>
-<div class="highlight"><pre><span></span><code><span class="o">//</span> <span class="n">player</span><span class="o">.</span><span class="n">gd</span>
+<div class="highlight"><pre><span></span><code><span class="o">//</span> <span class="n">player</span><span class="p">.</span><span class="n">gd</span>
 <span class="k">class</span> <span class="n">damage</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
-  <span class="k">var</span> <span class="n">total_defense</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">defense</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">Globals</span><span class="o">.</span><span class="n">battle_difficulty</span><span class="p">)</span>
-  <span class="n">target</span><span class="o">.</span><span class="n">current_health</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">-</span> <span class="n">total_defense</span>
+  <span class="n">var</span> <span class="n">total_defense</span> <span class="o">=</span> <span class="n">target</span><span class="p">.</span><span class="n">defense</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">Globals</span><span class="p">.</span><span class="n">battle_difficulty</span><span class="p">)</span>
+  <span class="n">target</span><span class="p">.</span><span class="n">current_health</span> <span class="o">-=</span> <span class="k">self</span><span class="p">.</span><span class="n">strength</span> <span class="o">-</span> <span class="n">total_defense</span>
 
 <span class="o">//</span> <span class="n">Elsewhere</span>
-<span class="n">player</span><span class="o">.</span><span class="n">damage</span><span class="p">(</span><span class="n">selected_monster</span><span class="p">)</span>
+<span class="n">player</span><span class="p">.</span><span class="n">damage</span><span class="p">(</span><span class="n">selected_monster</span><span class="p">)</span>
 </code></pre></div>
 
 <p>To this:</p>
-<div class="highlight"><pre><span></span><code><span class="o">//</span> <span class="n">player</span><span class="o">.</span><span class="n">gd</span>
+<div class="highlight"><pre><span></span><code><span class="o">//</span> <span class="n">player</span><span class="p">.</span><span class="n">gd</span>
 <span class="k">class</span> <span class="n">damage</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">battle_difficulty</span><span class="p">):</span>
-  <span class="k">var</span> <span class="n">total_defense</span> <span class="o">=</span> <span class="n">target</span><span class="o">.</span><span class="n">defense</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">battle_difficulty</span><span class="p">)</span>
-  <span class="n">target</span><span class="o">.</span><span class="n">current_health</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">strength</span> <span class="o">-</span> <span class="n">total_defense</span>
+  <span class="n">var</span> <span class="n">total_defense</span> <span class="o">=</span> <span class="n">target</span><span class="p">.</span><span class="n">defense</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">battle_difficulty</span><span class="p">)</span>
+  <span class="n">target</span><span class="p">.</span><span class="n">current_health</span> <span class="o">-=</span> <span class="k">self</span><span class="p">.</span><span class="n">strength</span> <span class="o">-</span> <span class="n">total_defense</span>
 
 <span class="o">//</span> <span class="n">Elsewhere</span>
-<span class="n">player</span><span class="o">.</span><span class="n">damage</span><span class="p">(</span><span class="n">selected_monster</span><span class="p">,</span> <span class="n">Globals</span><span class="o">.</span><span class="n">battle_difficulty</span><span class="p">)</span>
+<span class="n">player</span><span class="p">.</span><span class="n">damage</span><span class="p">(</span><span class="n">selected_monster</span><span class="p">,</span> <span class="n">Globals</span><span class="p">.</span><span class="n">battle_difficulty</span><span class="p">)</span>
 </code></pre></div>
 
 <p>While the code is functionally equivalent, the latter is far more testable: you can pass in whatever value of <code>battle_difficutly</code> you want in your tests, even invalid values like -3! In fact, this is the kind of functionality you want to unit-test: in addition to making sure it works with a correct difficulty, you can test that it fails appropriately (eg. throws an error or returns 0) with an invalid value - something you can't easily test through the actual game.</p>
