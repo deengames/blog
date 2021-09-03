@@ -7,7 +7,7 @@ What happens if you take a classic gem-collecting boulder-dodging action puzzle,
 
 This:
 
-<iframe width="960" height="540" src="https://www.youtube.com/embed/kI74BXDq3PI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="728" height="410" src="https://www.youtube.com/embed/kI74BXDq3PI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 This is a prototype (mostly getting game systems working with placeholder or simple art) which I toiled away at for the last 30 days. Currently, it includes almost all the core systems:
 

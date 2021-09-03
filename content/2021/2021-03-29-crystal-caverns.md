@@ -3,7 +3,7 @@ Date: 2021-03-29
 Category: Devlog
 Tags: Crystal Caverns
 
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/bZ1eldigeLc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="728" height="410" src="https://www.youtube.com/embed/bZ1eldigeLc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Introducing Crystal Caverns, a match-3/roguelike hybrid with persistent upgrades. In the last two months, I took this game from a rough prototype to what you see in the video. At present, the game includes:
 
