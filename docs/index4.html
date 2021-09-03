@@ -96,10 +96,110 @@
 
     <div class="panel panel-primary">
       <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month08">August</a>
+        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month09">September</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
         href="#collapseArticle1">
+        <span class="pull-right badge">
+          #11
+        </span>
+      </a>
+      </div>
+
+      <div class="panel-body hidden">
+
+      </div>
+
+      <ul class="list-group">
+        <a href="https://www.deengames.com/blog/2018/instance-vs-new-in-godot.html">
+          <li class="list-group-item">
+            <h1>Instance vs. New in Godot</h1>
+          </li>
+        </a>
+        <div class="collapse in"
+          id="collapseArticle1">
+          <li class="list-group-item">
+              <span id="article_info">
+    <a class="label label-primary"
+      href="https://www.deengames.com/blog/category/other.html">Other</a>
+    <!--<span class="glyphicon glyphicon-calendar"></span>-->
+      <b> · </b>
+      <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month09">09</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month09">25</a>
+
+    <!--<span class="glyphicon glyphicon-user"></span>-->
+      <b> · </b>
+    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+  </span>
+
+            <a class="pull-right" href="https://www.deengames.com/blog/2018/instance-vs-new-in-godot.html">
+              </a>
+          </li>
+          <li class="list-group-item"><p>Tags: Godot</p>
+<p><img alt="godot logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Godot_logo.svg/799px-Godot_logo.svg.png"></p>
+<h2>Summary</h2>
+<p>Godot provides a way to separate the presentation part of game entities from their underlying data. You can think of this as something akin to the Model-View-Controller design pattern, where scripts (classes/code) respresent the model and instanced scenes (sprite, animation, etc.) represent the presentation and control (eg. collision resolution).</p>
+<p>During the development of <a href="https://deengames.itch.io/eman-quest">Eman Quest</a>, we continuously ran into a problem around instancing scenes that are <em>strongly typed</em> and have methods from their corresponding scripts. In fact, there's even <a href="https://github.com/godotengine/godot/issues/15866">an open bug about it</a> as of Godot 3.0.6.</p>
+<p>You can find a description of the problem below, along with the solution, and recommendations.</p>
+<h2>Why This Became a Problem</h2>
+<p>We created Eman Quest as a procedurally-generated RPG; the idea is to generate a persistent, complete world (maps, enemies, etc.) By itself, this proves to be an interesting and troublesome problem to solve, because:</p>
+<ul>
+<li>In Godot, everything is a scene. Your world map, forest map, etc. are scenes.</li>
+<li>You can't easily persist scenes or their entities.</li>
+<li>When you change scenes, the old scene -- and all entities -- get garbage-collected.</li>
+<li>Fundamentally, you need to separate <em>data from the view/presentation.</em> </li>
+</ul>
+<p>To solve this, we started initially by generating scenes and saving those; when the GC reared it's dragonish head, we instead moved to saving data as arbitrary JSON (dictionaries) of key/value pairs; when this required maintaining a set of properties twice (eg. monster strength in JSON vs. strength attribute in the instanced scene), we finally moved to <em>creating scenes and matching scripts/classes.</em></p>
+<p>Then we broke Godot.</p>
+<h2>The Problem and Symptoms</h2>
+<p>Near the middle of development, while creating a <code>TreasureChest</code> class, I ran into an interesting problem: although my script file defined several methods and properties (like <code>.open()</code> or <code>.contents</code>), I couldn't call any of them; Godot complained:</p>
+<blockquote>
+<p>Invalid set index 'contents' (on base: StaticBody2D') with value of type 'Nil'</p>
+</blockquote>
+<p>Godot identified/typed the instance as <code>StaticBody2D</code>, not <code>TreasureChest</code>. Why?</p>
+<p>It turns out the answer lies in the two methods Godot offers to create objects: <code>.instance</code> and <code>.new</code></p>
+<h2>Scenes vs. Scripts as Classes</h2>
+<p>Naively, Godot offers two ways to create an entity: <code>instance</code> and <code>new</code>.</p>
+<p>If it's a <code>Scene</code> with sub-objects (such as a <code>Sprite</code>), you load/preload the <code>.tscn</code>, and call <code>instance</code>. For example: <code>var treasure_chest = load("res://Entities/TreasureChest.tscn").instance()</code>. </p>
+<p>This creates the entire hierarchy of sub-scenes. When you call <code>add_child</code> to add it to the scene, Godot calls the <code>_ready</code> function; this is where you put <em>constructor-like</em> code.</p>
+<p>Alternatively, if you just have a "class" defined in a script, you load/preload the <code>.gd</code> file and call <code>new</code> on it. For example: <code>var treasure_chest = load("res://Entities/TreasureChest.gd").new(contents, coordinates, etc.)</code>. </p>
+<p>In the latter case, you define an <code>_init</code> function for a constructor, and specify whatever parameters you like. This conveniently allows you to specify state and guarantee invariants, such as "treasure chests always have non-null contents."</p>
+<p>However, <em>Godot breaks when you cross these two together.</em> If you load a <code>.tscn</code> definition and then call <code>instance</code>, and <em>the class/script back-end has an <code>_init</code> function,</em> the instanced scene doesn't have any of the scripts defined methods/properties.</p>
+<h2>Solution and Combining the Two Approaches</h2>
+<p>This <em>could</em> be because of timing (when in the life-cycle we're creating the script), I don't know. What I do know, is that removing <code>_init</code> fixes the problem. But then, how do we re-add initialization of the entity's state?</p>
+<p>For entities where we use both the instanced scene (in the place where we populate the tilemaps, etc. on-screen) and the script only (as the generated back-end data/object), we decided on the following approach:</p>
+<ul>
+<li>Don't use <code>_init</code>. It could lead to this obscure bug again later, and suck up a ton of time to figure out.</li>
+<li>To construct a new object class/script instance, create an <code>initialize</code> method and use that as the constructor. This is where we can set state/invariants, etc.</li>
+<li>Keep a single scene for the presentation, and use a script to keep all the back-end class code (properties/methods)</li>
+<li>When we need to instance the actual scene tree for that object -- such as with monsters or treasure chests -- keep the data object separate, and create an <code>initialize_from</code> instance.</li>
+<li><code>initialize_from</code> sets all the properties on the scene (such as presentation: is the treasure chest already opened or not?) based on the properties of the class/data object underlying.</li>
+</ul>
+<p>This approach also solved other problems, such as keeping references to instances across scenes. Godot doesn't like this, because it tries to GC everything. Storing the data separately neatly (sometimes in a singleton script) solves this problem.</p>
+<h2>Conclusion and Future Improvements</h2>
+<p>This solution solves our problem neatly. It keeps our code DRY, by using one definition of an entity's properties. It allows us to separate presentation from model/data, which is useful to prevent coupling.</p>
+<p>But, it's not ideal. At best, we can use <code>_init</code> judiciously for entities that we know we'll never show in a scene. We can always resort to using data (dictionaries/JSON) instead of classes; we miss out on code completion, but this better represents entity-component systems with data-driven design.</p>
+<p>Did you ever run into this problem? Do you see a better way of solving it? Drop a comment and let us know, we would really love to hear about better solutions to this problem.</p></li>
+          <li class="list-group-item text-right">
+            <div class="btn-group">
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/instance-vs-new-in-godot.html#disqus_thread" title="comments">
+                <span class="glyphicon glyphicon-comment" data-disqus-identifier="instance-vs-new-in-godot">
+                </span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/instance-vs-new-in-godot.html" title="permanent link">
+                <span class="glyphicon glyphicon-link"></span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/instance-vs-new-in-godot.html" title="read more">
+                <span class="glyphicon glyphicon-plus"></span></a>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading panel-title">
+        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month08">August</a>
+      <a class="accordion-toggle" data-toggle="collapse" 
+        title="toggle folding"
+        href="#collapseArticle2">
         <span class="pull-right badge">
           #10
         </span>
@@ -117,7 +217,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle1">
+          id="collapseArticle2">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -168,7 +268,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month07">July</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle2">
+        href="#collapseArticle3">
         <span class="pull-right badge">
           #9
         </span>
@@ -186,7 +286,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle2">
+          id="collapseArticle3">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -236,7 +336,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month06">June</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle3">
+        href="#collapseArticle4">
         <span class="pull-right badge">
           #8
         </span>
@@ -254,7 +354,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle3">
+          id="collapseArticle4">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -302,7 +402,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month06">June</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle4">
+        href="#collapseArticle5">
         <span class="pull-right badge">
           #7
         </span>
@@ -320,7 +420,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle4">
+          id="collapseArticle5">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -357,85 +457,6 @@
         </div>
       </ul>
     </div>
-
-    <div class="panel panel-primary">
-      <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month05">May</a>
-      <a class="accordion-toggle" data-toggle="collapse" 
-        title="toggle folding"
-        href="#collapseArticle5">
-        <span class="pull-right badge">
-          #6
-        </span>
-      </a>
-      </div>
-
-      <div class="panel-body hidden">
-
-      </div>
-
-      <ul class="list-group">
-        <a href="https://www.deengames.com/blog/2018/the-brilliance-of-bastions-flexible-builds.html">
-          <li class="list-group-item">
-            <h1>The Brilliance of Bastion's Flexible Builds</h1>
-          </li>
-        </a>
-        <div class="collapse in"
-          id="collapseArticle5">
-          <li class="list-group-item">
-              <span id="article_info">
-    <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/game-development.html">Game Development</a>
-    <!--<span class="glyphicon glyphicon-calendar"></span>-->
-      <b> · </b>
-      <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month05">05</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month05">15</a>
-
-    <!--<span class="glyphicon glyphicon-user"></span>-->
-      <b> · </b>
-    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
-  </span>
-
-            <a class="pull-right" href="https://www.deengames.com/blog/2018/the-brilliance-of-bastions-flexible-builds.html">
-              </a>
-          </li>
-          <li class="list-group-item"><p><img alt="Bastion character upgrade choice" src="https://i.imgur.com/GYqOEZF.jpg"></p>
-<p>In RPGs (especially those of the 90s and early 2000s), game designers typically increase difficulty by creating increasingly powerful enemies (and more dangerous groups). To balance this, player characters engage in combat, gain experience points, and level up. Obviously, you want the game should increase in challenge/difficulty over time, or it starts to bore the player.</p>
-<p>With this approach, players have an advantage: if stuck, players can grind (kill monsters over and over again) and be able to progress further (in contrast to remaining stuck in the same impassable area). However, it also includes a couple of drawbacks for the player:</p>
-<ul>
-<li><strong>Which Choice to Pick</strong>: When faced with multiple choices (eg. two options to upgrade your character), the player often lacks enough information to decide. Even if they know which option they want to pick, the player almost never has the ability to actually <em>try</em> both options and see which one works best.</li>
-<li><strong>Fixed Builds:</strong> Once the player chooses, there's no going back. This is partly the cause of <em>decision paralysis</em> where players take forever to choose. Worse, if your game is not carefully balanced to cover all possibilities, the player may end up making a series of decisions that leave them with an impossible-to-win build, although grinding can help here.</li>
-</ul>
-<h2>The Brilliance of Bastion</h2>
-<p>Bastion solves both these problems by allowing you to "re-spec" or change your upgrade decisions at <em>virtually any point in the game.</em></p>
-<p>In Bastion, when the player levels up, they unlock a slot for "Spirits," which provide stats boosts; the player also receives a few unique choices per slot. The player can always return to the Distilliary building and change which spirits they've selected.</p>
-<p>With weapons, Bastion follows a two-step process: first, you find an upgrade item, and pay to unlock it. Once you do that, the game presents you with two options per upgrade; you can pick between them (and change your choices) at any time.</p>
-<p><img alt="Bastion weapon upgrades" src="https://i.imgur.com/MJ183AD.png"></p>
-<p>At a micro-level, the user can pick individual upgrades. However, with both spirits and with weapon upgrades, the player can <em>create builds</em> at a macro level. Many of the options harmonize well with other options; and between the choice of player upgrades and weapon upgrades, the player can craft a large number of builds that suit their particular preferences of playing style and their choice of weapons.</p>
-<p>Best of all, the player can <em>test and tweak their builds,</em> and <em>change their minds at any time.</em> This, in addition to the unparalleled flexibilty, gives the player a lot of freedom.</p>
-<p>But, it comes at a cost: some combinations are obviously more powerful than others, and some are quite unbalanced. This makes the game design a bit more challenging, because the designer needs to handle a wider range of possibilities.</p>
-<h2>Takeaways</h2>
-<p>As game designers, I think we can learn a lot from Bastion's design:</p>
-<ul>
-<li>Providing a flexible upgrade system gives players the ability to tweak and test their builds</li>
-<li>Flexible builds makes it less likely for the player to be really stuck (there are lots of alternatives to try)</li>
-<li>But, flexible builds requires care to make sure some builds are not over-/under-powered, and that levels are balanced</li>
-</ul>
-<p>Finally, many games already implement flexible builds today, including League of Legends and DOTA 2, and even classics like Final Fantasy 5. We can see, from this, that the concept of flexible builds can apply to different game genres.</p>
-<p>If you think flexible builds can add to your game, try it, and see if the benefit of multiple progression paths outweighs the cost of slightly more complex game balancing.</p></li>
-          <li class="list-group-item text-right">
-            <div class="btn-group">
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/the-brilliance-of-bastions-flexible-builds.html#disqus_thread" title="comments">
-                <span class="glyphicon glyphicon-comment" data-disqus-identifier="the-brilliance-of-bastions-flexible-builds">
-                </span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/the-brilliance-of-bastions-flexible-builds.html" title="permanent link">
-                <span class="glyphicon glyphicon-link"></span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/the-brilliance-of-bastions-flexible-builds.html" title="read more">
-                <span class="glyphicon glyphicon-plus"></span></a>
-            </div>
-          </li>
-        </div>
-      </ul>
-    </div>
   </div>
         </div>
 
@@ -460,6 +481,9 @@
         </li>
         <li>
           <a href="https://www.deengames.com/blog/index5.html">5<span class="sr-only">(current)</span></a>
+        </li>
+        <li>
+          <a href="https://www.deengames.com/blog/index6.html">6<span class="sr-only">(current)</span></a>
         </li>
 
         <li>
