@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Deen Games Blog</title><link href="https://www.deengames.com/blog/" rel="alternate"></link><link href="/feeds/atom.xml" rel="self"></link><id>https://www.deengames.com/blog/</id><updated>2021-09-03T00:00:00-04:00</updated><entry><title>Gem Roguelike: August 2021</title><link href="https://www.deengames.com/blog/2021/gem-roguelike-august-2021.html" rel="alternate"></link><published>2021-09-03T00:00:00-04:00</published><updated>2021-09-03T00:00:00-04:00</updated><author><name>nightblade</name></author><id>tag:www.deengames.com,2021-09-03:/blog/2021/gem-roguelike-august-2021.html</id><summary type="html">&lt;p&gt;What happens if you take a classic gem-collecting boulder-dodging action puzzle, make it turn-based, and add in roguelike elements like skills, monsters, and procedurally-generated levels?&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Deen Games Blog</title><link href="https://www.deengames.com/blog/" rel="alternate"></link><link href="/feeds/atom.xml" rel="self"></link><id>https://www.deengames.com/blog/</id><updated>2021-09-28T00:00:00-04:00</updated><entry><title>Gem Roguelike: September 2021</title><link href="https://www.deengames.com/blog/2021/gem-roguelike-september-2021.html" rel="alternate"></link><published>2021-09-28T00:00:00-04:00</published><updated>2021-09-28T00:00:00-04:00</updated><author><name>nightblade</name></author><id>tag:www.deengames.com,2021-09-28:/blog/2021/gem-roguelike-september-2021.html</id><summary type="html">&lt;p&gt;Here's me completing a single level in a new run of the gem roguelike:&lt;/p&gt;
+&lt;iframe width="728" height="410" src="https://www.youtube.com/embed/OXvcXmAjDEo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;You can see quite a lot of changes from last month. The most obvious one is the skill shop; specifically:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Collecting gems collects them permanently across all runs (the three types have three different values)&lt;/li&gt;
+&lt;li&gt;Between …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;Here's me completing a single level in a new run of the gem roguelike:&lt;/p&gt;
+&lt;iframe width="728" height="410" src="https://www.youtube.com/embed/OXvcXmAjDEo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
+
+&lt;p&gt;You can see quite a lot of changes from last month. The most obvious one is the skill shop; specifically:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Collecting gems collects them permanently across all runs (the three types have three different values)&lt;/li&gt;
+&lt;li&gt;Between runs of the game, you can upgrade your skills&lt;/li&gt;
+&lt;li&gt;At the skill shop, you can buy new skills, upgrade existing skills, or buy other upgrades (e.g. health) with your collected gems&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;While feedback on this ran contrary to what I hoped, I decided to make the game more roguelike (-like?) - dying three times takes you back to the beginning of the current world. Along with permanent gems, I hope this will lead players down an experience like Hades, where they adventure for a while, die, upgrade a lot, and try different builds the next run-through.&lt;/p&gt;
+&lt;p&gt;I also ran a limited alpha test (around six players played it and reported their feedback, incuding recordings and streams of them playing the game). Thank you all again for testing and providing feedback, be it a little or a lot - it helped me correct the course of the game and identify some much-needed things to improve upon!&lt;/p&gt;
+&lt;p&gt;This month, I also completed two major blocking tasks for the game: I sat down and wrote a complete end-to-end story for the game, including designing all the major characters, and some world-building/lore. Based on this, I started modifying the first world's art to fit the theme of the first world (Brightshield masjid/mosque).&lt;/p&gt;
+&lt;p&gt;I have a long way to go with art, which is the focus of this month: design the worlds in detail (including obstacles and monsters), and coding whatever's necessary to make it look good. This includes polishing the first world to a gleaming sheen, something I already sunk many hours into (and expect to sink many more). Already, you can see:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;New tiles&lt;/li&gt;
+&lt;li&gt;A new level border&lt;/li&gt;
+&lt;li&gt;A large new parallax background&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I hope, inshaAllah (God willing), I can complete the first world art, and some of the subsequent worlds, this month. We'll see how it goes.&lt;/p&gt;
+&lt;p&gt;If you're interested in the game, sign up to the Revue newsletter &lt;a href="https://www.getrevue.co/profile/deengames"&gt;Revue newsletter&lt;/a&gt; to get weekly updates. It's not spam, merely bullet-points summarizing weekly progress.&lt;/p&gt;</content><category term="Devlog"></category><category term="Gem Roguelike"></category></entry><entry><title>Gem Roguelike: August 2021</title><link href="https://www.deengames.com/blog/2021/gem-roguelike-august-2021.html" rel="alternate"></link><published>2021-09-03T00:00:00-04:00</published><updated>2021-09-03T00:00:00-04:00</updated><author><name>nightblade</name></author><id>tag:www.deengames.com,2021-09-03:/blog/2021/gem-roguelike-august-2021.html</id><summary type="html">&lt;p&gt;What happens if you take a classic gem-collecting boulder-dodging action puzzle, make it turn-based, and add in roguelike elements like skills, monsters, and procedurally-generated levels?&lt;/p&gt;
 &lt;p&gt;This:&lt;/p&gt;
 &lt;iframe width="728" height="410" src="https://www.youtube.com/embed/kI74BXDq3PI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen&gt;&lt;/iframe&gt;
 
