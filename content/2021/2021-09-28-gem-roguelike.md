@@ -27,4 +27,4 @@ I have a long way to go with art, which is the focus of this month: design the w
 
 I hope, inshaAllah (God willing), I can complete the first world art, and some of the subsequent worlds, this month. We'll see how it goes.
 
-If you're interested in the game, sign up to the Revue newsletter [Revue newsletter](https://www.getrevue.co/profile/deengames) to get weekly updates. It's not spam, merely bullet-points summarizing weekly progress.
+If you're interested in the game, sign up to the Revue newsletter [Revue newsletter](https://www.getrevue.co/profile/deengames) to get weekly updates. It's not spam, but short, to-the-point weekly progress updates.
