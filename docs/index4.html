@@ -96,10 +96,105 @@
 
     <div class="panel panel-primary">
       <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month10">October</a>
+        <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a> - <a href="https://www.deengames.com/blog/archives.html#Year2019Month03">March</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
         href="#collapseArticle1">
+        <span class="pull-right badge">
+          #14
+        </span>
+      </a>
+      </div>
+
+      <div class="panel-body hidden">
+
+      </div>
+
+      <ul class="list-group">
+        <a href="https://www.deengames.com/blog/2019/text-rendering-performance-check-for-a-reactjs-ascii-roguelike.html">
+          <li class="list-group-item">
+            <h1>Text Rendering Performance Check for a ReactJS ASCII Roguelike</h1>
+          </li>
+        </a>
+        <div class="collapse in"
+          id="collapseArticle1">
+          <li class="list-group-item">
+              <span id="article_info">
+    <a class="label label-primary"
+      href="https://www.deengames.com/blog/category/other.html">Other</a>
+    <!--<span class="glyphicon glyphicon-calendar"></span>-->
+      <b> · </b>
+      <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month03">03</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month03">19</a>
+
+    <!--<span class="glyphicon glyphicon-user"></span>-->
+      <b> · </b>
+    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+  </span>
+
+            <a class="pull-right" href="https://www.deengames.com/blog/2019/text-rendering-performance-check-for-a-reactjs-ascii-roguelike.html">
+              </a>
+          </li>
+          <li class="list-group-item"><p>Tags: ReactJS, Roguelike</p>
+<p><img alt="image" src="https://i.imgur.com/bMgMS3E.gif"></p>
+<p>Recently, I was tasked with learning ReactJS (or just "React"). So, I made the most obvious choice possible: I decided to write an ASCII roguelike, which uses React as the front-end.</p>
+<h2>Why an ASCII Roguelike?</h2>
+<p>Why? For several, obvious reasons:</p>
+<ul>
+<li>I have very limited time to work on this; perhaps as little as one hour a day, or less.</li>
+<li>ASCII roguelikes require little beyond a good monospace font -- no complex graphics, very simple animations</li>
+<li>I enjoy creating roguelikes. It's fun. Fun motivates me to work on this, which fuels my learning.</li>
+<li>Having created several (failed/incomplete) roguelikes in the past, I know how to code them. I don't have to think too hard about level generation algorithms, line-of-sight (or area-of-sight) lighting, etc. so I can focus on the technology.</li>
+</ul>
+<p>I set out to create, in my mind, the first step of any text roguelike: draw text on the screen <em>really fast</em> and see how it performs. HTML should render at lightning-speed in my modern browser, right?</p>
+<p>Wrong.</p>
+<h2>The Simplest Possible Performance Test</h2>
+<p>React is just a front-end technology; it doesn't dictate how I should structure my HTML. With that in mind, I set out to answer two questions:</p>
+<ul>
+<li>What kind of performance can I expect with my roguelike?</li>
+<li>What factors affect performance? Does changing the font, applying colour (or not), using nested <code>div</code> tags vs. <code>span</code> tags, etc. make any difference?</li>
+</ul>
+<p>In brief, the answer to question #2 ended up being "no." Performance bottlenecks on something else entirely; none of those changes make any significant difference.</p>
+<p>I wrote a little Javascript that tests exactly what I want:</p>
+<ul>
+<li>Define dimensions of the screen. In this case, 50x16 tiles.</li>
+<li>Create a <code>div</code> tag for each tile. Style it appropriately (eg. width/height big enough to fit any character)</li>
+<li>Very frequently (like, 60 times per second), update each tile's display to a random character with a random colour.</li>
+</ul>
+<p>You can see the code, more or less (with FPS counting),  <a href="https://github.com/nightblade9/space-marine-junaid/blob/master/prototypes/1-dom-performance/index.html">here</a>.  It's simple, and to the point.</p>
+<h2>The Results</h2>
+<p>In a word: abysmal! On my fairly beefy dev machine (lots of RAM, good CPU, mediocre GPU), it renders at a measly 6-7FPS. You can see the results <a href="https://twitter.com/nightblade99/status/1098278413935280128">in this tweet</a>.</p>
+<p>As I mentioned earlier, I tried several variations; none of them improve performance, at all. The core of it comes down to a call to set the character itself. Pseudocode:</p>
+<div class="highlight"><pre><span></span><code><span class="nf">var</span><span class="w"> </span><span class="k">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
+<span class="nf">var</span><span class="w"> </span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
+<span class="nf">var</span><span class="w"> </span><span class="n">tile</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">window</span><span class="p">.</span><span class="n">tiles</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">;</span><span class="w"></span>
+<span class="n">tile</span><span class="p">.</span><span class="n">innerText</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">character</span><span class="w"></span>
+</code></pre></div>
+
+<p>It turns out that browsers, even modern ones, even on beefy hardware, are <em>really, really slow</em> when you set <code>innerText</code>. The only alternative - using <code>innerHTML</code> -- is slower, and probably broken on Internet Explorer.</p>
+<h3>The Conclusion</h3>
+<p>For an ASCII roguelike without too much going on, 6FPS is probably enough. If I really cared about performance, I could switch to canvas-rendering and a bitmap font (lots of work and not sure how it works with React), or using images - either images of text, or real images.</p>
+<p>For me, the goal is to learn ReactJS, so I plan to continue forward with this as-is, without major surgery.</p></li>
+          <li class="list-group-item text-right">
+            <div class="btn-group">
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2019/text-rendering-performance-check-for-a-reactjs-ascii-roguelike.html#disqus_thread" title="comments">
+                <span class="glyphicon glyphicon-comment" data-disqus-identifier="text-rendering-performance-check-for-a-reactjs-ascii-roguelike">
+                </span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2019/text-rendering-performance-check-for-a-reactjs-ascii-roguelike.html" title="permanent link">
+                <span class="glyphicon glyphicon-link"></span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2019/text-rendering-performance-check-for-a-reactjs-ascii-roguelike.html" title="read more">
+                <span class="glyphicon glyphicon-plus"></span></a>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading panel-title">
+        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month10">October</a>
+      <a class="accordion-toggle" data-toggle="collapse" 
+        title="toggle folding"
+        href="#collapseArticle2">
         <span class="pull-right badge">
           #13
         </span>
@@ -117,7 +212,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle1">
+          id="collapseArticle2">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -203,7 +298,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month09">September</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle2">
+        href="#collapseArticle3">
         <span class="pull-right badge">
           #12
         </span>
@@ -221,7 +316,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle2">
+          id="collapseArticle3">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -298,7 +393,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month09">September</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle3">
+        href="#collapseArticle4">
         <span class="pull-right badge">
           #11
         </span>
@@ -316,7 +411,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle3">
+          id="collapseArticle4">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -398,7 +493,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month08">August</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle4">
+        href="#collapseArticle5">
         <span class="pull-right badge">
           #10
         </span>
@@ -416,7 +511,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle4">
+          id="collapseArticle5">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -455,74 +550,6 @@
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-july-2018.html" title="permanent link">
                 <span class="glyphicon glyphicon-link"></span></a>
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-july-2018.html" title="read more">
-                <span class="glyphicon glyphicon-plus"></span></a>
-            </div>
-          </li>
-        </div>
-      </ul>
-    </div>
-
-    <div class="panel panel-primary">
-      <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month07">July</a>
-      <a class="accordion-toggle" data-toggle="collapse" 
-        title="toggle folding"
-        href="#collapseArticle5">
-        <span class="pull-right badge">
-          #9
-        </span>
-      </a>
-      </div>
-
-      <div class="panel-body hidden">
-
-      </div>
-
-      <ul class="list-group">
-        <a href="https://www.deengames.com/blog/2018/a-month-in-review-june-2018.html">
-          <li class="list-group-item">
-            <h1>A Month in Review: June 2018</h1>
-          </li>
-        </a>
-        <div class="collapse in"
-          id="collapseArticle5">
-          <li class="list-group-item">
-              <span id="article_info">
-    <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/devlog.html">Devlog</a>
-    <!--<span class="glyphicon glyphicon-calendar"></span>-->
-      <b> · </b>
-      <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month07">07</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month07">01</a>
-
-    <!--<span class="glyphicon glyphicon-user"></span>-->
-      <b> · </b>
-    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
-  </span>
-
-            <a class="pull-right" href="https://www.deengames.com/blog/2018/a-month-in-review-june-2018.html">
-              </a>
-          </li>
-          <li class="list-group-item"><p>With the end of Ramadan cutting through the first half of June, we made little progress in the first two weeks. That makes it even more exciting that we completed the prototype of our new game, tentatively titled "Abu Hamid!"</p>
-<p><img alt="screenshot" src="https://cdn.discordapp.com/attachments/460638972889137152/462363418675118103/abu-hamid.gif"></p>
-<p>Every prototype aims to answer a question. This prototype answers the question: "can a jetpack-toting samurai with a gun, flying around and killing hordes of enemies and giants, be a fun gaming experience?" We believe the answer is "yes!"</p>
-<p>You can see the core gameplay elements in the screenshot:</p>
-<ul>
-<li>Running around, jumping</li>
-<li>Flying with a jetpack with limited fuel</li>
-<li>Attacking enemies with a sword</li>
-<li>Shooting with a gun</li>
-<li>Fighting giant, semi-invincible monsters (the juggling is a physics bug)</li>
-</ul>
-<p>For our Patreon supporters, you can download the prototype <a href="https://www.patreon.com/posts/beta-boosters-x-19758114">here</a>. If you're not a Patreon supporter, consider joining us; your feedback shapes the direction of our games.</p>
-<p>Once we gather some feedback, we can plan the next phase and start on the actual game: planning, coding, art, sound, and more. (You can also follow us <a href="https://twitter.com/nightblade99">on twitter</a> for more frequent updates.)</p></li>
-          <li class="list-group-item text-right">
-            <div class="btn-group">
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-june-2018.html#disqus_thread" title="comments">
-                <span class="glyphicon glyphicon-comment" data-disqus-identifier="a-month-in-review-june-2018">
-                </span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-june-2018.html" title="permanent link">
-                <span class="glyphicon glyphicon-link"></span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-june-2018.html" title="read more">
                 <span class="glyphicon glyphicon-plus"></span></a>
             </div>
           </li>
