@@ -152,6 +152,10 @@ body {
   margin-bottom: 0;
 }
 
+#navbar {
+  margin-bottom: 0px !important;
+}
+
 .page-header {
   margin: 0;
   margin-bottom: 21px;
