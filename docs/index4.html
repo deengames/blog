@@ -121,7 +121,12 @@
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/other.html">Other</a>
+      href="https://www.deengames.com/blog/category/technical.html">Technical</a>
+      <b> · </b>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/godot.html">Godot</a>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/android.html">Android</a>
     <!--<span class="glyphicon glyphicon-calendar"></span>-->
       <b> · </b>
       <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month04">04</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month04">29</a>
@@ -134,8 +139,7 @@
             <a class="pull-right" href="https://www.deengames.com/blog/2019/godot-game-crashes-on-startup-logo-showshides.html">
               </a>
           </li>
-          <li class="list-group-item"><p>Tags: Godot, Android</p>
-<p>I recently rebuilt a small app/game using Godot. For reference, the game contained one core loop, and took about four hours to build (from scratch). I reused all of the assets from the previous version of the game (audio and graphics), which took the bulk of development time on the original.</p>
+          <li class="list-group-item"><p>I recently rebuilt a small app/game using Godot. For reference, the game contained one core loop, and took about four hours to build (from scratch). I reused all of the assets from the previous version of the game (audio and graphics), which took the bulk of development time on the original.</p>
 <p>The game built and ran flawlessly in Godot on Windows. As soon as I ran it on Android, the game briefly showed the Godot loading logo for ~100ms, then it disappeared, then reappeared/disappeared around four times (you can see the original issue I opened about on GitHub, <a href="https://github.com/godotengine/godot/issues/27583">here</a>).</p>
 <p>The root cause of all this was multiple resources preloading the same script. I had a scene that preloaded <code>HelperScript.gd</code> and then <code>Second.tscn</code>; but <code>Second.tscn</code> also preloaded <code>HelperScript.gd</code>, causing the crash.</p>
 <p>I found three different ways to address this problem:</p>
@@ -187,7 +191,12 @@
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/other.html">Other</a>
+      href="https://www.deengames.com/blog/category/technical.html">Technical</a>
+      <b> · </b>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/reactjs.html">ReactJS</a>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/roguelike.html">Roguelike</a>
     <!--<span class="glyphicon glyphicon-calendar"></span>-->
       <b> · </b>
       <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month03">03</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month03">19</a>
@@ -200,8 +209,7 @@
             <a class="pull-right" href="https://www.deengames.com/blog/2019/text-rendering-performance-check-for-a-reactjs-ascii-roguelike.html">
               </a>
           </li>
-          <li class="list-group-item"><p>Tags: ReactJS, Roguelike</p>
-<p><img alt="image" src="https://i.imgur.com/bMgMS3E.gif"></p>
+          <li class="list-group-item"><p><img alt="image" src="https://i.imgur.com/bMgMS3E.gif"></p>
 <p>Recently, I was tasked with learning ReactJS (or just "React"). So, I made the most obvious choice possible: I decided to write an ASCII roguelike, which uses React as the front-end.</p>
 <h2>Why an ASCII Roguelike?</h2>
 <p>Why? For several, obvious reasons:</p>
@@ -282,7 +290,10 @@
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/other.html">Other</a>
+      href="https://www.deengames.com/blog/category/technical.html">Technical</a>
+      <b> · </b>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/godot.html">Godot</a>
     <!--<span class="glyphicon glyphicon-calendar"></span>-->
       <b> · </b>
       <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month10">10</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month10">02</a>
@@ -295,8 +306,7 @@
             <a class="pull-right" href="https://www.deengames.com/blog/2018/creating-tilemaps-with-tile-entities-in-godot.html">
               </a>
           </li>
-          <li class="list-group-item"><p>Tags: Godot</p>
-<p>Godot's tile editor provides you with the ability to quickly make 2D tile-maps, similar to RPG Maker. This makes it easy to design and tweak maps. But can we take it a step further? Can we, in fact, use the tilemap editor to create <em>functioning entities</em> -- making it a domain-specific editor for our specific game?</p>
+          <li class="list-group-item"><p>Godot's tile editor provides you with the ability to quickly make 2D tile-maps, similar to RPG Maker. This makes it easy to design and tweak maps. But can we take it a step further? Can we, in fact, use the tilemap editor to create <em>functioning entities</em> -- making it a domain-specific editor for our specific game?</p>
 <p>We can. This post walks through a lightning-quick method you can use.</p>
 <h2>The Core Idea</h2>
 <p>Godot's <code>Tilemap</code> entities are simple. They're essentially a reference to a tileset (graphic with all your tiles on it), and one or more layers of those tiles drawn on a grid.  In Godot, tilemaps are all about presentation.</p>
@@ -387,6 +397,9 @@
               <span id="article_info">
     <a class="label label-primary"
       href="https://www.deengames.com/blog/category/devlog.html">Devlog</a>
+      <b> · </b>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/retrospective.html">Retrospective</a>
     <!--<span class="glyphicon glyphicon-calendar"></span>-->
       <b> · </b>
       <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month09">09</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month09">28</a>
@@ -481,7 +494,10 @@
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/other.html">Other</a>
+      href="https://www.deengames.com/blog/category/technical.html">Technical</a>
+      <b> · </b>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/godot.html">Godot</a>
     <!--<span class="glyphicon glyphicon-calendar"></span>-->
       <b> · </b>
       <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month09">09</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month09">25</a>
@@ -494,8 +510,7 @@
             <a class="pull-right" href="https://www.deengames.com/blog/2018/instance-vs-new-in-godot.html">
               </a>
           </li>
-          <li class="list-group-item"><p>Tags: Godot</p>
-<p><img alt="godot logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Godot_logo.svg/799px-Godot_logo.svg.png"></p>
+          <li class="list-group-item"><p><img alt="godot logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Godot_logo.svg/799px-Godot_logo.svg.png"></p>
 <h2>Summary</h2>
 <p>Godot provides a way to separate the presentation part of game entities from their underlying data. You can think of this as something akin to the Model-View-Controller design pattern, where scripts (classes/code) respresent the model and instanced scenes (sprite, animation, etc.) represent the presentation and control (eg. collision resolution).</p>
 <p>During the development of <a href="https://deengames.itch.io/eman-quest">Eman Quest</a>, we continuously ran into a problem around instancing scenes that are <em>strongly typed</em> and have methods from their corresponding scripts. In fact, there's even <a href="https://github.com/godotengine/godot/issues/15866">an open bug about it</a> as of Godot 3.0.6.</p>
