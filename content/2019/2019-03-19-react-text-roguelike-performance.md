@@ -1,6 +1,6 @@
 Title: Text Rendering Performance Check for a ReactJS ASCII Roguelike
 Date: 2019-03-19
-
+Category: Technical
 Tags: ReactJS, Roguelike
 
 ![image](https://i.imgur.com/bMgMS3E.gif)

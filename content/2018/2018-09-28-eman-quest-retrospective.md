@@ -1,6 +1,7 @@
 Title: Eman Quest Restrospective: A Procedural RPG in a Month
 Date: 2018-09-28
 Category: Devlog
+Tags: Retrospective
 
 ![screenshot of a hero facing a boss](https://i.imgur.com/Nu9doZ9.jpg)
 

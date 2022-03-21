@@ -1,6 +1,6 @@
 Title: Eman Quest Retrospective
 Date: 2019-08-22
-Category: Devlog
+Category: Retrospective
 Tags: Godot
 
 <img src="https://i.imgur.com/rpSFnxr.png" alt="screenshot of the protagonist in a cave map" width="750" height="450" />

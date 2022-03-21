@@ -1,6 +1,6 @@
 Title: Capture In-Game Screenshots in Godot
 Date: 2019-06-11
-
+Category: Technical
 Tags: Godot
 
 ![Animation of a game saving, with a screenshot appearing on the save screen](https://i.imgur.com/OlsyPli.gif)

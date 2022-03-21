@@ -1,6 +1,6 @@
 Title: How Tiny Rails Quietly Normalizes Islam and Muslims
 Date: 2018-06-25
-
+Category: Game Design
 Tags: Game Design Analysis
 
 One of our main goals at Deen Games is to represent the views of Islam and Muslims in games. Muslims have something of a negative image in games. To paraphrase one video from Extra Credits: "Enemies in FPS games have gradually changed from Nazis to Arabs [Muslims]." One of the games that casually but positively portrays us is Tin Rails.
