@@ -125,15 +125,15 @@
 <p>You can follow these steps. I tested these on Godot 3.0.6. Some of the code originated in a thread that mentioned that "you need this prior to Godot 3.1," but through testing, I eventually removed all unnecessary code. I can confirm that this sample works, because I implemented it in <a href="https://twitter.com/search?q=%23EmanQuest">Eman Quest</a>.</p>
 <h1>Saving Screenshots</h1>
 <p>Godot provides a rather straight-forward API for saving a screenshot:</p>
-<div class="highlight"><pre><span></span><code><span class="n">var</span> <span class="n">screenshot_path</span> <span class="o">=</span> <span class="ss">&quot;user://screenshot-test.png&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="k">var</span><span class="w"> </span><span class="n">screenshot_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;user://screenshot-test.png&quot;</span><span class="w"></span>
 
-<span class="o">#</span> <span class="n">Retrieve</span> <span class="n">the</span> <span class="n">captured</span> <span class="n">image</span>
-<span class="n">var</span> <span class="n">image</span> <span class="o">=</span> <span class="n">get_tree</span><span class="p">().</span><span class="n">get_root</span><span class="p">().</span><span class="n">get_texture</span><span class="p">().</span><span class="n">get_data</span><span class="p">()</span>
+<span class="c1"># Retrieve the captured image</span><span class="w"></span>
+<span class="k">var</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_tree</span><span class="p">()</span><span class="o">.</span><span class="n">get_root</span><span class="p">()</span><span class="o">.</span><span class="n">get_texture</span><span class="p">()</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span><span class="w"></span>
 
-<span class="o">#</span> <span class="n">Flip</span> <span class="n">it</span> <span class="k">on</span> <span class="n">the</span> <span class="n">y</span><span class="o">-</span><span class="n">axis</span> <span class="p">(</span><span class="n">because</span> <span class="n">it</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">flipped</span><span class="p">)</span>
-<span class="n">image</span><span class="p">.</span><span class="n">flip_y</span><span class="p">()</span>
+<span class="c1"># Flip it on the y-axis (because it&#39;s flipped)</span><span class="w"></span>
+<span class="n">image</span><span class="o">.</span><span class="n">flip_y</span><span class="p">()</span><span class="w"></span>
 
-<span class="n">image</span><span class="p">.</span><span class="n">save_png</span><span class="p">(</span><span class="n">screenshot_path</span><span class="p">)</span>
+<span class="n">image</span><span class="o">.</span><span class="n">save_png</span><span class="p">(</span><span class="n">screenshot_path</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 <p>This saves a screenshot into a file called <code>screenshot-test.png</code>, under the user space; on Windows, that's something like <code>C:\Users\CURRENTLY_LOGGED_IN_USER\AppData\Roaming\Godot\app_userdata\Eman Quest\screenshot-save0.png</code>, where <code>CURRENTLY_LOGGED_IN_USER</code> is your user name (eg. <code>nightblade</code>).</p>
@@ -144,18 +144,18 @@
 <li>To set the texture onto a sprite, you cannot simply assign it to an <code>Image</code> instance; instead, you need to create and initialize an <code>ImageTexture</code> instance.</li>
 </ul>
 <p>After we sort through these issues, we end up with code like this:</p>
-<div class="highlight"><pre><span></span><code><span class="n">var</span> <span class="n">file</span> <span class="o">=</span> <span class="n">File</span><span class="p">.</span><span class="k">new</span><span class="p">()</span>
-<span class="n">file</span><span class="p">.</span><span class="k">open</span><span class="p">(</span><span class="ss">&quot;user://screenshot-test.png&quot;</span><span class="p">,</span> <span class="n">File</span><span class="p">.</span><span class="k">READ</span><span class="p">)</span>
-<span class="n">var</span> <span class="n">buffer</span> <span class="o">=</span> <span class="n">file</span><span class="p">.</span><span class="n">get_buffer</span><span class="p">(</span><span class="n">file</span><span class="p">.</span><span class="n">get_len</span><span class="p">())</span>
-<span class="n">file</span><span class="p">.</span><span class="k">close</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="k">var</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">File</span><span class="o">.</span><span class="n">new</span><span class="p">()</span><span class="w"></span>
+<span class="n">file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;user://screenshot-test.png&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">File</span><span class="o">.</span><span class="n">READ</span><span class="p">)</span><span class="w"></span>
+<span class="k">var</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">file</span><span class="o">.</span><span class="n">get_buffer</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">get_len</span><span class="p">())</span><span class="w"></span>
+<span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span><span class="w"></span>
 
-<span class="n">var</span> <span class="n">image</span> <span class="o">=</span> <span class="n">Image</span><span class="p">.</span><span class="k">new</span><span class="p">()</span>
-<span class="n">image</span><span class="p">.</span><span class="n">load_png_from_buffer</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+<span class="k">var</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Image</span><span class="o">.</span><span class="n">new</span><span class="p">()</span><span class="w"></span>
+<span class="n">image</span><span class="o">.</span><span class="n">load_png_from_buffer</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span><span class="w"></span>
 
-<span class="n">var</span> <span class="n">image_texture</span> <span class="o">=</span> <span class="n">ImageTexture</span><span class="p">.</span><span class="k">new</span><span class="p">()</span>
-<span class="n">image_texture</span><span class="p">.</span><span class="n">create_from_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+<span class="k">var</span><span class="w"> </span><span class="n">image_texture</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ImageTexture</span><span class="o">.</span><span class="n">new</span><span class="p">()</span><span class="w"></span>
+<span class="n">image_texture</span><span class="o">.</span><span class="n">create_from_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span><span class="w"></span>
 
-<span class="n">sprite</span><span class="p">.</span><span class="n">texture</span> <span class="o">=</span> <span class="n">image_texture</span>
+<span class="n">sprite</span><span class="o">.</span><span class="n">texture</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">image_texture</span><span class="w"></span>
 </code></pre></div>
 
 <p>This loads the PNG file <code>screenshot-test.png</code> from the user-space into an <code>Image</code>, wraps it into an <code>ImageTexture</code>, and assigns it to some <code>Sprite</code> instance</p>
