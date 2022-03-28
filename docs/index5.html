@@ -112,6 +112,104 @@
         title="toggle folding"
         href="#collapseArticle1">
         <span class="pull-right badge">
+          #12
+        </span>
+      </a>
+      </div>
+
+      <div class="panel-body hidden">
+
+      </div>
+
+      <ul class="list-group">
+        <a href="https://www.deengames.com/blog/2018/eman-quest-restrospective-a-procedural-rpg-in-a-month.html">
+          <li class="list-group-item">
+            <h1>Eman Quest Restrospective: A Procedural RPG in a Month</h1>
+          </li>
+        </a>
+        <div class="collapse in"
+          id="collapseArticle1">
+          <li class="list-group-item">
+              <span id="article_info">
+    <a class="label label-primary"
+      href="https://www.deengames.com/blog/category/devlog.html">Devlog</a>
+      <b> · </b>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/retrospective.html">Retrospective</a>
+    <!--<span class="glyphicon glyphicon-calendar"></span>-->
+      <b> · </b>
+      <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month09">09</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month09">28</a>
+
+    <!--<span class="glyphicon glyphicon-user"></span>-->
+      <b> · </b>
+    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+  </span>
+
+            <a class="pull-right" href="https://www.deengames.com/blog/2018/eman-quest-restrospective-a-procedural-rpg-in-a-month.html">
+              </a>
+          </li>
+          <li class="list-group-item"><p><img alt="screenshot of a hero facing a boss" src="https://i.imgur.com/Nu9doZ9.jpg"></p>
+<p>This month, I set out with a very specific goal: create a 2D procedurally-generated RPG; something I've never heard of (or done before). Although I ran out of time, I plan to devote another month to the game. This retrospective discusses the good, the bad, and the work ahead of us.</p>
+<h2>Goal: What is a Procedurally-Generated RPG?</h2>
+<p>I grew up playing Secret of Mana, Final Fantasy, Chrono Trigger, and other great titles. One day, I thought to myself, <em>what if I can only create one more game before I die? What would I create?</em></p>
+<p>The answer? Something akin to those favourites; a game that generates a <em>brand new,</em> quality RPG, <em>every time you plan.</em> I spent some weeks brainstorming what I needed and didn't need, plans to create content such as monsters, weapons, etc. Some things clearly need to be procedurally-generated (such as dungeons and maps), while others don't (such as enemy sprites and player skills).</p>
+<p>A couple of false-starts later, I finally opened up the Godot editor and started the third (or fourth) attempt.</p>
+<h2>The Good: What Went Well</h2>
+<p>Initially, I focued on the <em>technical</em> side of procedural generation: creating stuff! As of writing, the game:</p>
+<ul>
+<li>Generates a new, persistent world map each time; this includes a river that runs into a small lake, and randomly-positioned dungeon entrances</li>
+<li>A procedurally-generated forest dungeon; it's a single, large map, with trees, dirt paths, monsters, and a boss.</li>
+<li>Procedurally-generated equipment (weapons and armour), each with unique stats modifiers</li>
+<li>Loot in the form of treasure chests in the forest dungeon.</li>
+<li>The story. While very basic, the game generates the intro plot text, including the town name and final enemy type</li>
+</ul>
+<p>The forest dungeon took longer than expected. On the technical side, I figured out how to make Godot generate and persist my maps/game; initially with packed scenes (which got garbage-collected when I changed scenes, causing crashes), and later by separating the generation of game data from the presentation (populating scenes/tilemaps/etc. from content).</p>
+<p>Solving technical issues aside, I also spent too much time on what didn't go so well: the battle engine.</p>
+<h2>The Bad: What Could've Been Better</h2>
+<p>I find the concept of memory games fascinating (as an ex-Lumosity player). An Extra Credits video on <a href="https://www.youtube.com/watch?v=oEDVDhOYJ2I">puzzle vs. reflex mechanics</a> challenged me to introduce something new into my game.</p>
+<p>At the heart of every RPG, in terms of fun gameplay, lies a fun and challenging battle system. I decided to design a memory-based battle system:</p>
+<p><img alt="battle engine animation" src="https://i.imgur.com/vln27Un.gif"></p>
+<p>This probably proved to be my undoing. I spent several days designing, balancing, and tweaking the battle engine; adding new features, action types, and skills. Five beta testers provided feedback after trying it out:</p>
+<ul>
+<li>One really liked it</li>
+<li>One said it's okay and could be improved</li>
+<li>Three others didn't like it</li>
+</ul>
+<p>In the end, after several days, I forced myself to stop tweaking/changing it and decided to focus on fulfilling the rest of the game.</p>
+<p>Last, and perhaps worst, the game <em>feels</em> incomplete. Sure, you get a randomly-generated forest; but even with the intended scope for the end of the month (two dungeons with two different variations, including unique monsters), it might not be enough to give players that experience of a procedurally-generated RPG.</p>
+<h2>What's Next</h2>
+<p>I don't intend to give up; I plan to fill out and ship a version of this game (although with what functionality/content remains to be seen). My current plan of action looks like:</p>
+<ul>
+<li>Finish the end-game sequence so players can actually complete the game</li>
+<li>Create two variants on the forest (frost forest and death forest) each with unique enemies</li>
+<li>Create a second dungeon (cave) with two variants (one is a volcano)</li>
+</ul>
+<p>Finally, I plan to create a <em>proper RPG world.</em> A good RPG, like a good novel, contains elements that all harmonize and work together to communicate a singular world/message. Right now, we have a patch of hastily-named enemies, skills, etc. and these need to be brought together.</p>
+<p>More specifically, I didn't yet start the other hard/fun part of a procedural RPG: creating a procedural world (and story) that feels unique. This includes a unique/different protagonist for each story.</p>
+<p>Finally, another round of beta testing should reveal whether the game is interesting/fun or not, and I should either finish it as-is or if I need to rewrite/rethink battles entirely. Time will tell. September may be almost gone, but October brings another month brimming with potential for me to see this game through to its potential.</p>
+<p>If you're interested in following my development on this project, feel free to <a href="https://twitter.com/nightblade99">follow me on Twitter</a>. </p></li>
+          <li class="list-group-item text-right">
+            <div class="btn-group">
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/eman-quest-restrospective-a-procedural-rpg-in-a-month.html#disqus_thread" title="comments">
+                <span class="glyphicon glyphicon-comment" data-disqus-identifier="eman-quest-restrospective-a-procedural-rpg-in-a-month">
+                </span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/eman-quest-restrospective-a-procedural-rpg-in-a-month.html" title="permanent link">
+                <span class="glyphicon glyphicon-link"></span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/eman-quest-restrospective-a-procedural-rpg-in-a-month.html" title="read more">
+                <span class="glyphicon glyphicon-plus"></span></a>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading panel-title">
+        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month09">September</a>
+      <a class="accordion-toggle" data-toggle="collapse" 
+        title="toggle folding"
+        href="#collapseArticle2">
+        <span class="pull-right badge">
           #11
         </span>
       </a>
@@ -128,7 +226,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle1">
+          id="collapseArticle2">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -212,7 +310,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month08">August</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle2">
+        href="#collapseArticle3">
         <span class="pull-right badge">
           #10
         </span>
@@ -230,7 +328,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle2">
+          id="collapseArticle3">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -281,7 +379,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month07">July</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle3">
+        href="#collapseArticle4">
         <span class="pull-right badge">
           #9
         </span>
@@ -299,7 +397,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle3">
+          id="collapseArticle4">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -349,7 +447,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month06">June</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle4">
+        href="#collapseArticle5">
         <span class="pull-right badge">
           #8
         </span>
@@ -367,7 +465,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle4">
+          id="collapseArticle5">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -405,67 +503,6 @@
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/how-tiny-rails-quietly-normalizes-islam-and-muslims.html" title="permanent link">
                 <span class="glyphicon glyphicon-link"></span></a>
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/how-tiny-rails-quietly-normalizes-islam-and-muslims.html" title="read more">
-                <span class="glyphicon glyphicon-plus"></span></a>
-            </div>
-          </li>
-        </div>
-      </ul>
-    </div>
-
-    <div class="panel panel-primary">
-      <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month06">June</a>
-      <a class="accordion-toggle" data-toggle="collapse" 
-        title="toggle folding"
-        href="#collapseArticle5">
-        <span class="pull-right badge">
-          #7
-        </span>
-      </a>
-      </div>
-
-      <div class="panel-body hidden">
-
-      </div>
-
-      <ul class="list-group">
-        <a href="https://www.deengames.com/blog/2018/a-month-in-review-may-2018.html">
-          <li class="list-group-item">
-            <h1>A Month in Review: May 2018</h1>
-          </li>
-        </a>
-        <div class="collapse in"
-          id="collapseArticle5">
-          <li class="list-group-item">
-              <span id="article_info">
-    <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/devlog.html">Devlog</a>
-    <!--<span class="glyphicon glyphicon-calendar"></span>-->
-      <b> · </b>
-      <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month06">06</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month06">01</a>
-
-    <!--<span class="glyphicon glyphicon-user"></span>-->
-      <b> · </b>
-    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
-  </span>
-
-            <a class="pull-right" href="https://www.deengames.com/blog/2018/a-month-in-review-may-2018.html">
-              </a>
-          </li>
-          <li class="list-group-item"><p>This month, we spent quite a lot of time planning and articulating our next project. It's a big one! Unlike previous projects, we decided to bite on something large and ambitous.</p>
-<p><img alt="screenshot" src="https://i.imgur.com/B3tp3dy.gif"></p>
-<p>We're in the early stages of prototyping, so I can't share too many details right now (as things are scarce). Our major Islamic/educational goal for this project is to <em>show world events through an Islamic lens.</em> How that will play out, we will see.</p>
-<p>As far as prototyping, we have our basic jetpack/combat system in place. You can fly around the screen and strike enemies, and they can harm you (sort of).</p>
-<p>There's a lot of work left to be done in prototyping, but we're fairly optimistic that this will result in a fun core game loop with lots of interesting side gameplay.</p>
-<p>We're also breaking from game development for a couple of weeks, as we're now entering the last half of Ramadan. You can expect game development to resume its regular schedule in mid-to-late-June.</p></li>
-          <li class="list-group-item text-right">
-            <div class="btn-group">
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-may-2018.html#disqus_thread" title="comments">
-                <span class="glyphicon glyphicon-comment" data-disqus-identifier="a-month-in-review-may-2018">
-                </span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-may-2018.html" title="permanent link">
-                <span class="glyphicon glyphicon-link"></span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-may-2018.html" title="read more">
                 <span class="glyphicon glyphicon-plus"></span></a>
             </div>
           </li>
