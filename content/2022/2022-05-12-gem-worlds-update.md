@@ -20,4 +20,4 @@ While this resulted in lots of people looking at Gem Worlds, it resulted in a me
 
 This dramatically hurt my motivation to work on the game. It's the biggest game I've ever made (by at least 50%). Regardless, my plan is to inshaAllah continue slogging through the leftover work to get the game out.
 
-At this point, I may not run a beta version, either; that requires at least a significant amount of players (new and recurring), which I didn't get access to. I'll provide updates on that as develoment continues.
+At this point, I may not run a beta version, either; that requires at least a significant amount of players (new and recurring), which I didn't get access to. I'll provide updates on that as development continues.

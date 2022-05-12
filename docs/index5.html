@@ -107,10 +107,116 @@
 
     <div class="panel panel-primary">
       <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month09">September</a>
+        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month10">October</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
         href="#collapseArticle1">
+        <span class="pull-right badge">
+          #13
+        </span>
+      </a>
+      </div>
+
+      <div class="panel-body hidden">
+
+      </div>
+
+      <ul class="list-group">
+        <a href="https://www.deengames.com/blog/2018/creating-tilemaps-with-tile-entities-in-godot.html">
+          <li class="list-group-item">
+            <h1>Creating Tilemaps with Tile Entities in Godot</h1>
+          </li>
+        </a>
+        <div class="collapse in"
+          id="collapseArticle1">
+          <li class="list-group-item">
+              <span id="article_info">
+    <a class="label label-primary"
+      href="https://www.deengames.com/blog/category/technical.html">Technical</a>
+      <b> · </b>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/godot.html">Godot</a>
+    <!--<span class="glyphicon glyphicon-calendar"></span>-->
+      <b> · </b>
+      <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month10">10</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month10">02</a>
+
+    <!--<span class="glyphicon glyphicon-user"></span>-->
+      <b> · </b>
+    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+  </span>
+
+            <a class="pull-right" href="https://www.deengames.com/blog/2018/creating-tilemaps-with-tile-entities-in-godot.html">
+              </a>
+          </li>
+          <li class="list-group-item"><p>Godot's tile editor provides you with the ability to quickly make 2D tile-maps, similar to RPG Maker. This makes it easy to design and tweak maps. But can we take it a step further? Can we, in fact, use the tilemap editor to create <em>functioning entities</em> -- making it a domain-specific editor for our specific game?</p>
+<p>We can. This post walks through a lightning-quick method you can use.</p>
+<h2>The Core Idea</h2>
+<p>Godot's <code>Tilemap</code> entities are simple. They're essentially a reference to a tileset (graphic with all your tiles on it), and one or more layers of those tiles drawn on a grid.  In Godot, tilemaps are all about presentation.</p>
+<p>What if you want to add functionality though? Imagine you're creating a 2D adventure or RPG (like, hmm, <a href="https://play.google.com/store/apps/details?id=com.deengames.eidisland">Eid Island</a> maybe?), and you want to be able to draw enemies on the map. Or trees you can chop down, coins you can pick up, or anything else.</p>
+<p>By itself, Godot doesn't provide a way to do this. However, I asked around on Discord, and checked some issues on GitHub about this; a definitive, simple approach appeared, something like a best-practice. How? Easy.</p>
+<ul>
+<li>Define your tilesets as usual, including objects</li>
+<li>Draw them in as many layers as you like, as usual</li>
+<li>At runtime, iterate over the tiles, replacing the object ones with real entities (<code>Scene</code> instances)</li>
+</ul>
+<h2>The Secet Sauce: Swapping Tiles for Entities</h2>
+<p>Godot makes this process quite easy. As a pre-requisite, I would recommend:</p>
+<ul>
+<li>All your tiles have proper, uniquely-identifying names (like <code>Tree</code> or <code>Plain Water</code>)</li>
+<li>You create entities for everything you want to replace, such as a <code>Tree</code> scene (subclasses <code>Node2D</code>, has a <code>Sprite</code>, script, etc.)</li>
+<li>You map the two. I use a dictionary such as: <code>var entity_tiles = { "Tree": preload("res://Scenes/Entities/Tree.tscn") }</code></li>
+</ul>
+<p>With this in place, we simply iterate over the tiles and -- if the name appears in our dictionary -- replace the tile with its corresponding entity. Here's <a href="https://github.com/nightblade9/eid-island/blob/7ec52d4a9b33feb87d6e05be0908e449cb1fa330/source/Scripts/MapCreator.gd#L48">an early reference implementation</a> in Eid Island. </p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">Find</span><span class="w"> </span><span class="n">entities</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">map</span><span class="w"> </span><span class="p">(</span><span class="n">eg</span><span class="p">.</span><span class="w"> </span><span class="n">trees</span><span class="p">).</span><span class="w"> </span><span class="n">Remove</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="nf">replace</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="k">with</span><span class="w"></span>
+<span class="err">#</span><span class="w"> </span><span class="nc">real</span><span class="w"> </span><span class="n">entities</span><span class="w"> </span><span class="p">(</span><span class="n">scenes</span><span class="p">)</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="p">(</span><span class="n">attach</span><span class="w"> </span><span class="n">scripts</span><span class="p">)</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">them</span><span class="p">.</span><span class="w"></span>
+<span class="n">func</span><span class="w"> </span><span class="n">_populate_entities</span><span class="p">(</span><span class="k">map</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="nf">var</span><span class="w"> </span><span class="n">possible_tilemaps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">map</span><span class="p">.</span><span class="n">get_children</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">tile_map</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">possible_tilemaps</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">tile_map</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nl">TileMap</span><span class="p">:</span><span class="w"></span>
+<span class="w">            </span><span class="nf">var</span><span class="w"> </span><span class="n">tile_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tile_map</span><span class="p">.</span><span class="n">tile_set</span><span class="w"></span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">cell</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">tile_map</span><span class="p">.</span><span class="n">get_used_cells</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+<span class="w">                </span><span class="nf">var</span><span class="w"> </span><span class="n">tile_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tile_map</span><span class="p">.</span><span class="n">get_cellv</span><span class="p">(</span><span class="n">cell</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="nf">var</span><span class="w"> </span><span class="n">tile_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tile_set</span><span class="p">.</span><span class="n">tile_get_name</span><span class="p">(</span><span class="n">tile_id</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="n">entity_tiles</span><span class="p">.</span><span class="n">has</span><span class="p">(</span><span class="n">tile_name</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                    </span><span class="err">#</span><span class="w"> </span><span class="n">Spawn</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">replace</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">entity</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="n">name</span><span class="w"></span>
+<span class="w">                    </span><span class="nf">var</span><span class="w"> </span><span class="n">scene</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entity_tiles</span><span class="o">[</span><span class="n">tile_name</span><span class="o">]</span><span class="w"></span>
+<span class="w">                    </span><span class="nf">var</span><span class="w"> </span><span class="n">instance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scene</span><span class="p">.</span><span class="n">instance</span><span class="p">()</span><span class="w"></span>
+<span class="w">                    </span><span class="k">map</span><span class="p">.</span><span class="n">add_child</span><span class="p">(</span><span class="n">instance</span><span class="p">)</span><span class="w"></span>
+<span class="w">                    </span><span class="n">instance</span><span class="p">.</span><span class="k">position</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cell</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Globals</span><span class="p">.</span><span class="n">TILE_WIDTH</span><span class="w"></span>
+<span class="w">                    </span><span class="n">instance</span><span class="p">.</span><span class="k">position</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cell</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">Globals</span><span class="p">.</span><span class="n">TILE_HEIGHT</span><span class="w"></span>
+
+<span class="w">                    </span><span class="err">#</span><span class="w"> </span><span class="n">Remove</span><span class="w"> </span><span class="n">tile</span><span class="w"></span>
+<span class="w">                    </span><span class="n">tile_map</span><span class="p">.</span><span class="n">set_cellv</span><span class="p">(</span><span class="n">cell</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+<p><code>Globals.TILE_WIDTH</code> and <code>TILE_HEIGHT</code> refer to the (fixed) tile size; you can, alternatively, use the tileset/tilemap to get the cell size, or use the entity size as a reference (although the entity should be exactly one tile size for that to work).</p>
+<p>With this in place, you can quickly and easily create levels with real functionality from simple tilesets.</p>
+<h2>Next Steps</h2>
+<p>One obvious missing piece of functionality is customization. What if my tile is, say, a door that warps somewhere, and I want to specify the destination properties when I draw the tile? How can I do that?</p>
+<p>Unfortunately, I don't know the answer yet. As far as I know, Godot doesn't allow you to add additional variables/properties to the tile itself. Perhaps you could store the data elsewhere, such as a separate dictionary mapping entity/coordinates to custom data.</p>
+<p>If you know how to solve this latter problem, drop us a note <a href="https://github.com/nightblade99">on Twitter</a> or in the Godot Discord chat so we can use it too!</p></li>
+          <li class="list-group-item text-right">
+            <div class="btn-group">
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/creating-tilemaps-with-tile-entities-in-godot.html#disqus_thread" title="comments">
+                <span class="glyphicon glyphicon-comment" data-disqus-identifier="creating-tilemaps-with-tile-entities-in-godot">
+                </span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/creating-tilemaps-with-tile-entities-in-godot.html" title="permanent link">
+                <span class="glyphicon glyphicon-link"></span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/creating-tilemaps-with-tile-entities-in-godot.html" title="read more">
+                <span class="glyphicon glyphicon-plus"></span></a>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading panel-title">
+        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month09">September</a>
+      <a class="accordion-toggle" data-toggle="collapse" 
+        title="toggle folding"
+        href="#collapseArticle2">
         <span class="pull-right badge">
           #12
         </span>
@@ -128,7 +234,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle1">
+          id="collapseArticle2">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -208,7 +314,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month09">September</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle2">
+        href="#collapseArticle3">
         <span class="pull-right badge">
           #11
         </span>
@@ -226,7 +332,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle2">
+          id="collapseArticle3">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -310,7 +416,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month08">August</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle3">
+        href="#collapseArticle4">
         <span class="pull-right badge">
           #10
         </span>
@@ -328,7 +434,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle3">
+          id="collapseArticle4">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -379,7 +485,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month07">July</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle4">
+        href="#collapseArticle5">
         <span class="pull-right badge">
           #9
         </span>
@@ -397,7 +503,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle4">
+          id="collapseArticle5">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -435,74 +541,6 @@
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-june-2018.html" title="permanent link">
                 <span class="glyphicon glyphicon-link"></span></a>
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-june-2018.html" title="read more">
-                <span class="glyphicon glyphicon-plus"></span></a>
-            </div>
-          </li>
-        </div>
-      </ul>
-    </div>
-
-    <div class="panel panel-primary">
-      <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month06">June</a>
-      <a class="accordion-toggle" data-toggle="collapse" 
-        title="toggle folding"
-        href="#collapseArticle5">
-        <span class="pull-right badge">
-          #8
-        </span>
-      </a>
-      </div>
-
-      <div class="panel-body hidden">
-
-      </div>
-
-      <ul class="list-group">
-        <a href="https://www.deengames.com/blog/2018/how-tiny-rails-quietly-normalizes-islam-and-muslims.html">
-          <li class="list-group-item">
-            <h1>How Tiny Rails Quietly Normalizes Islam and Muslims</h1>
-          </li>
-        </a>
-        <div class="collapse in"
-          id="collapseArticle5">
-          <li class="list-group-item">
-              <span id="article_info">
-    <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/game-design.html">Game Design</a>
-      <b> · </b>
-        <a class="label label-primary"
-          href="https://www.deengames.com/blog/tag/game-design-analysis.html">Game Design Analysis</a>
-    <!--<span class="glyphicon glyphicon-calendar"></span>-->
-      <b> · </b>
-      <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month06">06</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month06">25</a>
-
-    <!--<span class="glyphicon glyphicon-user"></span>-->
-      <b> · </b>
-    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
-  </span>
-
-            <a class="pull-right" href="https://www.deengames.com/blog/2018/how-tiny-rails-quietly-normalizes-islam-and-muslims.html">
-              </a>
-          </li>
-          <li class="list-group-item"><p>One of our main goals at Deen Games is to represent the views of Islam and Muslims in games. Muslims have something of a negative image in games. To paraphrase one video from Extra Credits: "Enemies in FPS games have gradually changed from Nazis to Arabs [Muslims]." One of the games that casually but positively portrays us is Tin Rails.</p>
-<p><img alt="Credit: Tiny Rails Wiki" src="https://i.imgur.com/vxiqEPa.png"> (The Great Mosque of Djenne, Africa. Credit: Tiny Rails wiki)</p>
-<p>Tiny Rails is something of a cult hit on Google Play, with over a million downloads and more than 50k reviews averaging 4.5 stars. You play the role of a small up-and-coming mom-and-pop train company, working to build a name for yourself and grab a cut of the market from bigger, established railroad companies like RailCo.</p>
-<p>The game plays out as something of an idle game. While you can select upgrades, equip cars, plot your destiation, etc. most of the travel time takes place completely automatically with little or no intervention. </p>
-<p>Moments provide one exception to this. While travelling between certain cities, you can randomly stumble upon a real-world landmark, such as the Atlanta Airport or the CN Tower; snapping a picture of this (the in-game camera view automatically appears) nets you a few gold.</p>
-<p>Both of these mechanics subtly and humbly add Islam and Muslims to the mix. Tiny Rails includes eight different moments that document mosques in different parts of the world, ranging from Africa to the Middle East to Russia.  Like any other moments to discover, you receive an in-game reward, encouraging discovery of these moments.</p>
-<p>You can also take a look at which passengers inhabit your train at any given time. Passengers include a visibly-Muslim cast.</p>
-<p><img alt="Credit: Mobile Syrup" src="https://i.imgur.com/PqU40kL.png"> (Getting feedback from train passengers. Credit: Mobile Syrup)</p>
-<p>Both these gameplay elements normalize an otherwise negative image of Muslims and Islam in games. And Tiny Rails pulls it off without any fuss or fan-fare.</p>
-<p>You can grab Tiny Rails <a href="https://play.google.com/store/apps/details?id=com.tinytitanstudios.TrainChu">from Google Play, here</a> if you want to give it a try. It's a great example of how a game can be positive and inclusive and part of their core gameplay.</p></li>
-          <li class="list-group-item text-right">
-            <div class="btn-group">
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/how-tiny-rails-quietly-normalizes-islam-and-muslims.html#disqus_thread" title="comments">
-                <span class="glyphicon glyphicon-comment" data-disqus-identifier="how-tiny-rails-quietly-normalizes-islam-and-muslims">
-                </span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/how-tiny-rails-quietly-normalizes-islam-and-muslims.html" title="permanent link">
-                <span class="glyphicon glyphicon-link"></span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/how-tiny-rails-quietly-normalizes-islam-and-muslims.html" title="read more">
                 <span class="glyphicon glyphicon-plus"></span></a>
             </div>
           </li>
