@@ -1,7 +1,7 @@
 Title: Gem Worlds: November 2021
 Date: 2021-11-13
 Category: Devlog
-Tags: Gem Roguelike
+Tags: Gem Worlds
 
 Hello! I took a month off from game development to focus on some personal, real-life things. Now that it's mostly settled, I'm back full-force into game development. I think it's fair to say, I'm working harder on this game than any I made so far.
 

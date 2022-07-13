@@ -1,7 +1,7 @@
 Title: Gem Worlds Demo, MacOS Support 
 Date: 2022-05-12
 Category: Devlog
-Tags: Gem Roguelike
+Tags: Gem Worlds
 
 ![demo screenshot](https://i.imgur.com/q61MvdI.png)
 

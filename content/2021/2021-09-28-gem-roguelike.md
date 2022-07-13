@@ -1,7 +1,7 @@
 Title: Gem Roguelike: September 2021
 Date: 2021-09-28
 Category: Devlog
-Tags: Gem Roguelike
+Tags: Gem Worlds
 
 Here's me completing a single level in a new run of the gem roguelike:
 

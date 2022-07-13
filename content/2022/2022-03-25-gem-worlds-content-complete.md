@@ -1,7 +1,7 @@
 Title: Gem Worlds: March Update
 Date: 2022-03-25
 Category: Devlog
-Tags: Gem Roguelike
+Tags: Gem Worlds
 
 Hey all, just wanted to drop a quick note and let you know that Gem Worlds is pretty much content-complete. You can play the game from start to finish, and aside from some bugs and missing polish, the game is done.
 

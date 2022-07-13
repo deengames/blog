@@ -1,7 +1,7 @@
 Title: Gem Roguelike: August 2021
 Date: 2021-09-03
 Category: Devlog
-Tags: Gem Roguelike
+Tags: Gem Worlds
 
 What happens if you take a classic gem-collecting boulder-dodging action puzzle, make it turn-based, and add in roguelike elements like skills, monsters, and procedurally-generated levels?
 

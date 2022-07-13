@@ -1,7 +1,7 @@
 Title: Gem Worlds: February Update
 Date: 2022-02-05
 Category: Devlog
-Tags: Gem Roguelike
+Tags: Gem Worlds
 
 <iframe width="728" height="410" src="https://www.youtube.com/embed/xEfzhZbWVms" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 

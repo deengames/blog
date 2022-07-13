@@ -1,7 +1,7 @@
 Title: Gem Worlds: Early December Update
 Date: 2021-12-03
 Category: Devlog
-Tags: Gem Roguelike
+Tags: Gem Worlds
 
 <iframe width="728" height="410" src="https://www.youtube.com/embed/NBENhrPLzb8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
