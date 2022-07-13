@@ -1,4 +1,4 @@
-Title: Gem Worlds Demo, MacOS Support 
+Title: Gem Worlds Terrain Update
 Date: 2022-07-13
 Category: Devlog
 Tags: Gem Worlds
