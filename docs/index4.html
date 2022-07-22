@@ -107,10 +107,252 @@
 
     <div class="panel panel-primary">
       <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a> - <a href="https://www.deengames.com/blog/archives.html#Year2019Month10">October</a>
+        <a href="https://www.deengames.com/blog/archives.html#Year2020">2020</a> - <a href="https://www.deengames.com/blog/archives.html#Year2020Month01">January</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
         href="#collapseArticle1">
+        <span class="pull-right badge">
+          #20
+        </span>
+      </a>
+      </div>
+
+      <div class="panel-body hidden">
+
+      </div>
+
+      <ul class="list-group">
+        <a href="https://www.deengames.com/blog/2020/a-primer-on-aabb-collision-resolution.html">
+          <li class="list-group-item">
+            <h1>A Primer on AABB Collision Resolution</h1>
+          </li>
+        </a>
+        <div class="collapse in"
+          id="collapseArticle1">
+          <li class="list-group-item">
+              <span id="article_info">
+    <a class="label label-primary"
+      href="https://www.deengames.com/blog/category/technical.html">Technical</a>
+      <b> · </b>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/physics.html">Physics</a>
+    <!--<span class="glyphicon glyphicon-calendar"></span>-->
+      <b> · </b>
+      <a href="https://www.deengames.com/blog/archives.html#Year2020">2020</a>-<a href="https://www.deengames.com/blog/archives.html#Year2020Month01">01</a>-<a href="https://www.deengames.com/blog/archives.html#Year2020Month01">30</a>
+
+    <!--<span class="glyphicon glyphicon-user"></span>-->
+      <b> · </b>
+    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+  </span>
+
+            <a class="pull-right" href="https://www.deengames.com/blog/2020/a-primer-on-aabb-collision-resolution.html">
+              </a>
+          </li>
+          <li class="list-group-item"><p><img alt="video demo" src="https://i.imgur.com/GLQzqUP.gif"></p>
+<p>This blog post includes a discussion about AABB collision resolution: what it is and isn't, it's strengths and weaknesses, some common pitfalls, and how you can (hopefully) implement it in your low-level gaming tool of choice, if needed.</p>
+<p>I learned all this (the second time) as part of adding fast/stable collision resolution to <a href="https://nightblade9.github.io/puffin">Puffin</a>, a fast, lightweight 2D game engine built on top of MonoGame.</p>
+<h2>AABB, Collision Detection, and Collision Resolution</h2>
+<p>Some quick definitions to start:</p>
+<ul>
+<li>AABB (Axis Aligned Bounding Boxes) means two non-rotated boxes, that are aligned on one axis. In 2D, everything on the same "layer" or "z" is on the same axis; in 3D, it means your boxes are on the same plane.</li>
+<li>Collsiion detection means detecting if there is a collision (two AABBs overlapping) or will be a collision (eg. in 0.3s these two will start colliding).</li>
+<li>Collision resolution means resolving the collision. Broadly, there are two approaches to this: prevention or pre-collision resolution (stop just at the onset of collision when the two AABBs touch), and post-collision resolution (once two AABBs overlap, move them backward in time until they no longer overlap).</li>
+</ul>
+<p>My approach to AABB uses pre-collision resolution, because it tends to be less complex and more stable.</p>
+<h2>Pros and Cons of AABB</h2>
+<p>Why should you use AABB collision resolution? There are many other options, such as collision points, sphere/line collsion algorithms, polygons, etc.</p>
+<p>The strengths of AABB include:</p>
+<ul>
+<li>It works well in most cases. Most games can do well enough with just bounding boxes on their entities.</li>
+<li>It's relatively simple to code (math-wise), because it's just boxes.</li>
+<li>It's quite cheap computationally (eg. doesn't have an expensive square-root calculation, unlike spherical checks)</li>
+</ul>
+<p>However, it includes some drawbacks:</p>
+<ul>
+<li>It doesn't work with rotated boxes</li>
+<li>It doesn't work well with non-box shapes</li>
+<li>It requires extra work for it to work well with multi-entity collisions</li>
+<li>It's succeptible to "tunnelling" (high-speed objects move through solid objects because of their velocity)</li>
+</ul>
+<p>If you can live with those limitations, I recommend AABB, primarily because it is computationally cheap (works well with a high number of colliding entities).</p>
+<h2>Collision Resolution is Complex, like Physics</h2>
+<p>While AABB collision resolution is <em>relatively</em> easier to code, it doesn't mean it's <em>easy</em> to code. Many game frameworks don't include collision resolution, because this is part of the physics engine.</p>
+<p>Read that again: it's often part of the <em>physics engine</em>. Physics engines are notoriously difficult to get right, and require lots of fiddling and corner-case evaluation. Even high-quality physics engines have limitations, such as tunneling.</p>
+<p>It took me around 10 hours to discover all the caveats and get this to work right. And it works well, including with multi-entity collisions. Test thoroughly.</p>
+<p>That said, my implementation includes a few bonus features:</p>
+<ul>
+<li>It's resistant to collision tunneling (but not impervious)</li>
+<li>It works with multiple objects colliding at the same time</li>
+<li>It allows an object to optionally "collide and slide" along the object it collides with</li>
+</ul>
+<p>With that out of the way, let's dive into the actual theory of how to make a stable AABB resolution, and then some code.</p>
+<h2>High-Level Description of AABB</h2>
+<p>AABB collision resolution works by looking at the X and Y component resolutions of your velocity. Simply put:</p>
+<ul>
+<li>Consider the intended destination of your moving entity (where it will be after updating its position, not where it is now)</li>
+<li>Look at the distance <code>dx</code> to travel before we collide on the X-axis and <code>dy</code> for the Y-axis</li>
+<li>Divide these by your component X-velocity and Y-velocity respectively (<code>vx</code> and <code>vy</code>) to figure out how long before each axis collision takes place (<code>tx</code> and <code>ty</code>)</li>
+<li>Resolve the collision on the axis that collides first</li>
+</ul>
+<p><img alt="AABB sweep test with velocity" src="https://i.imgur.com/gCtzUeJ.png"></p>
+<p>This excellent diagram (credit: LaroLaro on <a href="https://gamedev.stackexchange.com/questions/28577/2d-aabb-vs-aabb-sweep-how-to-calculate-hit-normal">GameDev.SE</a>) shows a moving object (A) that will collide with a second object (B). Based on the component velocities, you can see from the projected A box that the faster collision will be on the Y-axis first.</p>
+<p>Because collision resolution takes place on a single axis at a time, you may end up having to resolve the same collision multiple times to get a stable resolution. I find that running the collision resolution twice suffices.</p>
+<h2>And Now, the Code</h2>
+<p>Below, I discuss some pseudocode that's almost the same as the actual (C#) code from Puffin. The same code can apply to any programming language or framework.</p>
+<p>One unorthodox implementation detail I used: when each entity moves, I make a note of their "intended" destination X/Y. If that location would cause it to collide inside an object, I instead update it so it stops just at the point of collision.  In my pseudocode below, you'll see this as <code>intendedX</code> and <code>intendedY</code>.</p>
+<p>For every collidable entity, you're going to compare it to every other collidable entity. Since we're using AABBs, this is pretty simple: just compare the coordinates plus intended movement of the moving entity, against the entity that isn't moving:</p>
+<div class="highlight"><pre><span></span><code><span class="k">private</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="nf">isAabbCollision</span><span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">x1</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">w1</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">h1</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">x2</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">y2</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">w2</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">h2</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Adapted from https://tutorialedge.net/gamedev/aabb-collision-detection-tutorial/</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">x1</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="p">+</span><span class="w"> </span><span class="n">w2</span><span class="w"> </span><span class="p">&amp;&amp;</span><span class="w"></span>
+<span class="w">        </span><span class="n">x1</span><span class="w"> </span><span class="p">+</span><span class="w"> </span><span class="n">w1</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="n">x2</span><span class="w"> </span><span class="p">&amp;&amp;</span><span class="w"></span>
+<span class="w">        </span><span class="n">y1</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="n">y2</span><span class="w"> </span><span class="p">+</span><span class="w"> </span><span class="n">h2</span><span class="w"> </span><span class="p">&amp;&amp;</span><span class="w"></span>
+<span class="w">        </span><span class="n">y1</span><span class="w"> </span><span class="p">+</span><span class="w"> </span><span class="n">h1</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="n">y2</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>You simply call this with <code>e1.x + e1.velocity.x, e1.y + e1.velocity.y, e1.width, e1.height, e2.x, e2.y, e2.width, e2.height</code> and it will return if they collide or not.</p>
+<p>However, to stop at the point of collision, we need to consider our entity's velocity: if it's moving right, then the distance to collide on the X-axis is the right edge of <code>e1</code> compared to the left-edge of <code>e2</code>. If it's moving left, then vice-versa (left edge of <code>e1</code> vs. the right edge of <code>e2</code>). The same thing applies when we resolve on the Y-axis.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Assuming we have two AABBs, what&#39;s the actual distance between them?</span>
+<span class="c1">// eg. if `e1` is on the left of `e2`, we want `dx` to be `e2.left - e1.right`.</span>
+<span class="k">private</span><span class="w"> </span><span class="nf">static</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="p">)</span><span class="w"> </span><span class="n">CalculateAabbDistanceTo</span><span class="p">(</span><span class="n">Entity</span><span class="w"> </span><span class="n">e1</span><span class="p">,</span><span class="w"> </span><span class="n">Entity</span><span class="w"> </span><span class="n">e2</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">dx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="kt">float</span><span class="w"> </span><span class="n">dy</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e1</span><span class="p">.</span><span class="n">X</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="n">e2</span><span class="p">.</span><span class="n">X</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">dx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">e2</span><span class="p">.</span><span class="n">X</span><span class="w"> </span><span class="p">-</span><span class="w"> </span><span class="p">(</span><span class="n">e1</span><span class="p">.</span><span class="n">X</span><span class="w"> </span><span class="p">+</span><span class="w"> </span><span class="n">e1</span><span class="p">.</span><span class="n">Width</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="n">e1</span><span class="p">.</span><span class="n">X</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="n">e2</span><span class="p">.</span><span class="n">X</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">dx</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">e1</span><span class="p">.</span><span class="n">X</span><span class="w"> </span><span class="p">-</span><span class="w"> </span><span class="p">(</span><span class="n">e2</span><span class="p">.</span><span class="n">X</span><span class="w"> </span><span class="p">+</span><span class="w"> </span><span class="n">e2</span><span class="p">.</span><span class="n">Width</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">e1</span><span class="p">.</span><span class="n">Y</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="n">e2</span><span class="p">.</span><span class="n">Y</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">dy</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">e2</span><span class="p">.</span><span class="n">Y</span><span class="w"> </span><span class="p">-</span><span class="w"> </span><span class="p">(</span><span class="n">e1</span><span class="p">.</span><span class="n">Y</span><span class="w"> </span><span class="p">+</span><span class="w"> </span><span class="n">e1</span><span class="p">.</span><span class="n">Height</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="n">e1</span><span class="p">.</span><span class="n">Y</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="n">e2</span><span class="p">.</span><span class="n">Y</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">dy</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">e1</span><span class="p">.</span><span class="n">Y</span><span class="w"> </span><span class="p">-</span><span class="w"> </span><span class="p">(</span><span class="n">e2</span><span class="p">.</span><span class="n">Y</span><span class="w"> </span><span class="p">+</span><span class="w"> </span><span class="n">e2</span><span class="p">.</span><span class="n">Height</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">dy</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>Then, for every collidable entity, if it results in an AABB collision with another collidable entity, we figure out which axis collides first, based on which one collides first time-wise:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Another entity occupies that space. Use separating axis theorem (SAT)</span>
+<span class="c1">// to see how much we can move, and then move accordingly, resolving at whichever</span>
+<span class="c1">// axis collides first by time (not whichever one is the smallest diff).</span>
+<span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">xDistance</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">yDistance</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">CalculateAabbDistanceTo</span><span class="p">(</span><span class="n">entity</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">);</span><span class="w"></span>
+<span class="p">(</span><span class="kt">float</span><span class="w"> </span><span class="n">xVelocity</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="n">yVelocity</span><span class="p">)</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="n">VelocityX</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="n">VelocityY</span><span class="p">);</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="n">xAxisTimeToCollide</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">xVelocity</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">?</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">xDistance</span><span class="w"> </span><span class="p">/</span><span class="w"> </span><span class="n">xVelocity</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"></span>
+<span class="kt">float</span><span class="w"> </span><span class="n">yAxisTimeToCollide</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">yVelocity</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">?</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">yDistance</span><span class="w"> </span><span class="p">/</span><span class="w"> </span><span class="n">yVelocity</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"></span>
+</code></pre></div>
+
+<p>Resolving collision based on collision time solves some corner-cases where an object is very close to collision on one axis, but moving much faster on the other axis (eg. a player falling off a tall building moves into it, and instead of colliding against the side, he collides with the top).</p>
+<p>Once we know which collision is first, it's easy to resolve if the collision is only on one axis:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">float</span><span class="w"> </span><span class="n">shortestTime</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">xVelocity</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">&amp;&amp;</span><span class="w"> </span><span class="n">yVelocity</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Colliison on X-axis only</span>
+<span class="w">    </span><span class="n">shortestTime</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">xAxisTimeToCollide</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">entity</span><span class="p">.</span><span class="n">IntendedMoveDeltaX</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">shortestTime</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="n">xVelocity</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+<span class="k">else</span><span class="w"> </span><span class="nf">if</span><span class="w"> </span><span class="p">(</span><span class="n">xVelocity</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">&amp;&amp;</span><span class="w"> </span><span class="n">yVelocity</span><span class="w"> </span><span class="p">!=</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Collision on Y-axis only</span>
+<span class="w">    </span><span class="n">shortestTime</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">yAxisTimeToCollide</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">entity</span><span class="p">.</span><span class="n">IntendedMoveDeltaY</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">shortestTime</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="n">yVelocity</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>Finally, the most complex case: what do we do if the object would collide on both X- and Y-axes? We resolve the fastest collision first:</p>
+<div class="highlight"><pre><span></span><code><span class="k">else</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Collision on X and Y axis (eg. slide up against a wall)</span>
+<span class="w">    </span><span class="n">shortestTime</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Min</span><span class="p">(</span><span class="n">Math</span><span class="p">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">xAxisTimeToCollide</span><span class="p">),</span><span class="w"> </span><span class="n">Math</span><span class="p">.</span><span class="n">Abs</span><span class="p">(</span><span class="n">yAxisTimeToCollide</span><span class="p">));</span><span class="w"></span>
+<span class="w">    </span><span class="n">entity</span><span class="p">.</span><span class="n">IntendedMoveDeltaX</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">shortestTime</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="n">xVelocity</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">entity</span><span class="p">.</span><span class="n">IntendedMoveDeltaY</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">shortestTime</span><span class="w"> </span><span class="p">*</span><span class="w"> </span><span class="n">yVelocity</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<p>Easy! If it would take 0.1s to collide on the X-axis, and 0.2 on the Y-axis, we increment the entity's X and Y by their velocity times 0.1 (the faster collision time).</p>
+<p>Finally, for stable resolutions, make sure you run the collision resolution twice per update. Since MonoGame-based frameworks give you the update time, simply run the update twice, with half of the elapsed time, each update:</p>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">halfElapsed</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">TimeSpan</span><span class="p">.</span><span class="n">FromMilliseconds</span><span class="p">(</span><span class="n">elapsed</span><span class="p">.</span><span class="n">TotalMilliseconds</span><span class="w"> </span><span class="p">/</span><span class="w"> </span><span class="m">2</span><span class="p">);</span><span class="w"></span>
+<span class="c1">// Resolve collisions twice to stabilize multi-collisions.</span>
+<span class="k">this</span><span class="p">.</span><span class="n">ProcessMovement</span><span class="p">(</span><span class="n">halfElapsed</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">);</span><span class="w"></span>
+<span class="k">this</span><span class="p">.</span><span class="n">ProcessMovement</span><span class="p">(</span><span class="n">halfElapsed</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">);</span><span class="w"></span>
+</code></pre></div>
+
+<p>That's it, you're done!</p>
+<h2>Slide on Collide</h2>
+<p>With basic collision resolution out of the way, you might ask "how do I slide up against the target object instead of simply stopping abruptly?"</p>
+<p>The answer to that caused about 50% of my development time. The answer is "you collide as usual but then move on the other axis as much as is reasonable," where reasonable means "don't move so much you collide with something else." In this case, don't slide if doing so would land you in another AABB collision.</p>
+<p>Another complication I can't explain well is my need to refer to the "old" intended X/Y distances; I'm not 100% sure at this moment why I needed those, but those are needed for a proper resolution.</p>
+<p>Some code:</p>
+<div class="highlight"><pre><span></span><code><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="n">SlideOnCollide</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Setting oldIntendedX/oldIntendedY might put us directly inside another solid thing.</span>
+<span class="w">        </span><span class="c1">// No worries, we resolve collisions twice, so the second iteration will catch it.</span>
+
+<span class="w">        </span><span class="c1">// Resolved collision on the X-axis first</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">shortestTime</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">xAxisTimeToCollide</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// Slide vertically</span>
+<span class="w">            </span><span class="n">entity</span><span class="p">.</span><span class="n">IntendedMoveDeltaX</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// If we&#39;re in a corner, don&#39;t resolve incorrectly; move only if we&#39;re clear on the Y-axis.</span>
+<span class="w">            </span><span class="c1">// Fixes a bug where you  move a lot in the corner (left/right/left/right) and suddenly go through the wall. </span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(!</span><span class="n">isAabbCollision</span><span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="n">Y</span><span class="w"> </span><span class="p">+</span><span class="w"> </span><span class="n">oldIntendedY</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="n">Height</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">collideAgainst</span><span class="p">.</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">collideAgainst</span><span class="p">.</span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="n">Height</span><span class="p">))</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="n">entity</span><span class="p">.</span><span class="n">IntendedMoveDeltaY</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">oldIntendedY</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="c1">// Resolved collision on the Y-axis first</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">shortestTime</span><span class="w"> </span><span class="p">==</span><span class="w"> </span><span class="n">yAxisTimeToCollide</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// Slide horizontally</span>
+<span class="w">            </span><span class="n">entity</span><span class="p">.</span><span class="n">IntendedMoveDeltaY</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="m">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">            </span><span class="c1">// If we&#39;re in a corner, don&#39;t resolve incorrectly; move only if we&#39;re clear on the X-axis.</span>
+<span class="w">            </span><span class="c1">// Fixes a bug where you  move a lot in the corner (left/right/left/right) and suddenly go through the wall.</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(!</span><span class="n">isAabbCollision</span><span class="p">(</span><span class="n">entity</span><span class="p">.</span><span class="n">X</span><span class="w"> </span><span class="p">+</span><span class="w"> </span><span class="n">oldIntendedX</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="n">Height</span><span class="p">,</span><span class="w"></span>
+<span class="w">                </span><span class="n">collideAgainst</span><span class="p">.</span><span class="n">X</span><span class="p">,</span><span class="w"> </span><span class="n">collideAgainst</span><span class="p">.</span><span class="n">Y</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="n">Width</span><span class="p">,</span><span class="w"> </span><span class="n">target</span><span class="p">.</span><span class="n">Height</span><span class="p">))</span><span class="w"></span>
+<span class="w">                </span><span class="p">{</span><span class="w"></span>
+<span class="w">                    </span><span class="n">entity</span><span class="p">.</span><span class="n">IntendedMoveDeltaX</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="n">oldIntendedX</span><span class="p">;</span><span class="w"></span>
+<span class="w">                </span><span class="p">}</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</code></pre></div>
+
+<h2>Wrapping it All Up</h2>
+<p>That concludes a somewhat whirlwind tour of AABB collision detection. I hope you came out of it understanding the pros and cons, how to assess when you need it or not, and enough pseudo-code to actually get it working for you.</p>
+<p>I would love to hear from you! If you have any feedback, please drop me a message/tweet <a href="https://twitter.com/nightblade99">on Twitter</a>.</p></li>
+          <li class="list-group-item text-right">
+            <div class="btn-group">
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2020/a-primer-on-aabb-collision-resolution.html#disqus_thread" title="comments">
+                <span class="glyphicon glyphicon-comment" data-disqus-identifier="a-primer-on-aabb-collision-resolution">
+                </span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2020/a-primer-on-aabb-collision-resolution.html" title="permanent link">
+                <span class="glyphicon glyphicon-link"></span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2020/a-primer-on-aabb-collision-resolution.html" title="read more">
+                <span class="glyphicon glyphicon-plus"></span></a>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading panel-title">
+        <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a> - <a href="https://www.deengames.com/blog/archives.html#Year2019Month10">October</a>
+      <a class="accordion-toggle" data-toggle="collapse" 
+        title="toggle folding"
+        href="#collapseArticle2">
         <span class="pull-right badge">
           #19
         </span>
@@ -128,7 +370,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle1">
+          id="collapseArticle2">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -199,7 +441,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a> - <a href="https://www.deengames.com/blog/archives.html#Year2019Month08">August</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle2">
+        href="#collapseArticle3">
         <span class="pull-right badge">
           #18
         </span>
@@ -217,7 +459,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle2">
+          id="collapseArticle3">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -349,7 +591,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a> - <a href="https://www.deengames.com/blog/archives.html#Year2019Month06">June</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle3">
+        href="#collapseArticle4">
         <span class="pull-right badge">
           #17
         </span>
@@ -367,7 +609,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle3">
+          id="collapseArticle4">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -454,7 +696,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a> - <a href="https://www.deengames.com/blog/archives.html#Year2019Month05">May</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle4">
+        href="#collapseArticle5">
         <span class="pull-right badge">
           #16
         </span>
@@ -472,7 +714,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle4">
+          id="collapseArticle5">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -572,76 +814,6 @@
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2019/getting-started-with-unit-and-integration-testing-in-godot.html" title="permanent link">
                 <span class="glyphicon glyphicon-link"></span></a>
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2019/getting-started-with-unit-and-integration-testing-in-godot.html" title="read more">
-                <span class="glyphicon glyphicon-plus"></span></a>
-            </div>
-          </li>
-        </div>
-      </ul>
-    </div>
-
-    <div class="panel panel-primary">
-      <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a> - <a href="https://www.deengames.com/blog/archives.html#Year2019Month04">April</a>
-      <a class="accordion-toggle" data-toggle="collapse" 
-        title="toggle folding"
-        href="#collapseArticle5">
-        <span class="pull-right badge">
-          #15
-        </span>
-      </a>
-      </div>
-
-      <div class="panel-body hidden">
-
-      </div>
-
-      <ul class="list-group">
-        <a href="https://www.deengames.com/blog/2019/godot-game-crashes-on-startup-logo-showshides.html">
-          <li class="list-group-item">
-            <h1>Godot Game Crashes On Startup, Logo Shows/Hides</h1>
-          </li>
-        </a>
-        <div class="collapse in"
-          id="collapseArticle5">
-          <li class="list-group-item">
-              <span id="article_info">
-    <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/technical.html">Technical</a>
-      <b> · </b>
-        <a class="label label-primary"
-          href="https://www.deengames.com/blog/tag/godot.html">Godot</a>
-        <a class="label label-primary"
-          href="https://www.deengames.com/blog/tag/android.html">Android</a>
-    <!--<span class="glyphicon glyphicon-calendar"></span>-->
-      <b> · </b>
-      <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month04">04</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month04">29</a>
-
-    <!--<span class="glyphicon glyphicon-user"></span>-->
-      <b> · </b>
-    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
-  </span>
-
-            <a class="pull-right" href="https://www.deengames.com/blog/2019/godot-game-crashes-on-startup-logo-showshides.html">
-              </a>
-          </li>
-          <li class="list-group-item"><p>I recently rebuilt a small app/game using Godot. For reference, the game contained one core loop, and took about four hours to build (from scratch). I reused all of the assets from the previous version of the game (audio and graphics), which took the bulk of development time on the original.</p>
-<p>The game built and ran flawlessly in Godot on Windows. As soon as I ran it on Android, the game briefly showed the Godot loading logo for ~100ms, then it disappeared, then reappeared/disappeared around four times (you can see the original issue I opened about on GitHub, <a href="https://github.com/godotengine/godot/issues/27583">here</a>).</p>
-<p>The root cause of all this was multiple resources preloading the same script. I had a scene that preloaded <code>HelperScript.gd</code> and then <code>Second.tscn</code>; but <code>Second.tscn</code> also preloaded <code>HelperScript.gd</code>, causing the crash.</p>
-<p>I found three different ways to address this problem:</p>
-<ul>
-<li><strong>Use singletons.</strong> Instead of preloading <code>HelperScript.gd</code> everywhere, I simply added it to the list of auto-loaded singletons in Godot. Problem solved. (This solution also makes sense, because I needed the same common method from <code>HelperScript.gd</code>.)</li>
-<li><strong>Use <code>load</code> instead of <code>preload</code>.</strong> This makes me think <code>preload</code> is bugged; calling <code>load</code> succeeds without any issues. Obviously, this has performance implications - you may <em>want</em> to preload your entire game at startup time.</li>
-<li><strong>Refactor.</strong> In my case, I needed a common function from a shared script. What if I used the same file, but two different functions? Perhaps I could split <code>HelperScript.gd</code> into two different scripts, and just load what I need instead.</li>
-</ul>
-<p>If you find your Godot game crashes on startup without explanation, maybe this is something you can investigate. (Failing that, go for a <code>git bisect</code> and try to isolate the commit that broke everything.)</p></li>
-          <li class="list-group-item text-right">
-            <div class="btn-group">
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2019/godot-game-crashes-on-startup-logo-showshides.html#disqus_thread" title="comments">
-                <span class="glyphicon glyphicon-comment" data-disqus-identifier="godot-game-crashes-on-startup-logo-showshides">
-                </span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2019/godot-game-crashes-on-startup-logo-showshides.html" title="permanent link">
-                <span class="glyphicon glyphicon-link"></span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2019/godot-game-crashes-on-startup-logo-showshides.html" title="read more">
                 <span class="glyphicon glyphicon-plus"></span></a>
             </div>
           </li>

@@ -6,7 +6,7 @@
     <meta name="description" content="Deen Games Blog">
     <meta name="author" content="nightblade">
 
-        <title>Gem Worlds Terrain Update · Deen Games Blog</title>
+        <title>Publishing Godot Games to Steam for MacOS without Hardware · Deen Games Blog</title>
 
 
     <!-- Bootstrap core CSS -->
@@ -25,16 +25,17 @@
 
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
-    <meta property="og:title" content="Gem Worlds Terrain Update" />
+    <meta property="og:title" content="Publishing Godot Games to Steam for MacOS without Hardware" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://i.imgur.com/nRbaVgu.png" />
-    <meta property="og:url" content="https://www.deengames.com/blog\2022/gem-worlds-terrain-update.html" />
-    <meta property="og:description" content="Hello! I made lots of changes to Gem Worlds over the last couple of months, based on player feedback that the game could use more interesting interactions between things in-world. Based on that, I added a few terrain types to the game; they generate in each world: Teleporters: previously existed …" />
+    <meta property="og:image" content="https://i.imgur.com/VXjBne7.png" />
+    <meta property="og:url" content="https://www.deengames.com/blog\2022/publishing-godot-games-to-steam-for-macos-without-hardware.html" />
+    <meta property="og:description" content="Are you working on a Godot desktop game? Would you like to publish it to MacOS, without the pain of learning about MacOS-specific requirements like signing, notorization, and paying $99/year? The good news is, if you plan to publish your game on Steam, you can easily do this, without …" />
     <meta property="og:locale" content="" />
     <meta property="og:site_name" content="Deen Games Blog" />
-    <meta property="article:published_time" content="2022-07-13" />
-    <meta property="article:section" content="Devlog" />
-    <meta property="article:tag" content="Gem Worlds" />
+    <meta property="article:published_time" content="2022-07-22" />
+    <meta property="article:section" content="Technical" />
+    <meta property="article:tag" content="Godot" />
+    <meta property="article:tag" content="MacOS" />
   
 </head>
 
@@ -95,7 +96,7 @@
       <div class="col-md-8">
         <div class="row">
               <div class="page-header">
-        <h1><a href="https://www.deengames.com/blog/2022/gem-worlds-terrain-update.html">Gem Worlds Terrain Update</a></h1>
+        <h1><a href="https://www.deengames.com/blog/2022/publishing-godot-games-to-steam-for-macos-without-hardware.html">Publishing Godot Games to Steam for MacOS without Hardware</a></h1>
     </div>
 
         </div>
@@ -104,13 +105,15 @@
 
     <span id="article_info">
     <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/devlog.html">Devlog</a>
+      href="https://www.deengames.com/blog/category/technical.html">Technical</a>
       <b> · </b>
         <a class="label label-primary"
-          href="https://www.deengames.com/blog/tag/gem-worlds.html">Gem Worlds</a>
+          href="https://www.deengames.com/blog/tag/godot.html">Godot</a>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/macos.html">MacOS</a>
     <!--<span class="glyphicon glyphicon-calendar"></span>-->
       <b> · </b>
-      <a href="https://www.deengames.com/blog/archives.html#Year2022">2022</a>-<a href="https://www.deengames.com/blog/archives.html#Year2022Month07">07</a>-<a href="https://www.deengames.com/blog/archives.html#Year2022Month07">13</a>
+      <a href="https://www.deengames.com/blog/archives.html#Year2022">2022</a>-<a href="https://www.deengames.com/blog/archives.html#Year2022Month07">07</a>-<a href="https://www.deengames.com/blog/archives.html#Year2022Month07">22</a>
 
     <!--<span class="glyphicon glyphicon-user"></span>-->
       <b> · </b>
@@ -120,23 +123,30 @@
   <hr/>
 
   <div id="article_content">
-    <p><img alt="demo screenshot" src="https://i.imgur.com/nRbaVgu.png"></p>
-<p>Hello! I made lots of changes to Gem Worlds over the last couple of months, based on player feedback that the game could use more interesting interactions between things in-world.</p>
-<p>Based on that, I added a few terrain types to the game; they generate in each world:</p>
+    <p><img alt="Godot and Mac" src="https://i.imgur.com/VXjBne7.png"></p>
+<p>Are you working on a Godot desktop game? Would you like to publish it to MacOS, without the pain of learning about MacOS-specific requirements like signing, notorization, and paying $99/year?</p>
+<p>The good news is, if you plan to publish your game on Steam, you can easily do this, without Mac hardware. My inspiration for this is: be the change you want to see in the world. Publish your game for Mac (and Linux), so the market grows, and more great games support these OSes.</p>
+<p>If you're interested in how to do this, skip the section below; if you're interested in how this all works (sort of), the next section gives a very brief overview of the problem.</p>
+<h2>Preamble: Signing, Notarization, and DMG Files</h2>
+<p>I don't pretend to understand how all this works. My understanding, as someone who mainly uses Unix and Windows, is the following:</p>
 <ul>
-<li>Teleporters: previously existed, but now exist in every world</li>
-<li>Light Stars: they move back and forth, even through dirt tiles</li>
-<li>Receeding blocks traps: once you step on them, they pop up into walls for a few turns, then reset</li>
+<li>Like Windows, Mac OS requires developers to "sign" their apps with a cryptographic key of some sort</li>
+<li>Unsigned apps previously run on Mac OS with a warning; as of writing (2022 June), they no longer run at all.</li>
+<li>Notarization is a more scrutenized form of signing, and requires sending your app to Apple to approve</li>
+<li>DMG files are native to Mac, and internally contain an .app file</li>
 </ul>
-<p>I also added, then scrapped, a couple of terrain:</p>
+<p>The key thing here: the DMG contains an .app "file" (looks like an executable on MacOS), which is actually a zip file. That zip contains your actual binaries.</p>
+<h2>MacOS and Steam</h2>
+<p>Follow these steps:</p>
 <ul>
-<li>Pipes, which move you from one spot to another (inspired by Supaplex's pipes)</li>
-<li>Conveyor belts, which constantly move everything on them</li>
+<li>Create a new export profile for Mac. Configure as you like (e.g. exclusion files)</li>
+<li>On a non-Mac system, export your project for Mac. If you're using the CLI, make sure you speify the output file name as a zip file (e.g. <code>Game-MacOS.zip</code>)</li>
+<li>Verify the zip contents: it should have a <code>Game.app</code> directory (with <code>Game</code> replaced with your game name) at the root, with a <code>Contents</code> subdirectory</li>
+<li>Upload that zip to Steam</li>
+<li>Set up your launch options. According to the <a href="https://partner.steamgames.com/doc/sdk/uploading#Initial_Setup_New_App">current Steamworks docs</a>, for MacOS, your <code>Executable</code> should be set to <code>Game.app/Contents/MacOS/Game</code> (replace <code>Game</code> with your actual game name / folder name). </li>
 </ul>
-<p>Conveyor belts added a lot of interesting dynamics to the game. Unfortunately, they also contributed a disproportionately huge amount of bugs. In the end, I scrapped them.</p>
-<p>Meanwhile, they also exposed a huge performance issue, where moving caused a drop of ~130ms (roughly ten frames). Fixing this required ripping out and rewriting the main collision-detection system, which resulted in an explosion of bugs, and took way too many weeks to fix. Alhamdulillah, those are all fixed now.</p>
-<p>I also added (again based on played feedback) keys and locks! In every 5th and 10th level of each world, the exit appears from the start, but lock blocks surround it; you need to find one (or three) keys to unlock them and exit.</p>
-<p>I'm looking forward to shipping a new v0.5.0 demo soon inshaAllah, and getting (and integrating) more feedback and features into the game. When that ships, I would really appreciate it if you could give it a quick play-through, and let me know your thoughts.</p>
+<p>And that's it! If you launch the game on Mac, it should just work!</p>
+<p>Finally: I recommend you always make sure someone with Mac hardware tests your game to ensure it launches correctly. If you don't have a friend with a Mac, you can always ask me on <a href="https://twitter.com/nightblade99">Twitter</a> or by <a href="mailto:nightbladecodes@gmail.com">email</a> to try it out.</p>
     
     <hr />
 <p><strong>Liked our updates?</strong> <a href="https://www.getrevue.co/profile/deengames">Subscribe to our newsletter</a> to get access to our game demos and exclusive insider updates!</p>
@@ -146,12 +156,12 @@
   <hr/>
 
       <ul class="pager">
-        <li class="previous">
-          <a href="https://www.deengames.com/blog/2022/publishing-godot-games-to-steam-for-macos-without-hardware.html">
+        <li class="previous disabled">
+          <a >
           &laquo; Newer</a>
         </li>
         <li class="next">
-          <a href="https://www.deengames.com/blog/2022/gem-worlds-demo-macos-support.html">
+          <a href="https://www.deengames.com/blog/2022/gem-worlds-terrain-update.html">
           Older &raquo;</a>
         </li>
       </ul>

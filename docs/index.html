@@ -112,6 +112,90 @@
         title="toggle folding"
         href="#collapseArticle1">
         <span class="pull-right badge">
+          #35
+        </span>
+      </a>
+      </div>
+
+      <div class="panel-body hidden">
+
+      </div>
+
+      <ul class="list-group">
+        <a href="https://www.deengames.com/blog/2022/publishing-godot-games-to-steam-for-macos-without-hardware.html">
+          <li class="list-group-item">
+            <h1>Publishing Godot Games to Steam for MacOS without Hardware</h1>
+          </li>
+        </a>
+        <div class="collapse in"
+          id="collapseArticle1">
+          <li class="list-group-item">
+              <span id="article_info">
+    <a class="label label-primary"
+      href="https://www.deengames.com/blog/category/technical.html">Technical</a>
+      <b> · </b>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/godot.html">Godot</a>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/macos.html">MacOS</a>
+    <!--<span class="glyphicon glyphicon-calendar"></span>-->
+      <b> · </b>
+      <a href="https://www.deengames.com/blog/archives.html#Year2022">2022</a>-<a href="https://www.deengames.com/blog/archives.html#Year2022Month07">07</a>-<a href="https://www.deengames.com/blog/archives.html#Year2022Month07">22</a>
+
+    <!--<span class="glyphicon glyphicon-user"></span>-->
+      <b> · </b>
+    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+  </span>
+
+            <a class="pull-right" href="https://www.deengames.com/blog/2022/publishing-godot-games-to-steam-for-macos-without-hardware.html">
+              </a>
+          </li>
+          <li class="list-group-item"><p><img alt="Godot and Mac" src="https://i.imgur.com/VXjBne7.png"></p>
+<p>Are you working on a Godot desktop game? Would you like to publish it to MacOS, without the pain of learning about MacOS-specific requirements like signing, notorization, and paying $99/year?</p>
+<p>The good news is, if you plan to publish your game on Steam, you can easily do this, without Mac hardware. My inspiration for this is: be the change you want to see in the world. Publish your game for Mac (and Linux), so the market grows, and more great games support these OSes.</p>
+<p>If you're interested in how to do this, skip the section below; if you're interested in how this all works (sort of), the next section gives a very brief overview of the problem.</p>
+<h2>Preamble: Signing, Notarization, and DMG Files</h2>
+<p>I don't pretend to understand how all this works. My understanding, as someone who mainly uses Unix and Windows, is the following:</p>
+<ul>
+<li>Like Windows, Mac OS requires developers to "sign" their apps with a cryptographic key of some sort</li>
+<li>Unsigned apps previously run on Mac OS with a warning; as of writing (2022 June), they no longer run at all.</li>
+<li>Notarization is a more scrutenized form of signing, and requires sending your app to Apple to approve</li>
+<li>DMG files are native to Mac, and internally contain an .app file</li>
+</ul>
+<p>The key thing here: the DMG contains an .app "file" (looks like an executable on MacOS), which is actually a zip file. That zip contains your actual binaries.</p>
+<h2>MacOS and Steam</h2>
+<p>Follow these steps:</p>
+<ul>
+<li>Create a new export profile for Mac. Configure as you like (e.g. exclusion files)</li>
+<li>On a non-Mac system, export your project for Mac. If you're using the CLI, make sure you speify the output file name as a zip file (e.g. <code>Game-MacOS.zip</code>)</li>
+<li>Verify the zip contents: it should have a <code>Game.app</code> directory (with <code>Game</code> replaced with your game name) at the root, with a <code>Contents</code> subdirectory</li>
+<li>Upload that zip to Steam</li>
+<li>Set up your launch options. According to the <a href="https://partner.steamgames.com/doc/sdk/uploading#Initial_Setup_New_App">current Steamworks docs</a>, for MacOS, your <code>Executable</code> should be set to <code>Game.app/Contents/MacOS/Game</code> (replace <code>Game</code> with your actual game name / folder name). </li>
+</ul>
+<p>And that's it! If you launch the game on Mac, it should just work!</p>
+<p>Finally: I recommend you always make sure someone with Mac hardware tests your game to ensure it launches correctly. If you don't have a friend with a Mac, you can always ask me on <a href="https://twitter.com/nightblade99">Twitter</a> or by <a href="mailto:nightbladecodes@gmail.com">email</a> to try it out.</p></li>
+          <li class="list-group-item text-right">
+            <div class="btn-group">
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2022/publishing-godot-games-to-steam-for-macos-without-hardware.html#disqus_thread" title="comments">
+                <span class="glyphicon glyphicon-comment" data-disqus-identifier="publishing-godot-games-to-steam-for-macos-without-hardware">
+                </span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2022/publishing-godot-games-to-steam-for-macos-without-hardware.html" title="permanent link">
+                <span class="glyphicon glyphicon-link"></span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2022/publishing-godot-games-to-steam-for-macos-without-hardware.html" title="read more">
+                <span class="glyphicon glyphicon-plus"></span></a>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading panel-title">
+        <a href="https://www.deengames.com/blog/archives.html#Year2022">2022</a> - <a href="https://www.deengames.com/blog/archives.html#Year2022Month07">July</a>
+      <a class="accordion-toggle" data-toggle="collapse" 
+        title="toggle folding"
+        href="#collapseArticle2">
+        <span class="pull-right badge">
           #34
         </span>
       </a>
@@ -128,7 +212,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle1">
+          id="collapseArticle2">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -185,7 +269,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2022">2022</a> - <a href="https://www.deengames.com/blog/archives.html#Year2022Month05">May</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle2">
+        href="#collapseArticle3">
         <span class="pull-right badge">
           #33
         </span>
@@ -203,7 +287,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle2">
+          id="collapseArticle3">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -256,7 +340,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2022">2022</a> - <a href="https://www.deengames.com/blog/archives.html#Year2022Month03">March</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle3">
+        href="#collapseArticle4">
         <span class="pull-right badge">
           #32
         </span>
@@ -274,7 +358,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle3">
+          id="collapseArticle4">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -350,7 +434,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2022">2022</a> - <a href="https://www.deengames.com/blog/archives.html#Year2022Month03">March</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle4">
+        href="#collapseArticle5">
         <span class="pull-right badge">
           #31
         </span>
@@ -368,7 +452,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle4">
+          id="collapseArticle5">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -406,79 +490,6 @@
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2022/gem-worlds-march-update.html" title="permanent link">
                 <span class="glyphicon glyphicon-link"></span></a>
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2022/gem-worlds-march-update.html" title="read more">
-                <span class="glyphicon glyphicon-plus"></span></a>
-            </div>
-          </li>
-        </div>
-      </ul>
-    </div>
-
-    <div class="panel panel-primary">
-      <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2022">2022</a> - <a href="https://www.deengames.com/blog/archives.html#Year2022Month02">February</a>
-      <a class="accordion-toggle" data-toggle="collapse" 
-        title="toggle folding"
-        href="#collapseArticle5">
-        <span class="pull-right badge">
-          #30
-        </span>
-      </a>
-      </div>
-
-      <div class="panel-body hidden">
-
-      </div>
-
-      <ul class="list-group">
-        <a href="https://www.deengames.com/blog/2022/gem-worlds-february-update.html">
-          <li class="list-group-item">
-            <h1>Gem Worlds: February Update</h1>
-          </li>
-        </a>
-        <div class="collapse in"
-          id="collapseArticle5">
-          <li class="list-group-item">
-              <span id="article_info">
-    <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/devlog.html">Devlog</a>
-      <b> · </b>
-        <a class="label label-primary"
-          href="https://www.deengames.com/blog/tag/gem-worlds.html">Gem Worlds</a>
-    <!--<span class="glyphicon glyphicon-calendar"></span>-->
-      <b> · </b>
-      <a href="https://www.deengames.com/blog/archives.html#Year2022">2022</a>-<a href="https://www.deengames.com/blog/archives.html#Year2022Month02">02</a>-<a href="https://www.deengames.com/blog/archives.html#Year2022Month02">05</a>
-
-    <!--<span class="glyphicon glyphicon-user"></span>-->
-      <b> · </b>
-    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
-  </span>
-
-            <a class="pull-right" href="https://www.deengames.com/blog/2022/gem-worlds-february-update.html">
-              </a>
-          </li>
-          <li class="list-group-item"><iframe width="728" height="410" src="https://www.youtube.com/embed/xEfzhZbWVms" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-<p>It's been a crazy two months since I wrote the last blog post. In the last post, I talked about the 21 skills and ten worlds. Since then, I <a href="https://store.steampowered.com/app/1858760?utm_source=blog">launched the game on Steam</a>. Based on the first month worth of metrics, it looks like the game will be a flop. (Steam gamers tend to like deep games, tend to hate puzzle games, and it looks like the roguelike aspects of this game aren't enough to lift it out of the puzzle genre.)</p>
-<p>Instead of dropping the project, I decided to cut scope, and cut the number of worlds in half, from ten to five. This will save me anything from weeks to months of development, and will allow me to shine a light on other, much-needed areas - such as audio production. Plus, if players enjoy the game, I can always add more worlds and skills later.</p>
-<p>That brings us to the completion of the fourth of five worlds. Here's a list of some of the interesting enemies you encounter in the third and fourth world:</p>
-<ul>
-<li>An ice-mimic in the ice world. It looks like an ice cube, and spawns breakable ice walls as it walks.</li>
-<li>A bee-hive in the tree world; it spawns cute bees, which (sadly) can be killed, but eventually respawn.</li>
-<li>A creature that waits for you to approach, and once you do, relentlessly stalks you</li>
-<li>Troublesome teleporting tree pixies that hit you and teleport away</li>
-</ul>
-<p>You can see (if you look carefully) two ice mimics here: <img alt="ice mimimcs in the ice world" src="https://pbs.twimg.com/media/FJvTkb2XEAAXkjZ?format=jpg&amp;name=large"></p>
-<p>Here's a brief preview of the fifth and final (space / spaceship) world, featuring laser fields that oscillate on and off, and damage anything inside:</p>
-<p><img alt="laser field" src="https://i.imgur.com/z56vkiD.png"></p>
-<p>That's it for this month! If you would like to recieve weekly updates, you can sign up to <a href="https://www.getrevue.co/profile/deengames">my newsletter</a>. That's the best place to get updates about the game; plus, I'll be sharing the password for the beta there, when it's ready.</p></li>
-          <li class="list-group-item text-right">
-            <div class="btn-group">
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2022/gem-worlds-february-update.html#disqus_thread" title="comments">
-                <span class="glyphicon glyphicon-comment" data-disqus-identifier="gem-worlds-february-update">
-                </span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2022/gem-worlds-february-update.html" title="permanent link">
-                <span class="glyphicon glyphicon-link"></span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2022/gem-worlds-february-update.html" title="read more">
                 <span class="glyphicon glyphicon-plus"></span></a>
             </div>
           </li>

@@ -107,10 +107,80 @@
 
     <div class="panel panel-primary">
       <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a> - <a href="https://www.deengames.com/blog/archives.html#Year2019Month03">March</a>
+        <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a> - <a href="https://www.deengames.com/blog/archives.html#Year2019Month04">April</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
         href="#collapseArticle1">
+        <span class="pull-right badge">
+          #15
+        </span>
+      </a>
+      </div>
+
+      <div class="panel-body hidden">
+
+      </div>
+
+      <ul class="list-group">
+        <a href="https://www.deengames.com/blog/2019/godot-game-crashes-on-startup-logo-showshides.html">
+          <li class="list-group-item">
+            <h1>Godot Game Crashes On Startup, Logo Shows/Hides</h1>
+          </li>
+        </a>
+        <div class="collapse in"
+          id="collapseArticle1">
+          <li class="list-group-item">
+              <span id="article_info">
+    <a class="label label-primary"
+      href="https://www.deengames.com/blog/category/technical.html">Technical</a>
+      <b> · </b>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/godot.html">Godot</a>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/android.html">Android</a>
+    <!--<span class="glyphicon glyphicon-calendar"></span>-->
+      <b> · </b>
+      <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month04">04</a>-<a href="https://www.deengames.com/blog/archives.html#Year2019Month04">29</a>
+
+    <!--<span class="glyphicon glyphicon-user"></span>-->
+      <b> · </b>
+    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+  </span>
+
+            <a class="pull-right" href="https://www.deengames.com/blog/2019/godot-game-crashes-on-startup-logo-showshides.html">
+              </a>
+          </li>
+          <li class="list-group-item"><p>I recently rebuilt a small app/game using Godot. For reference, the game contained one core loop, and took about four hours to build (from scratch). I reused all of the assets from the previous version of the game (audio and graphics), which took the bulk of development time on the original.</p>
+<p>The game built and ran flawlessly in Godot on Windows. As soon as I ran it on Android, the game briefly showed the Godot loading logo for ~100ms, then it disappeared, then reappeared/disappeared around four times (you can see the original issue I opened about on GitHub, <a href="https://github.com/godotengine/godot/issues/27583">here</a>).</p>
+<p>The root cause of all this was multiple resources preloading the same script. I had a scene that preloaded <code>HelperScript.gd</code> and then <code>Second.tscn</code>; but <code>Second.tscn</code> also preloaded <code>HelperScript.gd</code>, causing the crash.</p>
+<p>I found three different ways to address this problem:</p>
+<ul>
+<li><strong>Use singletons.</strong> Instead of preloading <code>HelperScript.gd</code> everywhere, I simply added it to the list of auto-loaded singletons in Godot. Problem solved. (This solution also makes sense, because I needed the same common method from <code>HelperScript.gd</code>.)</li>
+<li><strong>Use <code>load</code> instead of <code>preload</code>.</strong> This makes me think <code>preload</code> is bugged; calling <code>load</code> succeeds without any issues. Obviously, this has performance implications - you may <em>want</em> to preload your entire game at startup time.</li>
+<li><strong>Refactor.</strong> In my case, I needed a common function from a shared script. What if I used the same file, but two different functions? Perhaps I could split <code>HelperScript.gd</code> into two different scripts, and just load what I need instead.</li>
+</ul>
+<p>If you find your Godot game crashes on startup without explanation, maybe this is something you can investigate. (Failing that, go for a <code>git bisect</code> and try to isolate the commit that broke everything.)</p></li>
+          <li class="list-group-item text-right">
+            <div class="btn-group">
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2019/godot-game-crashes-on-startup-logo-showshides.html#disqus_thread" title="comments">
+                <span class="glyphicon glyphicon-comment" data-disqus-identifier="godot-game-crashes-on-startup-logo-showshides">
+                </span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2019/godot-game-crashes-on-startup-logo-showshides.html" title="permanent link">
+                <span class="glyphicon glyphicon-link"></span></a>
+              <a class="btn btn-primary" href="https://www.deengames.com/blog/2019/godot-game-crashes-on-startup-logo-showshides.html" title="read more">
+                <span class="glyphicon glyphicon-plus"></span></a>
+            </div>
+          </li>
+        </div>
+      </ul>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading panel-title">
+        <a href="https://www.deengames.com/blog/archives.html#Year2019">2019</a> - <a href="https://www.deengames.com/blog/archives.html#Year2019Month03">March</a>
+      <a class="accordion-toggle" data-toggle="collapse" 
+        title="toggle folding"
+        href="#collapseArticle2">
         <span class="pull-right badge">
           #14
         </span>
@@ -128,7 +198,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle1">
+          id="collapseArticle2">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -209,7 +279,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month10">October</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle2">
+        href="#collapseArticle3">
         <span class="pull-right badge">
           #13
         </span>
@@ -227,7 +297,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle2">
+          id="collapseArticle3">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -315,7 +385,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month09">September</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle3">
+        href="#collapseArticle4">
         <span class="pull-right badge">
           #12
         </span>
@@ -333,7 +403,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle3">
+          id="collapseArticle4">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -413,7 +483,7 @@
         <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month09">September</a>
       <a class="accordion-toggle" data-toggle="collapse" 
         title="toggle folding"
-        href="#collapseArticle4">
+        href="#collapseArticle5">
         <span class="pull-right badge">
           #11
         </span>
@@ -431,7 +501,7 @@
           </li>
         </a>
         <div class="collapse in"
-          id="collapseArticle4">
+          id="collapseArticle5">
           <li class="list-group-item">
               <span id="article_info">
     <a class="label label-primary"
@@ -503,75 +573,6 @@
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/instance-vs-new-in-godot.html" title="permanent link">
                 <span class="glyphicon glyphicon-link"></span></a>
               <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/instance-vs-new-in-godot.html" title="read more">
-                <span class="glyphicon glyphicon-plus"></span></a>
-            </div>
-          </li>
-        </div>
-      </ul>
-    </div>
-
-    <div class="panel panel-primary">
-      <div class="panel-heading panel-title">
-        <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a> - <a href="https://www.deengames.com/blog/archives.html#Year2018Month08">August</a>
-      <a class="accordion-toggle" data-toggle="collapse" 
-        title="toggle folding"
-        href="#collapseArticle5">
-        <span class="pull-right badge">
-          #10
-        </span>
-      </a>
-      </div>
-
-      <div class="panel-body hidden">
-
-      </div>
-
-      <ul class="list-group">
-        <a href="https://www.deengames.com/blog/2018/a-month-in-review-july-2018.html">
-          <li class="list-group-item">
-            <h1>A Month in Review: July 2018</h1>
-          </li>
-        </a>
-        <div class="collapse in"
-          id="collapseArticle5">
-          <li class="list-group-item">
-              <span id="article_info">
-    <a class="label label-primary"
-      href="https://www.deengames.com/blog/category/devlog.html">Devlog</a>
-    <!--<span class="glyphicon glyphicon-calendar"></span>-->
-      <b> · </b>
-      <a href="https://www.deengames.com/blog/archives.html#Year2018">2018</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month08">08</a>-<a href="https://www.deengames.com/blog/archives.html#Year2018Month08">03</a>
-
-    <!--<span class="glyphicon glyphicon-user"></span>-->
-      <b> · </b>
-    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
-  </span>
-
-            <a class="pull-right" href="https://www.deengames.com/blog/2018/a-month-in-review-july-2018.html">
-              </a>
-          </li>
-          <li class="list-group-item"><p>July brought a lot of challenges. @Chemical_Ink's internet went down for several days. I ran into a very busy work schedule. All of this meant less time for Abu Hamid X; but walhamdulillah, we still managed to ship a lot of changes.</p>
-<p>Perhaps most importantly, we decided to drop the adventure/open-world concept and stick to what we prototyped and proved as fun: the arena combat challenge. This introduced a lot of story/worldbuilding challenges, but we managed to work something out.</p>
-<p><img alt="screenshot" src="https://cdn.discordapp.com/attachments/460638759470366733/475123856483287052/ahx-betaboosters-july2018.gif"></p>
-<p>New features include:</p>
-<ul>
-<li>Half-hidden assassins who lunge and stab from out-of-sight</li>
-<li>Lava eruptions that mean instant death</li>
-<li>Proximity mines that explode</li>
-<li>Jumping enemies</li>
-<li>Spike traps</li>
-<li>And more!</li>
-</ul>
-<p>For our Patreon supporters, you can download the prototype <a href="https://www.patreon.com/posts/beta-boosters-x-20532963">here</a>. If you're not a Patreon supporter, consider joining us; your feedback shapes the direction of our games.</p>
-<p>Once we get feedback, our plan is to start the actual production version of the game. You can follow us on Twitter for updates.</p></li>
-          <li class="list-group-item text-right">
-            <div class="btn-group">
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-july-2018.html#disqus_thread" title="comments">
-                <span class="glyphicon glyphicon-comment" data-disqus-identifier="a-month-in-review-july-2018">
-                </span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-july-2018.html" title="permanent link">
-                <span class="glyphicon glyphicon-link"></span></a>
-              <a class="btn btn-primary" href="https://www.deengames.com/blog/2018/a-month-in-review-july-2018.html" title="read more">
                 <span class="glyphicon glyphicon-plus"></span></a>
             </div>
           </li>
