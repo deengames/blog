@@ -1,0 +1,13 @@
+body {
+    color: white;
+    background-color: black;
+}
+
+.container, .list-group-item, #footer {
+    background: black;
+}
+
+.pager .disabled, .pager li a {
+    background-color: black !important;
+}
+
