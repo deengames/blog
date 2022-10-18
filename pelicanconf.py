@@ -32,7 +32,7 @@ SOCIAL = (('Twitter', 'https://twitter.com/nightblade99'),)
 
 DEFAULT_PAGINATION = 5
 
-THEME = 'themes/pelican-chameleon-git'
+THEME = 'themes/dg-from-chameleon'
 
 USE_FOLDER_AS_CATEGORY = False
 # Permalink structure
