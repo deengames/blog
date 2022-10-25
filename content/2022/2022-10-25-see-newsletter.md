@@ -2,7 +2,7 @@ Title: Folding Blog into Newsletter
 Date: 2022-10-25
 Category: News
 
-![revue logo](https://i.imgur.com/iFakXhx.jpeg)
+![revue logo](https://i.imgur.com/OGq2uIU.png)
 
 After struggling to blog regularly for most of the year, and grappling with the question of *how is this different from my newsletter?* I decided to make the obvious change: as of now, I'm combining my blog and newsletter, together, into the newsletter.
 
