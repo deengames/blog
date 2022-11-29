@@ -76,7 +76,7 @@
     {% from 'macro.html' import navbar with context %}
     {{ navbar(link) }}
     
-    <div class="list-group">
+    <div class="list-group categories-list">
       </strong>Categories:
       {% for cat, null in categories %}
         <span><a href="{{ SITEURL }}/{{ cat.url }}">{{ cat }}</a> |</span>
