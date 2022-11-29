@@ -11,3 +11,20 @@ body {
     background-color: black !important;
 }
 
+.badge {
+    background-color: #008;
+}
+
+.navbar-brand {
+    color: #428bca !important;
+}
+
+.navbar-header {
+    width: 100%;
+    border-bottom: 2px solid white;
+    margin-bottom: 8px;
+}
+
+.categories-list {
+    padding-left: 8px;
+}
