@@ -28,7 +28,7 @@ LINKS = (('Games', 'https://www.deengames.com'),
         
 
 # Social widget
-SOCIAL = (('Twitter', 'https://twitter.com/nightblade99'),)
+SOCIAL = (('Twitter', 'https://twitter.com/deengames'),)
 
 DEFAULT_PAGINATION = 5
 

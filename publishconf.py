@@ -20,4 +20,5 @@ DELETE_OUTPUT_DIRECTORY = True
 # Following items are often useful when publishing
 
 #DISQUS_SITENAME = ""
+# NB: we have a separate Google Analytics GA4 snippet pasted manually in base.html
 GOOGLE_ANALYTICS = "UA-11092514-7"
