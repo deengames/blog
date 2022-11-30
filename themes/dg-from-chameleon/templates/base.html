@@ -68,18 +68,18 @@
     <meta property="{{tag[0]}}" content="{{tag[1]|striptags|e}}" />
     {% endfor %}
     {% endif %}
+        
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-03LN50DFWW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-03LN50DFWW');
+    </script>
+    <!-- end Google tag -->
 </head>
-
-<!-- manual Google analytics GA4 -->
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-03LN50DFWW"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-03LN50DFWW');
-</script>
-
 <body>
   <div class="container" id="wrap">
     {% set link = ['/',link]|join %}
