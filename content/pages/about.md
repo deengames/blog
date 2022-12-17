@@ -6,4 +6,4 @@ If you're interested in what we're all about, check out the [main site about pag
 
 You can find our released games [on our website](http://deengames.com) or join our insider community on [Discord](https://discord.gg/frKXYtG).
 
-You can also join our [newsletter](https://www.getrevue.co/profile/deengames) and get access to all our past and present demos.
+You can also join our [newsletter](https://tinyletter.com/deengames) and get updates and notifications about all my current game projects.

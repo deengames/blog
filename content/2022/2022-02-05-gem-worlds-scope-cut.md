@@ -22,4 +22,4 @@ Here's a brief preview of the fifth and final (space / spaceship) world, featuri
 
 ![laser field](https://i.imgur.com/z56vkiD.png)
 
-That's it for this month! If you would like to recieve weekly updates, you can sign up to [my newsletter](https://www.getrevue.co/profile/deengames). That's the best place to get updates about the game; plus, I'll be sharing the password for the beta there, when it's ready.
+That's it for this month! If you would like to recieve weekly updates, you can sign up to [my newsletter](https://tinyletter.com/deengames). That's the best place to get updates about the game; plus, I'll be sharing the password for the beta there, when it's ready.

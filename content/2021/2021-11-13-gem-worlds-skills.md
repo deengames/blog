@@ -21,4 +21,4 @@ Unlike the earlier versions, in the final game, you can only select a few skills
 
 The planned skills include a combination of innate abilities, as well as technological tools. There are a lot of ways in which they can interact with each other, and with the world. I hope that will lead to more interesting, fun, surprising experiences, but that also means a lot more testing to make sure the game ships bug-free.
 
-That pretty much wraps it up for this month. If you're interested in the game, sign up to the [online newsletter](https://www.getrevue.co/profile/deengames) to get weekly updates. It's not spam, but short, to-the-point weekly progress updates.
+That pretty much wraps it up for this month. If you're interested in the game, sign up to the [online newsletter](https://tinyletter.com/deengames) to get weekly updates. It's not spam, but short, to-the-point weekly progress updates.

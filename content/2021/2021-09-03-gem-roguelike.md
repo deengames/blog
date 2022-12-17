@@ -20,4 +20,4 @@ What's missing? My favourite roguelike element: the ability to spend gems to buy
 
 My current vision is something like a cross between Boulder Dash and Hades. You pick from an assortment of unlocked and upgraded skills, make a run, die, upgrade and pick an entirely different set, and try again. I planned 100 levels across ten different biomes, each with their own unique set of monsters and environmental dangers to deal with.
 
-If you like what you see, sign up to the [online newsletter](https://www.getrevue.co/profile/deengames) to get weekly updates! In the coming days, you will also get instructions on how to access the playable prototype of the game!
+If you like what you see, sign up to the [online newsletter](https://tinyletter.com/deengames) to get weekly updates! In the coming days, you will also get instructions on how to access the playable prototype of the game!
