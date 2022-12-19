@@ -1,4 +1,4 @@
-Title: Gem Worlds v1.0 demo
+Title: Gem Worlds v1.0 Demo
 Date: 2022-11-11
 Category: Devlog
 Tags: Gem Worlds
