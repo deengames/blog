@@ -12,4 +12,4 @@ As I mentioned last week, Gem Worlds (the full game) will release on January 16t
 - A better explanation of why gems turn black and white
 - Some sort of indication that boulders are going to fall next turn
 
-I follow a "release train" model. This means that the next release is going out on January 16th, and whatever features are done, will ship at that time (probably partial gamepad support for the main menu). Whatever isn't done, will ship in a subsequent release.
+The next demo release and first full release is going out on January 16th, and whatever features are done, will ship at that time (probably partial gamepad support). Whatever isn't done, will ship in a subsequent release.
