@@ -9,7 +9,7 @@ v1.0.1 of the demo ships today. This build primarily includes bug-fixes, includi
 
 - Fixed a rare case where you spawn under a lock
 - Fixed a rare case where boulders slide over a one-tile gap
-- Newly-learned skills sometimes appear as level 2
+- Newly-learned skills sometimes appear at level 2
 - Light crystals run out of turns but light doesn't dim
 - A few UI bugs related to skills
 

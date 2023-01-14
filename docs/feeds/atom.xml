@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Deen Games Blog</title><link href="https://www.deengames.com/blog/" rel="alternate"></link><link href="/feeds/atom.xml" rel="self"></link><id>https://www.deengames.com/blog/</id><updated>2022-12-25T00:00:00-05:00</updated><entry><title>Gem Worlds v1.1.0 Roadmap</title><link href="https://www.deengames.com/blog/2022/gem-worlds-v110-roadmap.html" rel="alternate"></link><published>2022-12-25T00:00:00-05:00</published><updated>2022-12-25T00:00:00-05:00</updated><author><name>nightblade</name></author><id>tag:www.deengames.com,2022-12-25:/blog/2022/gem-worlds-v110-roadmap.html</id><summary type="html">&lt;p&gt;&lt;img alt="image of a game controller" src="https://i.imgur.com/SgN7JFx.png"&gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Deen Games Blog</title><link href="https://www.deengames.com/blog/" rel="alternate"></link><link href="/feeds/atom.xml" rel="self"></link><id>https://www.deengames.com/blog/</id><updated>2023-01-13T00:00:00-05:00</updated><entry><title>Gem Worlds v1.0.1 Releases January 16, 2023</title><link href="https://www.deengames.com/blog/2023/gem-worlds-v101-releases-january-16-2023.html" rel="alternate"></link><published>2023-01-13T00:00:00-05:00</published><updated>2023-01-13T00:00:00-05:00</updated><author><name>nightblade</name></author><id>tag:www.deengames.com,2023-01-13:/blog/2023/gem-worlds-v101-releases-january-16-2023.html</id><summary type="html">&lt;p&gt;&lt;img alt="screenshot of v1.0.1 banner" src="https://i.imgur.com/9k4aRHJ.png"&gt;&lt;/p&gt;
+&lt;p&gt;As announced in December last year, Gem Worlds ships on January 16, 2023 (in just three days). This version matches the corresponding v1.0.1 demo, which includes a number of bug-fixes.&lt;/p&gt;
+&lt;p&gt;Unfortunately, adding gamepad (and full keyboard) support took a lot longer than anticipated. While I made major strides …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="screenshot of v1.0.1 banner" src="https://i.imgur.com/9k4aRHJ.png"&gt;&lt;/p&gt;
+&lt;p&gt;As announced in December last year, Gem Worlds ships on January 16, 2023 (in just three days). This version matches the corresponding v1.0.1 demo, which includes a number of bug-fixes.&lt;/p&gt;
+&lt;p&gt;Unfortunately, adding gamepad (and full keyboard) support took a lot longer than anticipated. While I made major strides in updating and modernizing the main menu, I didn't fully finish the changes, and it's buggy enough that I'm going to hold off on releasing an update.&lt;/p&gt;
+&lt;p&gt;The plan for the next release, v1.1.0, still includes full gamepad, keyboard, and mouse support for the entire game. I'm quite burned out from working on the game for 18 months, but I'll see how much farther I can go with it.&lt;/p&gt;
+&lt;p&gt;Thanks for your support, and see you at release!&lt;/p&gt;</content><category term="Devlog"></category><category term="Gem Worlds"></category></entry><entry><title>Gem Worlds v1.1.0 Roadmap</title><link href="https://www.deengames.com/blog/2022/gem-worlds-v110-roadmap.html" rel="alternate"></link><published>2022-12-25T00:00:00-05:00</published><updated>2022-12-25T00:00:00-05:00</updated><author><name>nightblade</name></author><id>tag:www.deengames.com,2022-12-25:/blog/2022/gem-worlds-v110-roadmap.html</id><summary type="html">&lt;p&gt;&lt;img alt="image of a game controller" src="https://i.imgur.com/SgN7JFx.png"&gt;&lt;/p&gt;
 &lt;p&gt;As I mentioned last week, Gem Worlds (the full game) will release on January 16th. Given that I have a couple of weeks, I already started on the next release - v1.1.0. Since I have a couple of users playing the demo on Steam Deck, it makes sense to …&lt;/p&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="image of a game controller" src="https://i.imgur.com/SgN7JFx.png"&gt;&lt;/p&gt;
 &lt;p&gt;As I mentioned last week, Gem Worlds (the full game) will release on January 16th. Given that I have a couple of weeks, I already started on the next release - v1.1.0. Since I have a couple of users playing the demo on Steam Deck, it makes sense to include Steam Deck support with the next release. This includes:&lt;/p&gt;
 &lt;ul&gt;
@@ -13,13 +19,13 @@
 &lt;ul&gt;
 &lt;li&gt;Fixed a rare case where you spawn under a lock&lt;/li&gt;
 &lt;li&gt;Fixed a rare case where boulders slide over a one-tile gap&lt;/li&gt;
-&lt;li&gt;Newly-learned skills sometimes appear as level 2&lt;/li&gt;
+&lt;li&gt;Newly-learned skills sometimes appear at level 2&lt;/li&gt;
 &lt;li&gt;Light crystals run out of turns but light …&lt;/li&gt;&lt;/ul&gt;</summary><content type="html">&lt;p&gt;&lt;img alt="screenshot of v1.0.1 banner" src="https://i.imgur.com/60E8un1.png"&gt;&lt;/p&gt;
 &lt;p&gt;v1.0.1 of the demo ships today. This build primarily includes bug-fixes, including:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Fixed a rare case where you spawn under a lock&lt;/li&gt;
 &lt;li&gt;Fixed a rare case where boulders slide over a one-tile gap&lt;/li&gt;
-&lt;li&gt;Newly-learned skills sometimes appear as level 2&lt;/li&gt;
+&lt;li&gt;Newly-learned skills sometimes appear at level 2&lt;/li&gt;
 &lt;li&gt;Light crystals run out of turns but light doesn't dim&lt;/li&gt;
 &lt;li&gt;A few UI bugs related to skills&lt;/li&gt;
 &lt;/ul&gt;
