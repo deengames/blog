@@ -6,7 +6,7 @@
 &lt;p&gt;I released Gem Worlds v1.1.0 today (both the full game and the demo). This patch includes a few important changes:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;(Full game only) Fixes Steam achievements not triggering. For the world completion achievements, you can complete any level to collect the old ones (e.g. completing W3L1 will collect the World 1 and World 2 achievements)&lt;/li&gt;
-&lt;li&gt;I revamped the options menu completely; it now includes sections, and more importantly, is fully usable by keyboard and mouse (with some minor visual bugs).&lt;/li&gt;
+&lt;li&gt;I revamped the options menu completely; it now includes sections, and more importantly, is fully usable by keyboard and gamepad (with some minor visual bugs).&lt;/li&gt;
 &lt;li&gt;Fixed a bug where, in a rare case in World 3, the bottom-right corner of the map appears dark gray.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Gamepad support is still a work-in-progress, and I intend to get back to it next month (after my break from game development).&lt;/p&gt;</content><category term="Devlog"></category><category term="Gem Worlds"></category></entry><entry><title>Gem Worlds v1.0.1 Releases January 16, 2023</title><link href="https://www.deengames.com/blog/2023/gem-worlds-v101-releases-january-16-2023.html" rel="alternate"></link><published>2023-01-13T00:00:00-05:00</published><updated>2023-01-13T00:00:00-05:00</updated><author><name>nightblade</name></author><id>tag:www.deengames.com,2023-01-13:/blog/2023/gem-worlds-v101-releases-january-16-2023.html</id><summary type="html">&lt;p&gt;&lt;img alt="screenshot of v1.0.1 banner" src="https://i.imgur.com/9k4aRHJ.png"&gt;&lt;/p&gt;
