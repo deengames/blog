@@ -3,7 +3,7 @@ Date: 2023-01-19
 Category: Devlog
 Tags: Gem Worlds
 
-![screenshot of v1.1.0 banner](https://i.imgur.com/kxCdwvG.png)
+![screenshot of v1.1.0 banner](https://i.imgur.com/kCDGWV5.png)
 
 I released Gem Worlds v1.1.0 today (both the full game and the demo). This patch includes a few important changes:
 
