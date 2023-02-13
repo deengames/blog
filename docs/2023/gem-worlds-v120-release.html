@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-03LN50DFWW"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-03LN50DFWW');
+    </script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="description" content="Deen Games Blog">
+    <meta name="author" content="nightblade">
+
+        <title>Gem Worlds v1.2.0 Release · Deen Games Blog</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+
+
+    <link rel="stylesheet" href="https://www.deengames.com/blog/theme/css/main.css">
+
+    <link rel="stylesheet" href="https://www.deengames.com/blog/theme/css/solarized-light.css">
+
+    <link rel="stylesheet" href="https://www.deengames.com/blog/theme/css/dgcustom.css">
+
+
+    <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+    <meta property="og:title" content="Gem Worlds v1.2.0 Release" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://i.imgur.com/yYpJSoW.png" />
+    <meta property="og:url" content="https://www.deengames.com/blog\2023/gem-worlds-v120-release.html" />
+    <meta property="og:description" content="Gem Worlds v1.2.0 ships later today (both the full game and the demo). This version includes gamepad and keyboard support everywhere - in game, options, and menus - as well as some fixes: Fix: in rare cases, a room-based level may have inaccessible areas Fix: level selection menu correctly appears …" />
+    <meta property="og:site_name" content="Deen Games Blog" />
+    <meta property="article:published_time" content="2023-02-13" />
+    <meta property="article:section" content="Devlog" />
+    <meta property="article:tag" content="Gem Worlds" />
+  
+</head>
+<body>  
+  <div class="container" id="wrap">
+      <nav id="navbar" class="navbar navbar-default" role="navigation">
+    <div class="container">
+
+      <!--navbar-header-->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+  
+        <a class="navbar-brand" href="https://www.deengames.com/blog">Home</a>
+
+        <p class='navbar-brand'>|</p>
+
+          <a class="navbar-brand" href="https://www.deengames.com/blog/pages/about.html">About</a>
+
+        <p class='navbar-brand'>|</p>
+
+          <a class="navbar-brand" href="https://www.deengames.com">Games</a>
+          <a class="navbar-brand" href="https://tinyletter.com/deengames">Newsletter</a>
+          <a class="navbar-brand" href="https://discord.gg/5D6XS3b">Discord</a>
+
+        <a href="https://www.deengames.com/blog/feeds/atom.xml"><img style="position: relative; top: 10px;" src="https://www.deengames.com/blog/images/rss_icon.png" width="32" height="32" /></a>
+      </div> <!--navbar-header-->
+
+      <!-- Search Box -->
+
+      <!--Menuitems, collapable-->
+      <div class="collapse navbar-collapse" id="navbar-collapse">
+        <ul class="nav navbar-nav navbar-right" id="menuitem-list">
+        </ul>
+      </div><!-- /.navbar-collapse -->
+
+    </div> <!--container-->
+  </nav>
+
+    
+    <div class="list-group categories-list">
+      </strong>Categories:
+        <span><a href="https://www.deengames.com/blog/category/devlog.html">Devlog</a> |</span>
+        <span><a href="https://www.deengames.com/blog/category/game-development.html">Game Development</a> |</span>
+        <span><a href="https://www.deengames.com/blog/category/news.html">News</a> |</span>
+        <span><a href="https://www.deengames.com/blog/category/retrospective.html">Retrospective</a> |</span>
+    </div>
+
+    <div class="container">
+      <div class="col-md-2">
+      </div>
+
+      <div class="col-md-8">
+        <div class="row">
+              <div class="page-header">
+        <h1><a href="https://www.deengames.com/blog/2023/gem-worlds-v120-release.html">Gem Worlds v1.2.0 Release</a></h1>
+    </div>
+
+        </div>
+
+        <div class="row">
+
+    <span id="article_info">
+    <a class="label label-primary"
+      href="https://www.deengames.com/blog/category/devlog.html">Devlog</a>
+      <b> · </b>
+        <a class="label label-primary"
+          href="https://www.deengames.com/blog/tag/gem-worlds.html">Gem Worlds</a>
+    <!--<span class="glyphicon glyphicon-calendar"></span>-->
+      <b> · </b>
+      <a href="https://www.deengames.com/blog/archives.html#Year2023">2023</a>-<a href="https://www.deengames.com/blog/archives.html#Year2023Month02">02</a>-<a href="https://www.deengames.com/blog/archives.html#Year2023Month02">13</a>
+
+    <!--<span class="glyphicon glyphicon-user"></span>-->
+      <b> · </b>
+    <a href="https://www.deengames.com/blog/author/nightblade.html">nightblade</a>
+  </span>
+
+  <hr/>
+
+  <div id="article_content">
+    <p><img alt="screenshot of v1.2.0 banner" src="https://i.imgur.com/yYpJSoW.png"></p>
+<p>Gem Worlds v1.2.0 ships later today (both the full game and the demo). This version includes gamepad and keyboard support everywhere - in game, options, and menus - as well as some fixes:</p>
+<ul>
+<li>Fix: in rare cases, a room-based level may have inaccessible areas</li>
+<li>Fix: level selection menu correctly appears post-game</li>
+</ul>
+<p>Please note that the controls rebinding menu shows all controls (keyboard and gamepad), but rebinding gamepad controls currently doesn't work (and I can't figure out why). If this is an issue for you, please contact me and let me know.</p>
+    
+    <hr />
+<p><strong>Liked our updates?</strong> <a href="https://tinyletter.com/deengames">Subscribe to our newsletter</a> to get access to exclusive insider updates!</p>
+    
+  </div>
+
+  <hr/>
+
+      <ul class="pager">
+        <li class="previous disabled">
+          <a >
+          &laquo; Newer</a>
+        </li>
+        <li class="next">
+          <a href="https://www.deengames.com/blog/2023/gem-worlds-v110-release.html">
+          Older &raquo;</a>
+        </li>
+      </ul>
+
+
+        </div>
+
+        <div class="row">
+        </div>
+
+      </div>
+
+      <div class="col-md-2">
+      </div>
+    </div>
+
+
+  </div>
+
+    <nav id="footer" class="navbar navbar-default">
+    <div class="container">
+        <p id="footer-text" class="navbar-text text-center">
+          Copyright &copy; <a href="https://twitter.com/nightblade99">NightBlade</a>, 2018+. All rights reserved.
+        </p>
+      </div>
+    </div>
+  </nav>
+
+
+</body>
+</html>
