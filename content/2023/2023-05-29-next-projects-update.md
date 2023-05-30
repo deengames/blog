@@ -20,7 +20,7 @@ I attempted to make procedurally-generated JRPGs as far back as 2016-2018. I rec
 
 I imagine this will end up spiraling into a huge project. The goal for this one is something like "make me a randomly-generated game like Final Fantasy V" (first world) - so 10-ish hours of a classic JRPG experience, albeit with modern features (like fast travel and a turn-based and realtime hybrid battle engine).
 
-It's a huge project. I can see myself working on it for years. So this will probably be my main project (as it is my dream game) for years. I can see sequels spinning out with different niches (such as a horror-esque one with a completely different battle engine).
+It's a huge project. I can see myself working on it for years. So this will probably be my main project (as it is my dream game) for years. I can see sequels spinning out with different niches (such as a horror-esque one with a completely different battle engine). You can see the current progress, with placeholder art, in the screenshot above.
 
 The plan here is to ship a playable version as soon as possible, and start building a community around it and adding content to it. Meanwhile, between releases, I'll work on other stuff. Like what? Read on.
 
