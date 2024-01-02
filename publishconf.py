@@ -17,8 +17,4 @@ FEED_ALL_ATOM = 'feeds/atom.xml'
 
 DELETE_OUTPUT_DIRECTORY = True
 
-# Following items are often useful when publishing
-
-#DISQUS_SITENAME = ""
-# This creates an ancient version of the GA code. For GA4+, we manually insert.
-# GOOGLE_ANALYTICS = "UA-11092514-7"
+GOOGLE_ANALYTICS = True
