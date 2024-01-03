@@ -23,7 +23,7 @@ AUTHOR_FEED_RSS = None
 
 # Blogroll
 LINKS = (('Games', 'https://www.deengames.com'),
-        ('Newsletter', 'https://tinyletter.com/deengames'),
+        ('Newsletter', 'https://deengames.eo.page/8t7kx'),
         ('Discord', 'https://discord.gg/5D6XS3b'),)
         
 
